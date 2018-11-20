@@ -1,0 +1,8 @@
+# Webstorm
+.idea
+
+# Created by .ignore support plugin (hsz.mobi)
+node_modules/
+
+# Generated css file
+app/assets/styles/css/main.css

@@ -1,0 +1,27 @@
+.ip-filters {
+  width: 300px;
+  img {
+    width: inherit;
+  }
+}
+
+.ip-list-container {
+  width: 630px;
+  .header {
+    display: flex;
+    margin: 8px 2px;
+    justify-content: space-between;
+    span:first-child {
+      font-size: 36px;
+      font-weight: 600;
+    }
+    span:nth-child(2) {
+      font-size: 24px;
+      font-weight: 400;
+      margin-left: 5px;
+    }
+  }
+  img {
+    width: inherit;
+  }
+}
