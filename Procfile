@@ -1,1 +1,1 @@
-web: yarn start
+web: yarn sass && node server.js

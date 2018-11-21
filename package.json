@@ -10,7 +10,8 @@
     "start": "NODE_PATH=. node server.js",
     "dev": "NODE_PATH=. nodemon server.js",
     "test": "echo  \"no tests for prototype\" exit 0",
-    "scss": "node-sass --watch app/assets/styles/scss -o app/assets/styles/css"
+    "sass": "node-sass app/assets/styles/scss -o app/assets/styles/css",
+    "sass-watch": "yarn sass --watch"
   },
   "dependencies": {
     "config": "^3.0.0",
