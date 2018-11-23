@@ -10,12 +10,25 @@ New Project
   <ul>
     <li><a href="/">Home</span></a></li>
     <li><a href="/investment-projects">Investment projects</a></li>
-    <li><span>New Project</span></li>
+    <li><span>New project details</span></li>
   </ul>
 </nav>
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds">
-    <h1>Project details</h1>
+    <h1>New Project details</h1>
+    <form method="post" action="/new-project">
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="title">
+          Title
+          <span class="govuk-visually-hidden">line 1 of 2</span>
+        </label>
+        <input class="govuk-input" id="title" name="title" type="text">
+      </div>
+      <div class="govuk-form-group">
+        <a href="/investment-projects" class="cancel-button">Cancel</a>
+        <button type="submit" class="govuk-button">Save</button>
+      </div>
+    </form>
   </div>
 </div>
 {% endblock %}

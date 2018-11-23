@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser');
 const nunjucks = require('nunjucks');
 const express = require('express');
 const path = require('path');
@@ -24,6 +25,11 @@ nunjucks.configure([
 });
 
 app.set('view engine', 'html');
+
+// Support for parsing data in POSTs
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(routes);
 
 module.exports = app;

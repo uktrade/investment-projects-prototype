@@ -1,10 +1,8 @@
-.button {
-  height: 20px;
-  background-color: #00823b;
+%dh-button {
   position: relative;
   display: -moz-inline-stack;
   display: inline-block;
-  padding: 10px;
+  padding: 9px;
   border: none;
   border-radius: 0;
   outline: 1px solid transparent;
@@ -19,6 +17,20 @@
   color: #fff;
 }
 
+.button {
+  @extend %dh-button;
+  background-color: #00823b;
+}
+
 .button:hover {
   background-color: #00692f;
+}
+
+.cancel-button {
+  @extend %dh-button;
+  background-color: gray;
+}
+
+.cancel-button:hover {
+  background-color: darkgray;
 }
