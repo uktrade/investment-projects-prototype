@@ -1,5 +1,9 @@
 {% extends "base.njk" %}
 
+{% from "textarea/macro.njk" import govukTextarea %}
+{% from "input/macro.njk" import govukInput %}
+
+
 {% block pageTitle %}
 New Project
 {% endblock %}
@@ -17,14 +21,21 @@ New Project
   <div class="govuk-grid-column-two-thirds">
     <h1>New Project details</h1>
     <form method="post" action="/new-project">
-      <div class="govuk-form-group">
-        <label class="govuk-label" for="title">
-          Title
-          <span class="govuk-visually-hidden">line 1 of 2</span>
-        </label>
-        <input class="govuk-input" id="title" name="title" type="text">
-      </div>
-      <div class="govuk-form-group">
+      {{
+        govukInput({
+          label: { text: "Title" },
+          id: "title",
+          name: "title"
+        })
+      }}
+      {{
+        govukTextarea({
+          name: "description",
+          id: "description",
+          label: { text: "Description" }
+        })
+      }}
+      <div>
         <a href="/investment-projects" class="cancel-button">Cancel</a>
         <button type="submit" class="govuk-button">Save</button>
       </div>
