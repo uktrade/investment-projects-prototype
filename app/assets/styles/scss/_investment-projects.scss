@@ -1,3 +1,16 @@
+@mixin stackVertically {
+  .investment-projects {
+    .list-container {
+      .header {
+        flex-direction: column;
+        .project-count {
+          padding-bottom: 10px;
+        }
+      }
+    }
+  }
+}
+
 .investment-projects {
   .filters {
     width: 100%;
@@ -9,7 +22,6 @@
     width: 100%;
     .header {
       display: flex;
-      margin: 8px 2px;
       justify-content: space-between;
       span:first-child {
         font-size: 36px;
@@ -20,12 +32,17 @@
         font-weight: 400;
         margin-left: 5px;
       }
-      a {
-        height: 20px;
-      }
     }
     img {
       width: inherit;
     }
   }
+}
+
+@media only screen and (max-width: 641px) {
+  @include stackVertically;
+}
+
+@media only screen and (max-width: 320px) {
+  @include stackVertically;
 }
