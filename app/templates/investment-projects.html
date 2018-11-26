@@ -5,44 +5,47 @@ Investment Projects
 {% endblock %}
 
 {% block content %}
-<img src="/assets/images/horizontal-app-list.png" class="img-horizontal-app-list">
+<div class="investment-projects">
 
-<nav>
-  <ul>
-    <li><a href="/">Home</span></a></li>
-    <li><span>Investment projects</span></li>
-  </ul>
-</nav>
+  <img src="/assets/images/horizontal-app-list.png" class="img-horizontal-app-list">
 
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-l heading">Investment Projects</h1>
-  </div>
-</div>
+  <nav>
+    <ul>
+      <li><a href="/">Home</span></a></li>
+      <li><span>Investment projects</span></li>
+    </ul>
+  </nav>
 
-<div class="govuk-grid-row">
-
-  <div class="govuk-grid-column-one-third">
-    <div class="ip-filters">
-      <img src="/assets/images/stage.png">
-      <img src="/assets/images/country-of-origin.png">
-      <img src="/assets/images/type-of-investment.png">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <h1 class="govuk-heading-l heading">Investment Projects</h1>
     </div>
   </div>
 
-  <div class="govuk-grid-column-two-thirds">
-    <div class="ip-list-container">
-      <div class="header">
-        <div>
-          <span>619</span>
-          <span>projects</span>
-        </div>
-        <a class="button" href="/new-project">New Project</a>
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-one-third">
+      <div class="filters">
+        <img src="/assets/images/stage.png">
+        <img src="/assets/images/country-of-origin.png">
+        <img src="/assets/images/type-of-investment.png">
       </div>
-      <img src="/assets/images/project-list.png">
-      <img src="/assets/images/project-list-contd.png">
     </div>
-  </div>
 
+    <div class="govuk-grid-column-two-thirds">
+      <div class="list-container">
+        <div class="header">
+          <div>
+            <span>619</span>
+            <span>projects</span>
+          </div>
+          <a class="button" href="/new-project">New Project</a>
+        </div>
+        <img src="/assets/images/project-list.png">
+        <img src="/assets/images/project-list-contd.png">
+      </div>
+    </div>
+
+  </div>
 </div>
 {% endblock %}

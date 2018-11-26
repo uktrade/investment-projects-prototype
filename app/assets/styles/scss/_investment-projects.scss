@@ -1,30 +1,31 @@
-.ip-filters {
-  width: 300px;
-  img {
-    width: inherit;
-  }
-}
-
-.ip-list-container {
-  width: 630px;
-  .header {
-    display: flex;
-    margin: 8px 2px;
-    justify-content: space-between;
-    span:first-child {
-      font-size: 36px;
-      font-weight: 600;
-    }
-    span:nth-child(2) {
-      font-size: 24px;
-      font-weight: 400;
-      margin-left: 5px;
-    }
-    a {
-      height: 20px;
+.investment-projects {
+  .filters {
+    width: 100%;
+    img {
+      width: inherit;
     }
   }
-  img {
-    width: inherit;
+  .list-container {
+    width: 100%;
+    .header {
+      display: flex;
+      margin: 8px 2px;
+      justify-content: space-between;
+      span:first-child {
+        font-size: 36px;
+        font-weight: 600;
+      }
+      span:nth-child(2) {
+        font-size: 24px;
+        font-weight: 400;
+        margin-left: 5px;
+      }
+      a {
+        height: 20px;
+      }
+    }
+    img {
+      width: inherit;
+    }
   }
 }
