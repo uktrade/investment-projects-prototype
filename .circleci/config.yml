@@ -8,6 +8,7 @@ jobs:
     - checkout
     - run: npm version
     - run: yarn --version
+    - run: yarn cache clean
     - run: yarn install
     - run: yarn test
     - run:
