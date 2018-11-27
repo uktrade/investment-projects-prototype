@@ -6,6 +6,8 @@ jobs:
     working_directory: ~/investment-projects-prototype
     steps:
     - checkout
+    - run: npm version
+    - run: yarn --version
     - run: yarn install
     - run: yarn test
     - run:
