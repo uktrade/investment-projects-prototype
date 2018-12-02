@@ -6,13 +6,13 @@ const path = require('path');
 const routes = require('app/routes');
 const app = express();
 
+const dist = path.resolve(__dirname, '../dist');
 const images = path.resolve(__dirname, 'assets/images');
-const css = path.resolve(__dirname, 'assets/styles/css');
 const govukFrontend = path.resolve(__dirname, '../node_modules/govuk-frontend');
 
-app.use('/css', express.static(css));
+app.use('/dist', express.static(dist));
 app.use('/assets/images', express.static(images));
-app.use('/govuk-frontend', express.static(govukFrontend));
+app.use('/assets', express.static(govukFrontend));
 app.use('/assets', express.static(`${govukFrontend}/assets`));
 
 nunjucks.configure([
@@ -26,7 +26,6 @@ nunjucks.configure([
 
 app.set('view engine', 'html');
 
-// Support for parsing data in POSTs
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

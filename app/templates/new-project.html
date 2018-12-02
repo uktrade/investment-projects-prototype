@@ -2,13 +2,14 @@
 
 {% from "textarea/macro.njk" import govukTextarea %}
 {% from "input/macro.njk" import govukInput %}
-
+{% from "components.njk" import select %}
 
 {% block pageTitle %}
 New Project
 {% endblock %}
 
 {% block content %}
+
 <div class="new-project">
   <img src="/assets/images/horizontal-app-list.png" class="img-horizontal-app-list">
   <nav>
@@ -22,6 +23,7 @@ New Project
     <div class="govuk-grid-column-two-thirds">
       <h1>New Project details</h1>
       <form method="post" action="/new-project">
+
         {{
           govukInput({
             label: { text: "Title" },
@@ -29,6 +31,7 @@ New Project
             name: "title"
           })
         }}
+
         {{
           govukTextarea({
             name: "description",
@@ -36,6 +39,20 @@ New Project
             label: { text: "Description" }
           })
         }}
+
+        {{
+          select(
+            fields.country,
+            fields.country.label,
+            options = countries
+          )
+        }}
+
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="company">Company</label>
+          <div id="company-container"></div>
+        </div>
+
         <div>
           <a href="/investment-projects" class="govuk-button">Discard</a>
           <button type="submit" class="govuk-button">Save</button>

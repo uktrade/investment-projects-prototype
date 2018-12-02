@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Barclays",
+    "value": "barclays",
+    "address": "1 Churchill Place, London E14 5HP"
+  },
+  {
+    "name": "Centrica",
+    "value": "centrica",
+    "address": "Millstream, Maidenhead Road, Windsor, SL4 5GD"
+  },
+  {
+    "name": "Diageo",
+    "value": "diageo",
+    "address": "Lakeside Drive, Park Royal, London, NW10 7HQ"
+  },
+  {
+    "name": "Compass Group",
+    "value": "compass-group",
+    "address": "Guildford Street, Chertsey, KT16 9BQ"
+  },
+  {
+    "name": "Kingfisher",
+    "value": "kingfisher",
+    "address": "3 Sheldon Square, Paddington, London, W2 6PX"
+  },
+  {
+    "name": "Persimmon",
+    "value": "persimmon",
+    "address": "Persimmon House, Fulford, York, YO19 4FE"
+  }
+]

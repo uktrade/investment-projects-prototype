@@ -1,0 +1,9 @@
+[
+  { "label": "Germany", "value": "germany" },
+  { "label": "France", "value": "france" },
+  { "label": "Spain", "value": "spain" },
+  { "label": "Italy", "value": "italy" },
+  { "label": "Portugal", "value": "portugal" },
+  { "label": "Belgium", "value": "belgium" },
+  { "label": "United Kingdom", "value": "uk" }
+]
