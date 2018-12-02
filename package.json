@@ -11,9 +11,7 @@
     "dev": "NODE_PATH=. nodemon -e js,html server.js",
     "build": "webpack --config webpack.config.dev.js",
     "build:dist": "webpack --config webpack.config.dist.js",
-    "test": "echo  \"no tests for prototype\" exit 0",
-    "sass": "node-sass app/assets/styles/scss -o app/assets/styles/css",
-    "sass-watch": "yarn sass --watch"
+    "test": "echo  \"no tests for prototype\" exit 0"
   },
   "dependencies": {
     "@babel/preset-env": "^7.1.6",
