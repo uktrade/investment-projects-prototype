@@ -6,7 +6,7 @@ const path = require('path');
 const routes = require('app/routes');
 const app = express();
 
-const dist = path.resolve(__dirname, 'assets/dist');
+const dist = path.resolve(__dirname, '../dist');
 const images = path.resolve(__dirname, 'assets/images');
 const govukFrontend = path.resolve(__dirname, '../node_modules/govuk-frontend');
 

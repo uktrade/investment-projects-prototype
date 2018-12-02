@@ -8,7 +8,7 @@ module.exports = {
     styles: './app/assets/styles/scss/main.scss',
   },
   output: {
-    path: path.resolve(__dirname, 'app/assets/dist'),
+    path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
   },
   module: {
@@ -38,6 +38,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'main.css'
     }),
-    new CleanWebpackPlugin(['app/assets/dist'])
+    new CleanWebpackPlugin(['dist'])
   ]
 };
