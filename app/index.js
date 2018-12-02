@@ -6,11 +6,11 @@ const path = require('path');
 const routes = require('app/routes');
 const app = express();
 
-const dist = path.resolve(__dirname, '../dist');
+const dist = path.resolve(__dirname, 'assets/dist');
 const images = path.resolve(__dirname, 'assets/images');
 const govukFrontend = path.resolve(__dirname, '../node_modules/govuk-frontend');
 
-app.use('/assets/dist', express.static(dist));
+app.use('/dist', express.static(dist));
 app.use('/assets/images', express.static(images));
 app.use('/assets', express.static(govukFrontend));
 app.use('/assets', express.static(`${govukFrontend}/assets`));
