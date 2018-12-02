@@ -10,6 +10,7 @@ jobs:
     - run: yarn --version
     - run: yarn cache clean
     - run: yarn install
+    - run: yarn build:dist
     - run: yarn test
     - run:
         name: Deploy Master to Heroku
