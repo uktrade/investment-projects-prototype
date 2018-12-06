@@ -24,11 +24,19 @@ module.exports = {
         }
       },
       {
+        test: /\.(png)$/,
+        loader: [
+          'file-loader?name=images/[name].[ext]',
+          'image-webpack-loader',
+        ],
+      },
+      {
         test: /\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
           'postcss-loader',
+          'resolve-url-loader',
           'sass-loader'
         ],
       },
