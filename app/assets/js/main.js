@@ -29,21 +29,14 @@ function initCompanies() {
       minLength: 3,
       showAllValues: true,
       templates: {
-        inputValue: (result) => {
-          return result && result.name;
-        },
-        suggestion: (result) => {
-          return result && '<strong>' + result.name + '</strong>' + '<div>' + result.address + '</div>'
-        }
+        inputValue: (result) => result && result.name,
+        suggestion: (result) => result && `<strong>${result.name}</strong><div>${result.address}</div>`
       },
       source: (query, populateResults) => {
         getCountries(query)
           .then(result => {
             populateResults(result);
           });
-      },
-      onConfirm: (confirmed) => {
-        console.log(confirmed);
       }
     });
   }
