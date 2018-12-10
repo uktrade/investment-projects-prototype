@@ -14,19 +14,25 @@ const {
 router.get(root, (req, res) => res.render('index'));
 router.get(investmentProjects, (req, res) => res.render('investment-projects'));
 
-router.get(newProject, (req, res) => res.render('new-project', {
-  countries,
-  fields: {
-    country: {
-      id: 'country',
-      label: 'Country of origins',
+router.get(newProject, (req, res) => {
+  const newProject = req.session.newProject || {};
+  res.render('new-project', {
+    countries,
+      fields: {
+      title: newProject.title,
+      description: newProject.description,
+      country: {
+        id: 'country',
+        label: 'Country of origins',
+        value: newProject.country
+      }
     }
-  }
-}));
+  });
+});
 
 router.post(newProject, (req, res) => {
-  const formData = req.body;
-  const json = JSON.stringify(formData, null, 2);
+  req.session.newProject = { ...req.body };
+  const json = JSON.stringify(req.body, null, 2);
   res.send(`<h1>Form data</h1><pre>${json}</pre>`);
 });
 

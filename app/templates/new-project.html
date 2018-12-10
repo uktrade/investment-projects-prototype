@@ -28,7 +28,8 @@ New Project
           govukInput({
             label: { text: "Title" },
             id: "title",
-            name: "title"
+            name: "title",
+            value: fields.title
           })
         }}
 
@@ -36,7 +37,8 @@ New Project
           govukTextarea({
             name: "description",
             id: "description",
-            label: { text: "Description" }
+            label: { text: "Description" },
+            value: fields.description
           })
         }}
 

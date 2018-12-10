@@ -1,5 +1,16 @@
 {
   "node": {
     "port": "PORT"
+  },
+  "session": {
+    "secret": "SESSION_SECRET",
+    "cookie": {
+      "secure": "SESSION_COOKIE_SECURE",
+      "domain": "SESSION_COOKIE_DOMAIN"
+    },
+    "redis": {
+      "url": "REDIS_URL",
+      "timeout": "REDIS_TIME_OUT"
+    }
   }
 }

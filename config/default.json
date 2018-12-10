@@ -1,5 +1,17 @@
 {
   "node": {
     "port": 3000
+  },
+  "session": {
+    "secret": "secret",
+    "cookie": {
+      "secure": "false",
+      "domain": "localhost"
+    },
+    "redis": {
+      "url": "redis://127.0.0.1:6379",
+      "timeout": 1200,
+      "pass": "password"
+    }
   }
 }

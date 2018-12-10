@@ -4,7 +4,12 @@ const express = require('express');
 const path = require('path');
 
 const routes = require('app/routes');
+const session = require('app/session/session');
+const sessionCheck = require('app/session/sessionCheck');
 const app = express();
+
+app.use(session);
+app.use(sessionCheck);
 
 const dist = path.resolve(__dirname, '../dist');
 const images = path.resolve(__dirname, 'assets/images');
@@ -25,10 +30,8 @@ nunjucks.configure([
 });
 
 app.set('view engine', 'html');
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(routes);
 
 module.exports = app;
