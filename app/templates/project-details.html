@@ -5,7 +5,7 @@
 {% from "components.njk" import select %}
 
 {% block pageTitle %}
-New Project
+Edit project
 {% endblock %}
 
 {% block content %}
@@ -16,22 +16,18 @@ New Project
     <ul>
       <li><a href="/">Home</span></a></li>
       <li><a href="/investment-projects">Investment projects</a></li>
-      <li><span>New project details</span></li>
+      <li><span>Project details</span></li>
     </ul>
   </nav>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <h1>New Project details</h1>
-      <form method="post" action="/new-project">
+      <h1>Project details</h1>
+      <form method="post" action="/project-details">
 
-        {{
-          govukInput({
-            label: { text: "Title" },
-            id: "title",
-            name: "title",
-            value: fields.title
-          })
-        }}
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="title">Full name</label>
+          <input class="govuk-input" value="{{fields.title}}" id="title" name="title" type="text" autocomplete="off">
+        </div>
 
         {{
           govukTextarea({
@@ -50,10 +46,12 @@ New Project
           )
         }}
 
+        {#
         <div class="govuk-form-group">
           <label class="govuk-label" for="company">Company</label>
           <div id="company-container"></div>
         </div>
+        #}
 
         <div>
           <a href="/investment-projects" class="govuk-button">Discard</a>

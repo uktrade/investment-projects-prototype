@@ -1,9 +1,22 @@
 [
-  { "label": "Germany", "value": "germany" },
+  { "label": "Andorra", "value": "andorra" },
+  { "label": "Angola", "value": "angola" },
+  { "label": "Antigua & Barbuda", "value": "antigua-and-barbuda" },
+  { "label": "Bahamas", "value": "bahamas" },
+  { "label": "Bahrain", "value": "Bahrain" },
+  { "label": "Bangladesh", "value": "bangladesh" },
+  { "label": "Barbados", "value": "barbados" },
+  { "label": "Belgium", "value": "belgium" },
+  { "label": "Cambodia", "value": "cambodia" },
+  { "label": "Canada", "value": "canada" },
+  { "label": "Cameroon", "value": "cameroon" },
+  { "label": "Cape Verde", "value": "cape-verde" },
+  { "label": "Cayman Islands", "value": "cayman-islands" },
   { "label": "France", "value": "france" },
-  { "label": "Spain", "value": "spain" },
+  { "label": "Germany", "value": "germany" },
   { "label": "Italy", "value": "italy" },
   { "label": "Portugal", "value": "portugal" },
-  { "label": "Belgium", "value": "belgium" },
-  { "label": "United Kingdom", "value": "uk" }
+  { "label": "Spain", "value": "spain" },
+  { "label": "United Kingdom", "value": "uk" },
+  { "label": "United Arab Emirates", "value": "uae" }
 ]

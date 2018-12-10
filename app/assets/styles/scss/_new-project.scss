@@ -1,0 +1,37 @@
+.new-project {
+  .country-of-origin h4 {
+    display: inline-block;
+  }
+
+  .description-and-edit {
+    display: flex;
+    justify-content: space-between;
+    .edit {
+      align-self: center;
+    }
+  }
+
+  .progress-bar {
+    margin-bottom: 30px;
+    width: 100%;
+  }
+
+  .menu-items {
+    width: 100%;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  .actions-to-do {
+    li::before {
+      content: "\2022";
+      color: #026aae;
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+    }
+  }
+}

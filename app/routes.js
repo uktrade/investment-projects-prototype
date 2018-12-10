@@ -1,40 +1,47 @@
 const express = require('express');
-const paths = require('app/paths');
 const { filter } = require('lodash');
 const countries = require('app/data/countries');
 const companies = require('app/data/companies');
-
-const router = express.Router();
 const {
   root,
-  newProject,
+  project,
+  projectDetails,
   investmentProjects
-} = paths;
+} = require('app/paths');
 
-router.get(root, (req, res) => res.render('index'));
-router.get(investmentProjects, (req, res) => res.render('investment-projects'));
+const router = express.Router();
 
-router.get(newProject, (req, res) => {
-  const newProject = req.session.newProject || {};
-  res.render('new-project', {
+const getProject = (data = {}) => {
+  return {
     countries,
-      fields: {
-      title: newProject.title,
-      description: newProject.description,
+    fields: {
+      title: data.title,
+      description: data.description,
       country: {
         id: 'country',
-        label: 'Country of origins',
-        value: newProject.country
+        label: 'Country of origin',
+        value: data.country
       }
     }
-  });
+  }
+};
+
+// Root
+router.get(root, (req, res) => res.render('index'));
+
+// Investment projects
+router.get(investmentProjects, (req, res) => res.render('investment-projects'));
+
+// Project details
+router.get(projectDetails, (req, res) => res.render('project-details', getProject(req.session.project)));
+
+router.post(projectDetails, (req, res) => {
+  req.session.project = { ...req.body };
+  res.redirect(project);
 });
 
-router.post(newProject, (req, res) => {
-  req.session.newProject = { ...req.body };
-  const json = JSON.stringify(req.body, null, 2);
-  res.send(`<h1>Form data</h1><pre>${json}</pre>`);
-});
+// Project
+router.get(project, (req, res) => res.render('project', getProject(req.session.project)));
 
 // API
 router.get('/api/companies',(req, res) => {

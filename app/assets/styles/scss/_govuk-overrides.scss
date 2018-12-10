@@ -24,3 +24,16 @@
 .govuk-hint {
   margin-bottom: 0;
 }
+
+.govuk-details {
+  margin-bottom: 0;
+  border: 2px solid #026aae;
+  padding: 10px 0 3px 15px;
+  margin-top: 2px;
+}
+
+.govuk-details__text {
+  border-left: none;
+  padding-left: 0;
+  padding-top: 0;
+}

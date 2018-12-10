@@ -1,5 +1,6 @@
 module.exports = {
   root: '/',
-  newProject: '/new-project',
+  project: '/project',
+  projectDetails: '/project-details',
   investmentProjects: '/investment-projects'
 };

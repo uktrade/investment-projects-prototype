@@ -27,6 +27,8 @@ nunjucks.configure([
 ], {
   autoescape: true,
   express: app
+}).addFilter('json', (obj) => {
+  return JSON.stringify(obj, null, 2);
 });
 
 app.set('view engine', 'html');
