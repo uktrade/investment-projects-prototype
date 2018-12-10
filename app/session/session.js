@@ -15,6 +15,15 @@ const secure = config.get('session.cookie.secure') === 'true';
 const domain = config.get('session.cookie.domain');
 const cookie = { secure, domain };
 
+console.log('---------------------------------------------');
+console.log('                  DETAILS                    ');
+console.log('---------------------------------------------');
+console.log(`URL: ${url}`);
+console.log(`Connect timeout: ${connect_timeout}`);
+console.log(`secret: ${secret}`);
+console.log(`secure: ${secure}`);
+console.log(`domain: ${domain}`);
+
 const options = {
   store,
   secret,

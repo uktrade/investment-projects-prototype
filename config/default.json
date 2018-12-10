@@ -10,8 +10,7 @@
     },
     "redis": {
       "url": "redis://127.0.0.1:6379",
-      "timeout": 1200,
-      "pass": "password"
+      "timeout": 1200
     }
   }
 }
