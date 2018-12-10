@@ -11,7 +11,7 @@ const store = new RedisStore({ url, connect_timeout });
 const resave = false;
 const saveUninitialized = false;
 const secret = config.get('session.secret');
-const secure = config.get('session.cookie.secure') === 'true';
+const secure = config.get('session.cookie.secure');
 const domain = config.get('session.cookie.domain');
 const cookie = { secure, domain };
 
