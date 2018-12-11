@@ -43,6 +43,14 @@ router.post(projectDetails, (req, res) => {
 // Project
 router.get(project, (req, res) => res.render('project', getProject(req.session.project)));
 
+// Sessions
+router.get('/sessions', (req, res) => {
+  req.sessionStore.all((error, sessions) => {
+    const indentTwoSpaces = 2;
+    res.send(JSON.stringify(sessions, null, indentTwoSpaces));
+  });
+});
+
 // API
 router.get('/api/companies',(req, res) => {
   const searchTerm = req.query.term.toLowerCase();

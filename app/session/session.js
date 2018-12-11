@@ -23,6 +23,8 @@ console.log(`Connect timeout: ${connect_timeout}`);
 console.log(`secret: ${secret}`);
 console.log(`secure: ${secure}`);
 console.log(`domain: ${domain}`);
+console.log(`address: ${store.client.address}`);
+console.log(`options: ${JSON.stringify(store.client.options, null, 2)}`);
 
 const options = {
   store,
