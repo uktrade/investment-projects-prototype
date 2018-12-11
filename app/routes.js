@@ -11,26 +11,16 @@ const {
 
 const router = express.Router();
 
-const getProject = (data = {}, session) => {
-  console.log('---------------------------------------------');
-  console.log('             getProject(data)                ');
-  console.log('---------------------------------------------');
-  console.log(JSON.stringify(data, null, 2));
-
-  console.log('---------------------------------------------');
-  console.log('                 SESSION                     ');
-  console.log('---------------------------------------------');
-  console.log(JSON.stringify(session, null, 2));
-
+const getProject = (project = {}) => {
   return {
     countries,
     fields: {
-      title: data.title,
-      description: data.description,
+      title: project.title,
+      description: project.description,
       country: {
         id: 'country',
         label: 'Country of origin',
-        value: data.country
+        value: project.country
       }
     }
   }
@@ -42,21 +32,35 @@ router.get(root, (req, res) => res.render('index'));
 // Investment projects
 router.get(investmentProjects, (req, res) => res.render('investment-projects'));
 
-// Project details
-router.get(projectDetails, (req, res) => res.render('project-details', getProject(req.session.project, req.session)));
+// Project details GET
+router.get(projectDetails, (req, res) => {
+  if(req.session && req.session.project) {
+    const project = getProject(req.session.project);
+    res.render('project-details', project);
+  } else {
+    res.render('project-details', getProject());
+  }
+});
 
+// Project details POST
 router.post(projectDetails, (req, res) => {
-  console.log('---------------------------------------------');
-  console.log('                 HOSTNAME                    ');
-  console.log('---------------------------------------------');
-  console.log(req.hostname);
-
-  req.session.project = { ...req.body };
-  res.redirect(project);
+  if(req.session) {
+    req.session.project = { ...req.body };
+    res.redirect(project);
+  } else {
+    throw error('Unable to write to session: POST /project-details ');
+  }
 });
 
 // Project
-router.get(project, (req, res) => res.render('project', getProject(req.session.project, req.session)));
+router.get(project, (req, res) => {
+  if(req.session && req.session.project) {
+    const project = getProject(req.session.project);
+    res.render('project', project)
+  } else {
+    throw error('Unable to read from session: GET /project');
+  }
+});
 
 // Sessions
 router.get('/sessions', (req, res) => {
