@@ -48,7 +48,7 @@ router.post(projectDetails, (req, res) => {
     req.session.project = { ...req.body };
     res.redirect(project);
   } else {
-    throw error('Unable to write to session: POST /project-details ');
+    throw new Error('Unable to write to session: POST /project-details ');
   }
 });
 
@@ -58,7 +58,7 @@ router.get(project, (req, res) => {
     const project = getProject(req.session.project);
     res.render('project', project)
   } else {
-    throw error('Unable to read from session: GET /project');
+    throw new Error('Unable to read from session: GET /project');
   }
 });
 
