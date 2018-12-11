@@ -46,6 +46,11 @@ router.get(investmentProjects, (req, res) => res.render('investment-projects'));
 router.get(projectDetails, (req, res) => res.render('project-details', getProject(req.session.project, req.session)));
 
 router.post(projectDetails, (req, res) => {
+  console.log('---------------------------------------------');
+  console.log('                 HOSTNAME                    ');
+  console.log('---------------------------------------------');
+  console.log(req.hostname);
+
   req.session.project = { ...req.body };
   res.redirect(project);
 });
