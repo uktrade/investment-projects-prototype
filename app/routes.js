@@ -11,11 +11,16 @@ const {
 
 const router = express.Router();
 
-const getProject = (data = {}) => {
+const getProject = (data = {}, session) => {
   console.log('---------------------------------------------');
   console.log('             getProject(data)                ');
   console.log('---------------------------------------------');
   console.log(JSON.stringify(data, null, 2));
+
+  console.log('---------------------------------------------');
+  console.log('                 SESSION                     ');
+  console.log('---------------------------------------------');
+  console.log(JSON.stringify(session, null, 2));
 
   return {
     countries,
@@ -38,7 +43,7 @@ router.get(root, (req, res) => res.render('index'));
 router.get(investmentProjects, (req, res) => res.render('investment-projects'));
 
 // Project details
-router.get(projectDetails, (req, res) => res.render('project-details', getProject(req.session.project)));
+router.get(projectDetails, (req, res) => res.render('project-details', getProject(req.session.project, req.session)));
 
 router.post(projectDetails, (req, res) => {
   req.session.project = { ...req.body };
@@ -46,7 +51,7 @@ router.post(projectDetails, (req, res) => {
 });
 
 // Project
-router.get(project, (req, res) => res.render('project', getProject(req.session.project)));
+router.get(project, (req, res) => res.render('project', getProject(req.session.project, req.session)));
 
 // Sessions
 router.get('/sessions', (req, res) => {
