@@ -12,6 +12,11 @@ const {
 const router = express.Router();
 
 const getProject = (data = {}) => {
+  console.log('---------------------------------------------');
+  console.log('             getProject(data)                ');
+  console.log('---------------------------------------------');
+  console.log(JSON.stringify(data, null, 2));
+
   return {
     countries,
     fields: {
