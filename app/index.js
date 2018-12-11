@@ -10,6 +10,7 @@ const app = express();
 
 app.use(session);
 app.use(sessionCheck);
+app.enable('trust proxy');
 
 const dist = path.resolve(__dirname, '../dist');
 const images = path.resolve(__dirname, 'assets/images');
