@@ -1,0 +1,11 @@
+{% extends "base.njk" %}
+
+{% block pageTitle %}
+Server Error - 500
+{% endblock %}
+
+{% block content %}
+<h1>Server Error - 500</h1>
+<p class="error">{{ message }}</p>
+<p class="stack">{{ stack }}</p>
+{% endblock %}

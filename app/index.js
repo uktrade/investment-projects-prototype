@@ -1,3 +1,4 @@
+const { handle404, handleError} = require('app/error/handlers');
 const bodyParser = require('body-parser');
 const nunjucks = require('nunjucks');
 const express = require('express');
@@ -36,5 +37,8 @@ app.set('view engine', 'html');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(routes);
+
+app.use(handle404);
+app.use(handleError);
 
 module.exports = app;

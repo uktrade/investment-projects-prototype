@@ -32,33 +32,25 @@ router.get(root, (req, res) => res.render('index'));
 // Investment projects
 router.get(investmentProjects, (req, res) => res.render('investment-projects'));
 
-// Project details GET
+// Project details
 router.get(projectDetails, (req, res) => {
-  if(req.session && req.session.project) {
-    const project = getProject(req.session.project);
-    res.render('project-details', project);
-  } else {
-    res.render('project-details', getProject());
-  }
+  const project = getProject(req.session.project);
+  res.render('project-details', project);
 });
 
-// Project details POST
+// Project details
 router.post(projectDetails, (req, res) => {
-  if(req.session) {
-    req.session.project = { ...req.body };
-    res.redirect(project);
-  } else {
-    throw new Error('Unable to write to session: POST /project-details ');
-  }
+  req.session.project = { ...req.body };
+  res.redirect(project);
 });
 
 // Project
 router.get(project, (req, res) => {
-  if(req.session && req.session.project) {
+  if(req.session.project) {
     const project = getProject(req.session.project);
     res.render('project', project)
   } else {
-    throw new Error('Unable to read from session: GET /project');
+    throw new Error('Unable to read project from session: GET /project');
   }
 });
 

@@ -27,3 +27,12 @@ nav {
     }
   }
 }
+
+.error {
+  color: $govuk-error-colour;
+  font-weight: bold;
+}
+
+.stack {
+  color: govuk-colour("grey-2")
+}
