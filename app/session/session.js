@@ -1,32 +1,36 @@
 const expressSession = require('express-session');
 const RedisStore = require('connect-redis')(expressSession);
+const url = require('url');
 const config = require('config');
 
 // Redis
-const url = config.get('session.redis.url');
-const connect_timeout = config.get('session.redis.timeout');
-const store = new RedisStore({ url, connect_timeout });
+const redisUrl = config.get('session.redis.url');
+const parsedRedisUrl = url.parse(redisUrl);
+
+const redisOptions = {
+  host: parsedRedisUrl.hostname,
+  port: parsedRedisUrl.port
+};
+
+if(parsedRedisUrl.auth) {
+  redisOptions.pass = parsedRedisUrl.auth.split(':')[1];
+}
+
+const store = new RedisStore(redisOptions);
 
 // Session
 const resave = false;
 const saveUninitialized = false;
 const secret = config.get('session.secret');
 const secure = config.get('session.cookie.secure') === 'true';
-const domain = config.get('session.cookie.domain');
-const cookie = { secure, domain };
+const cookie = { secure };
 
 console.log('---------------------------------------------');
-console.log('                  DETAILS                    ');
+console.log('              Redis Parsed URL               ');
 console.log('---------------------------------------------');
-console.log(`URL: ${url}`);
-console.log(`Connect timeout: ${connect_timeout}`);
-console.log(`secret: ${secret}`);
-console.log(`secure: ${secure}`);
-console.log(`domain: ${domain}`);
-console.log(`address: ${store.client.address}`);
-console.log(`options: ${JSON.stringify(store.client.options, null, 2)}`);
+console.log(`Parsed URL: ${JSON.stringify(parsedRedisUrl, null, 2)}`);
 
-const options = {
+const expressOptions = {
   store,
   secret,
   cookie,
@@ -34,4 +38,4 @@ const options = {
   saveUninitialized,
 };
 
-module.exports = expressSession(options);
+module.exports = expressSession(expressOptions);
