@@ -25,11 +25,6 @@ const secret = config.get('session.secret');
 const secure = config.get('session.cookie.secure') === 'true';
 const cookie = { secure };
 
-console.log('---------------------------------------------');
-console.log('              Redis Parsed URL               ');
-console.log('---------------------------------------------');
-console.log(`Parsed URL: ${JSON.stringify(parsedRedisUrl, null, 2)}`);
-
 const expressOptions = {
   store,
   secret,

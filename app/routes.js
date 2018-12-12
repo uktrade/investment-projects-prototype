@@ -25,7 +25,9 @@ const getProject = (project = {}) => {
 };
 
 // Root
-router.get(root, (req, res) => res.render('index'));
+router.get(root, (req, res) => {
+  req.session.regenerate( err => res.render('index'))
+});
 
 // Investment projects
 router.get(investmentProjects, (req, res) => res.render('investment-projects'));
@@ -36,7 +38,6 @@ router.get(projectDetails, (req, res) => {
   res.render('project-details', project);
 });
 
-// Project details
 router.post(projectDetails, (req, res) => {
   req.session.project = { ...req.body };
   res.redirect(project);
@@ -44,12 +45,8 @@ router.post(projectDetails, (req, res) => {
 
 // Project
 router.get(project, (req, res) => {
-  if(req.session.project) {
-    const project = getProject(req.session.project);
-    res.render('project', project)
-  } else {
-    throw new Error('Unable to read project from session: GET /project');
-  }
+  const project = getProject(req.session.project);
+  res.render('project', project)
 });
 
 // Sessions
