@@ -12,13 +12,14 @@
 #}
 {% macro select(field,
                 label,
+                id,
                 hint='',
                 hideLabel=false,
                 options=[]) %}
 
 <div class="govuk-form-group {{ errorClass(field) }}">
 
-  <label class="govuk-label {{ "visually-hidden" if hideLabel }}" for="{{ field.id }}">
+  <label class="govuk-label {{ "visually-hidden" if hideLabel }}" for="{{ id }}">
     {{ label }}
     {%- if hint %}
     <span class="govuk-hint">{{ hint }}</span>
@@ -27,7 +28,7 @@
 
   {{ errorsFor(field) }}
 
-  <select id="{{ field.id }}" name="{{ field.id }}" class="govuk-select">
+  <select id="{{ id }}" name="{{ id }}" class="govuk-select">
 
     {# Default option so no option is preselected #}
     <option disabled

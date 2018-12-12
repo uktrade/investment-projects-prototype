@@ -40,8 +40,9 @@ Edit project
 
         {{
           select(
-            fields.country,
-            fields.country.label,
+            field = fields.country,
+            label = 'Country of origin',
+            id = 'country',
             options = countries
           )
         }}

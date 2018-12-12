@@ -18,8 +18,6 @@ const getProject = (project = {}) => {
       title: project.title,
       description: project.description,
       country: {
-        id: 'country',
-        label: 'Country of origin',
         value: project.country
       }
     }
