@@ -5,6 +5,7 @@ const express = require('express');
 const path = require('path');
 
 const routes = require('app/routes');
+const investmentTypesRoute = require('app/modules/investment-types/route');
 const session = require('app/session/session');
 const sessionCheck = require('app/session/sessionCheck');
 const app = express();
@@ -24,19 +25,19 @@ app.use('/assets', express.static(`${govukFrontend}/assets`));
 
 nunjucks.configure([
   'app/templates',
+  'app/modules/investment-types/',
   'node_modules/govuk-frontend/',
   'node_modules/govuk-frontend/components/'
 ], {
   autoescape: true,
-  express: app
-}).addFilter('json', (obj) => {
-  return JSON.stringify(obj, null, 2);
+  express: app,
 });
 
 app.set('view engine', 'html');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(routes);
+app.use(investmentTypesRoute);
 
 app.use(handle404);
 app.use(handleError);

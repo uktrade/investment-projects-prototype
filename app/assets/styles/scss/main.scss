@@ -36,3 +36,12 @@ nav {
 .stack {
   color: govuk-colour("grey-2")
 }
+
+.govuk-button-discard {
+  @extend .govuk-button;
+  background-color: grey;
+  &:focus,
+  &:hover {
+    background-color: #686866;
+  }
+}

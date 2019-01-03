@@ -2,5 +2,6 @@ module.exports = {
   root: '/',
   project: '/project',
   projectDetails: '/project-details',
-  investmentProjects: '/investment-projects'
+  investmentTypes: '/investment-types',
+  investmentProjects: '/investment-projects',
 };

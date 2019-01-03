@@ -1,0 +1,60 @@
+{% extends "base.njk" %}
+
+{% from "radios/macro.njk" import govukRadios %}
+{% from "error-summary/macro.njk" import govukErrorSummary %}
+
+{% block pageTitle %}
+Investment Types
+{% endblock %}
+
+{% block content %}
+
+<div class="investment-types">
+  <img src="/assets/images/horizontal-app-list.png" class="img-horizontal-app-list">
+  <nav>
+    <ul>
+      <li><a href="/">Home</span></a></li>
+      <li><a href="/investment-projects">Investment projects</a></li>
+      <li><span>Project details</span></li>
+    </ul>
+  </nav>
+  <div class="govuk-grid-row">
+
+    {% if error %}
+      {{
+        govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: errorList
+        })
+      }}
+    {% endif %}
+
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="govuk-!-padding-top-5" method="post" action="/investment-types">
+        {{
+          govukRadios({
+            idPrefix: "investmentType",
+            name: "investmentType",
+            fieldset: {
+              legend: {
+                text: "Project details",
+                isPageHeading: true,
+                classes: "govuk-fieldset__legend--l"
+              }
+            },
+            hint: {
+              text: "Select an investment project"
+            },
+            errorMessage: errorMessage,
+            items: investmentTypes
+          })
+        }}
+        <div>
+          <button type="submit" class="govuk-button">Continue</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
