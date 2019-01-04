@@ -4,4 +4,5 @@ module.exports = {
   projectDetails: '/project-details',
   investmentTypes: '/investment-types',
   investmentProjects: '/investment-projects',
+  ciInvestorOpportunity: '/ci-investor-opportunity'
 };

@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Jack Nicklaus",
+    "team": "Team A"
+  },
+  {
+    "name": "Gary Player",
+    "team": "Team B"
+  },
+  {
+    "name": "Tiger Woods",
+    "team": "Team B"
+  },
+  {
+    "name": "Nick Faldo",
+    "team": "Team B"
+  },
+  {
+    "name": "Lee Westwood",
+    "team": "Team A"
+  },
+  {
+    "name": "Arnold Palmer",
+    "team": "Team A"
+  },
+  {
+    "name": "Ben Hogan",
+    "team": "Team A"
+  },
+  {
+    "name": "Gary Player",
+    "team": "Team C"
+  },
+  {
+    "name": "Bobby Jones",
+    "team": "Team A"
+  },
+  {
+    "name": "Phil Mickelson",
+    "team": "Team C"
+  },
+  {
+    "name": "Sam Snead",
+    "team": "Team A"
+  },
+  {
+    "name": "Tom Watson",
+    "team": "Team A"
+  },
+  {
+    "name": "Seve Ballesteros",
+    "team": "Team A"
+  },
+  {
+    "name": "Ernie Els",
+    "team": "Team A"
+  }
+]

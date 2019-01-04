@@ -1,0 +1,7 @@
+[
+  { "label": "Sovereign Wealth Fund", "value": "sovereign-wealth-fund" },
+  { "label": "State Pension Fund", "value": "state-pension-fund" },
+  { "label": "Regulated Insurance / Investment Fund", "value": "regulated-insurance-investment-fund" },
+  { "label": "Corporation", "value": "corporation" },
+  { "label": "Other", "value": "other" }
+]

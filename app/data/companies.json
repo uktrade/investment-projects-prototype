@@ -28,5 +28,32 @@
     "name": "Persimmon",
     "value": "persimmon",
     "address": "Persimmon House, Fulford, York, YO19 4FE"
+  },
+  {
+    "name": "Ontario Teachers Pension Plan",
+    "value": "ontario-teachers-pension-plan",
+    "address": "Reception: 3rd floor, 5650 Yonge Street, Toronto, Ontario M2M 4H5"
+  },
+  {
+    "name": "National Pension Service",
+    "value": "national-pension-service",
+    "address": "Kukmin-Yeonkum Building, 180 Giji-ro, Deokjin-gu, Jeonju-Si,  54870, South Korea"
+  },
+  {
+    "name": "China Investment Corporation",
+    "value": "china-investment-corporation",
+    "address": "New Poly Plaza, No.1 Chaoyangmen Beidajie, Dongcheng District, Beijing, China. 100010"
+  },
+  {
+    "name": "Abu Dhabi Investment Authority",
+    "value": "abu-dhabi-investment-authority",
+    "address": "211 Corniche, PO Box 3600, Abu Dhabi, United Arab Emirates"
+  },
+  {
+    "name": "Development Bank of Japan",
+    "value": "development-bank-of-japan",
+    "address": "Otemachi Financial City South Tower, 9-6, Otemachi 1-chome, Chiyoda-ku, Tokyo 100-8178, Japan"
   }
 ]
+
+

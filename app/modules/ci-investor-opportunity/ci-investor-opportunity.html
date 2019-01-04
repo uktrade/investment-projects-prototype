@@ -1,0 +1,182 @@
+{% extends "base.njk" %}
+
+{% from "radios/macro.njk" import govukRadios %}
+{% from "components.njk" import select %}
+{% from "input/macro.njk" import govukInput %}
+{% from "date-input/macro.njk" import govukDateInput %}
+{% from "textarea/macro.njk" import govukTextarea %}
+
+{% block pageTitle %}
+CI Investor opportunity
+{% endblock %}
+
+{% block content %}
+
+<div class="ci-investor-opportunity">
+  <img src="/assets/images/horizontal-app-list.png" class="img-horizontal-app-list">
+  <nav>
+    <ul>
+      <li><a href="/">Home</span></a></li>
+      <li><a href="/investment-projects">Investment projects</a></li>
+      <li><span>CI Investor opportunity</span></li>
+    </ul>
+  </nav>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1>CI Investor opportunity</h1>
+      <form class="govuk-!-padding-top-5" method="post" action="/ci-investor-opportunity">
+
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="company">Investor</label>
+          <span class="govuk-hint">Search for the company, individual or other entity name</span>
+          <div id="company-container"></div>
+        </div>
+
+        {{
+          select(
+            field = fields.investorType,
+            label = 'Investor type',
+            id = 'investor-type',
+            options = investorTypes
+          )
+        }}
+
+        {{
+          govukInput({
+            label: {
+              text: "Assets under management / investable capital (£BN)"
+            },
+            id: "assets-under-management",
+            name: "assets-under-management"
+          })
+        }}
+
+        {{
+          govukInput({
+            label: {
+              text: "Geographical distribution of assets / capital (incl. % UK)"
+            },
+            id: "geographical-distribution-of-assets",
+            name: "geographical-distribution-of-assets"
+            })
+        }}
+
+        {{
+          govukRadios({
+            idPrefix: "overall-relationship-health",
+            name: "overall-relationship-health",
+            fieldset: {
+              legend: {
+                text: "Overall relationship health",
+                isPageHeading: false
+              }
+            },
+            items: relationshipHealth
+          })
+        }}
+
+        {% set dateOfChecks %}
+        {{
+          govukDateInput({
+            id: "background-checks",
+            namePrefix: "background-checks",
+            fieldset: {
+              legend: {
+                text: "Date of most recent checks?",
+                isPageHeading: true
+              }
+            },
+            hint: {
+              text: "For example, 31 9 2018"
+            }
+          })
+        }}
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="contact">Person responsible for most recent checks</label>
+          <div id="contacts-container"></div>
+        </div>
+        {% endset -%}
+
+        {{
+          govukRadios({
+            idPrefix: "background-checks-conditional",
+            name: "background-checks",
+            fieldset: {
+              legend: {
+                text: "Have background checks been conducted within the last 12 months?",
+                isPageHeading: false
+              }
+            },
+            items: [
+              {
+                value: "true",
+                text: "Yes",
+                conditional: {
+                  html: dateOfChecks
+                }
+              },
+              {
+                value: "false",
+                text: "No"
+              }
+            ]
+          })
+        }}
+
+        {{
+          govukTextarea({
+            name: "description",
+            id: "description",
+            label: {
+              text: "Description"
+            },
+            hint: {
+              text: "Provide a detailed description of the investment opportunity."
+            }
+          })
+        }}
+
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="client">Client contact</label>
+          <div id="clients-contact-container"></div>
+        </div>
+
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="client-relationship-manager">Client relationship manager</label>
+          <div id="client-relationship-manager-container"></div>
+        </div>
+
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="referral-source-adviser">Referral source adviser</label>
+          <div id="referral-source-adviser-container"></div>
+        </div>
+
+        {{
+          select(
+            field = fields.referralSourceActivity,
+            label = 'Referral source activity',
+            id = 'referral-source-activity',
+            options = referralSourceActivity
+          )
+        }}
+
+        {{
+        select(
+          field = fields.specificInvestmentProgramme,
+          label = 'Specific Investment Programme',
+          id = 'specific-investment-programme',
+          options = specificInvestmentProgramme
+          )
+        }}
+
+        <div>
+          <button type="submit" class="govuk-button-discard">Discard</button>
+          <button type="submit" class="govuk-button">Save and Exit</button>
+          <button type="submit" class="govuk-button">Continue</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

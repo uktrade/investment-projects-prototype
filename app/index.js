@@ -6,6 +6,7 @@ const path = require('path');
 
 const routes = require('app/routes');
 const investmentTypesRoute = require('app/modules/investment-types/route');
+const ciInvestorOpportunity = require('app/modules/ci-investor-opportunity/route');
 const session = require('app/session/session');
 const sessionCheck = require('app/session/sessionCheck');
 const app = express();
@@ -26,6 +27,7 @@ app.use('/assets', express.static(`${govukFrontend}/assets`));
 nunjucks.configure([
   'app/templates',
   'app/modules/investment-types/',
+  'app/modules/ci-investor-opportunity/',
   'node_modules/govuk-frontend/',
   'node_modules/govuk-frontend/components/'
 ], {
@@ -38,6 +40,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(routes);
 app.use(investmentTypesRoute);
+app.use(ciInvestorOpportunity);
 
 app.use(handle404);
 app.use(handleError);

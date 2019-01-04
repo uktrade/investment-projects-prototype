@@ -50,7 +50,7 @@ router.post(investmentTypes, (req, res) => {
     });
   } else {
     if(investmentType === 'ci-investor-opportunity') {
-      res.render(req.body.investmentType, {});
+      res.redirect(req.body.investmentType);
     } else {
       throw new Error('This has not been implemented yet! Go back and try \`CI Investor Opportunity\` instead.');
     }
