@@ -1,0 +1,230 @@
+{% from "select/macro.njk" import govukSelect %}
+{% from "input/macro.njk" import govukInput %}
+
+<h1>Edit fields</h1>
+
+<form method="post" action="{{ paths.capitalInvestment.investorOpportunityDetails }}">
+  <input type="text" type="text" name="edit" value="false" style="display: none" />
+
+  <ul class="app-task-list__items">
+      <li class="app-task-list__item">
+        <span class="app-task-list__task-name" aria-describedby="eligibility-completed">
+          Country of origin
+        </span>
+        <span class="app-task-list__task-completed">
+         {{ fields.project.countryOfOrigin }}
+        </span>
+      </li>
+      <li class="app-task-list__item">
+        <span class="app-task-list__task-name" aria-describedby="read-declaration-completed">
+          Investor / entity name
+        </span>
+        <span class="app-task-list__task-completed">
+          {{ fields.project.company }}
+        </span>
+      </li>
+  </ul>
+
+  {{
+    govukSelect({
+      id: "investorType",
+      name: "investorType",
+      label: {
+        text: "Investor types"
+      },
+      items: investorTypes
+    })
+  }}
+
+  {{
+    govukInput({
+      label: {
+        text: "Assets under management / investable capital (£BN)"
+      },
+      id: "assetsUnderManagement",
+      name: "assetsUnderManagement",
+      value: fields.investorDetails.assetsUnderManagement
+    })
+  }}
+
+  {{
+    govukInput({
+      label: {
+        text: "Geographical distribution of assets / capital (incl. % UK)"
+      },
+      id: "geographicalDistributionOfAssets",
+      name: "geographicalDistributionOfAssets",
+      value: fields.investorDetails.geographicalDistributionOfAssets
+    })
+  }}
+
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset" aria-describedby="background-checks-conditional-hint">
+
+      <legend class="govuk-fieldset__legend">
+        Have background checks been conducted within the last 12 months?
+      </legend>
+
+      <div class="govuk-radios govuk-radios--conditional" data-module="radios">
+
+        <div class="govuk-radios__item">
+          <input
+              class="govuk-radios__input"
+              id="background-checks-true"
+              name="backgroundChecks"
+              type="radio"
+              value="{{ true }}"
+              data-aria-controls="conditional-background-checks-true"
+              {{ "checked" if fields.investorDetails.backgroundChecks === 'true' }}
+          >
+          <label class="govuk-label govuk-radios__label" for="background-checks-true">
+            Yes
+          </label>
+        </div>
+
+        <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-background-checks-true">
+          <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" aria-describedby="dob-hint" role="group">
+
+              <legend class="govuk-fieldset__legend">
+                Date of most recent checks?
+              </legend>
+
+              <span id="dob-hint" class="govuk-hint">
+                For example, 31 3 1980
+              </span>
+
+              <div class="govuk-date-input" id="dob">
+                <div class="govuk-date-input__item">
+                  <div class="govuk-form-group">
+                    <label class="govuk-label govuk-date-input__label" for="backgroundChecksDay">
+                      Day
+                    </label>
+                    <input
+                        class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="backgroundChecksDay"
+                        name="backgroundChecksDay"
+                        type="number"
+                        pattern="[0-9]*"
+                        value="{{ fields.investorDetails.backgroundChecksDay }}"
+                    >
+                  </div>
+                </div>
+                <div class="govuk-date-input__item">
+                  <div class="govuk-form-group">
+                    <label class="govuk-label govuk-date-input__label" for="backgroundChecksMonth">
+                      Month
+                    </label>
+                    <input
+                        class="govuk-input govuk-date-input__input govuk-input--width-2"
+                        id="backgroundChecksMonth"
+                        name="backgroundChecksMonth"
+                        type="number"
+                        pattern="[0-9]*"
+                        value="{{ fields.investorDetails.backgroundChecksMonth }}"
+                    >
+                  </div>
+                </div>
+                <div class="govuk-date-input__item">
+                  <div class="govuk-form-group">
+                    <label class="govuk-label govuk-date-input__label" for="backgroundChecksYear">
+                      Year
+                    </label>
+                    <input
+                        class="govuk-input govuk-date-input__input govuk-input--width-4"
+                        id="backgroundChecksYear"
+                        name="backgroundChecksYear"
+                        type="number"
+                        pattern="[0-9]*"
+                        value="{{ fields.investorDetails.backgroundChecksYear }}"
+                    >
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- accessible-autocomplete -->
+            <div class="govuk-form-group govuk-!-padding-top-4">
+              <label class="govuk-label" for="background-checks-person">Person responsible for most recent checks</label>
+              <div id="background-checks-person" data-background-checks-person="{{ fields.investorDetails.backgroundChecksPerson }}"></div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="govuk-radios__item">
+          <input
+              class="govuk-radios__input"
+              id="background-checks-false"
+              name="backgroundChecks"
+              type="radio"
+              value="{{ false }}"
+              {{ "checked" if fields.investorDetails.backgroundChecks === 'false' }}
+          >
+          <label class="govuk-label govuk-radios__label">
+            No
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  {{
+    govukTextarea({
+      name: "description",
+      id: "description",
+      label: {
+        text: "Description"
+      },
+      hint: {
+        text: "Provide a detailed description of the investment opportunity."
+      },
+      value: fields.investorDetails.description
+    })
+  }}
+
+  <!-- accessible-autocomplete -->
+  <div class="govuk-form-group">
+    <label class="govuk-label" for="clients-contact">Client contact</label>
+    <div id="clients-contact" data-client-contact="{{ fields.investorDetails.clientContact }}"></div>
+  </div>
+
+  <!-- accessible-autocomplete -->
+  <div class="govuk-form-group">
+    <label class="govuk-label" for="client-relationship-manager">Client relationship manager</label>
+    <div id="client-relationship-manager" data-client-relationship-manager="{{ fields.investorDetails.clientRelationshipManager }}"></div>
+  </div>
+
+  <!-- accessible-autocomplete -->
+  <div class="govuk-form-group">
+    <label class="govuk-label" for="referral-source-adviser">Referral source adviser</label>
+    <div id="referral-source-adviser" data-referral-source-adviser="{{ fields.investorDetails.referralSourceAdviser }}"></div>
+  </div>
+
+  {{
+    govukSelect({
+      id: "referralSourceActivity",
+      name: "referralSourceActivity",
+      label: {
+        text: "Referral source activity"
+      },
+      items: referralSourceActivity
+    })
+  }}
+
+  {{
+    govukSelect({
+      id: "specificInvestmentProgramme",
+      name: "specificInvestmentProgramme",
+      label: {
+        text: "Specific Investment Programme"
+      },
+      items: specificInvestmentProgramme
+      })
+  }}
+
+  <div class="save-and-edit">
+    <button type="submit" class="govuk-button">Save</button>
+    <a id="expand-all" href="{{ paths.capitalInvestment.investorOpportunity }}">Cancel</a>
+  </div>
+</form>

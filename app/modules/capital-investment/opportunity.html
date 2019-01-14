@@ -1,0 +1,84 @@
+{% extends "base.njk" %}
+
+{% from "textarea/macro.njk" import govukTextarea %}
+{% from "input/macro.njk" import govukInput %}
+{% from "components.njk" import select %}
+{% from "details/macro.njk" import govukDetails %}
+
+{% block pageTitle %}
+New Project
+{% endblock %}
+
+{% block content %}
+
+<div class="ci-investor-opportunity">
+  <img src="/assets/images/app-company-selected.png" class="img-horizontal-app-list">
+  <nav>
+    <ul>
+      <li><a href="/">Home</span></a></li>
+      <li><a href="/investment-projects">Investment projects</a></li>
+      <li><span>{{ fields.company }} / Details</span></li>
+    </ul>
+  </nav>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full address">
+      <h1 class="govuk-heading-l heading">{{ fields.project.company }}</h1>
+      <p>3 Sheldon Square, Paddington, London, W2 6PX</p>
+      <span class="badge">European HQ</span>
+    </div>
+  </div>
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-one-quarter">
+      <img class="menu-items" src="/assets/images/menu-item-company-selected.png">
+    </div>
+
+    <div class="govuk-grid-column-three-quarters">
+
+      <div class="expand-all">
+        <a id="expand-all" href="javascript:void(0);">Expand all</a>
+      </div>
+
+      <div class="sections">
+
+        <details class="govuk-details" {{ "open" if fields.investorDetails.edit }}>
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">Investor details</span>
+            <div class="edit-button-container">
+              <span>X fields required</span>
+            </div>
+          </summary>
+          <div class="govuk-details__text">
+            {% if fields.investorDetails.edit === 'true' %}
+              {% include "investor-details-edit.njk" %}
+            {% else %}
+              {% include "investor-details-read.njk" %}
+            {% endif %}
+          </div>
+        </details>
+
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">Client requirements</span>
+          </summary>
+          <div class="govuk-details__text">
+            Client requirements...
+          </div>
+        </details>
+
+        <details class="govuk-details">
+          <summary class="govuk-details__summary">
+            <span class="govuk-details__summary-text">Location</span>
+          </summary>
+          <div class="govuk-details__text">
+            Location...
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

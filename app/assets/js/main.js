@@ -1,172 +1,212 @@
 import accessibleAutocomplete from 'accessible-autocomplete';
 import $ from 'jquery';
 
-function getCountries(query) {
+function getData(endpoint, query) {
   return $.ajax({
     type: 'GET',
-    url: `/api/companies/?term=${query}`
+    url: `/api/${endpoint}/?term=${query}`
   });
 }
 
-function getContacts(query) {
-  return $.ajax({
-    type: 'GET',
-    url: `/api/contacts/?term=${query}`
-  });
+function inputValue(result) {
+  return result && result.name
 }
 
-function getClients(query) {
-  return $.ajax({
-    type: 'GET',
-    url: `/api/clients/?term=${query}`
-  });
+function suggestion(result) {
+  return result && result.name
 }
 
-function getClientRelationshipManager(query) {
-  return $.ajax({
-    type: 'GET',
-    url: `/api/client-relationship-managers/?term=${query}`
-  });
+function apiCall(query, populateResults) {
+  getData(this.endpoint, query)
+    .then(result => {
+      populateResults(result);
+    });
 }
 
-function getReferralSourceAdviser(query) {
-  return $.ajax({
-    type: 'GET',
-    url: `/api/referral-source-adviser/?term=${query}`
-  });
+const EXPAND_ALL = 'Expand all';
+const COLLAPSE_ALL = 'Collapse all';
+
+class Details {
+  constructor() {
+    this.details = $('details');
+    this.summaries = this.details.find('summary');
+    this.divs = this.details.find('div.govuk-details__text');
+    this.expandAll = $('#expand-all')[0];
+    this.expandedMap = {};
+
+    this.addEventListeners();
+  }
+
+  addEventListeners() {
+    if(this.expandAll && this.summaries.length) {
+      this.expandAll.onclick = this.onExpandAllClick.bind(this);
+      this.summaries.map((index, summary) => summary.onclick = this.onSummaryClick.bind(this));
+    }
+  }
+
+  onExpandAllClick() {
+    const expandAll = this.expandAll.text === EXPAND_ALL;
+    this.expandAll.text = expandAll ? COLLAPSE_ALL : EXPAND_ALL;
+    this.details.map((index, detail) => {
+      if(expandAll) {
+        $(detail).attr('open', expandAll);
+      } else {
+        $(detail).removeAttr('open');
+      }
+    });
+    this.summaries.map((index, summary) => $(summary).attr('aria-expanded', expandAll));
+    this.divs.map((index, div) => $(div).attr('aria-hidden', !expandAll));
+    this.expandedMap = {};
+  }
+
+  onSummaryClick(event) {
+    // When the user clicks the edit button we don't want
+    // to expand or collapse the details section.
+    // const target = $(event.target);
+    // if (target.is(":button")) {
+    //   return;
+    // }
+
+    // Update the `Expand all` text if all details are either manually expanded or collapsed.
+    const summary = $(event.currentTarget);
+    const summaryText = summary.first().text().trim();
+    const hasExpanded = summary.attr('aria-expanded') === 'true';
+    this.expandedMap[summaryText] = hasExpanded;
+    const values = Object.values(this.expandedMap);
+    if( values.length === this.details.length) {
+      if(values[0] && values[1] && values[2]) {
+        this.expandAll.text = COLLAPSE_ALL;
+      } else if(!values[0] && !values[1] && !values[2]) {
+        this.expandAll.text = EXPAND_ALL;
+      }
+    }
+
+    // Show/hide the edit button.
+    //const button = $(summary).find('button');
+    //button.css('display', hasExpanded ? 'block' : 'none');
+  }
 }
 
 function initCountries() {
-  const country = document.querySelector('#country');
-  if(country) {
+  const selectElement = document.querySelector('#country');
+  if(selectElement) {
     accessibleAutocomplete.enhanceSelectElement({
-      selectElement: country,
+      selectElement,
       minLength: 3,
       showAllValues: true
     });
   }
 }
 
-function initCompanies() {
-  const company = document.querySelector('#company-container');
-  if(company) {
+function initCountryOfOrigin() {
+  const element = document.querySelector('#country-of-origin');
+  if(element) {
     accessibleAutocomplete({
-      element: company,
+      element,
+      id: 'country-of-origin',
+      name: 'countryOfOrigin',
+      minLength: 3,
+      showAllValues: true,
+      source: apiCall.bind({ endpoint: 'countries' })
+    });
+  }
+}
+
+function initCompanies() {
+  const element = document.querySelector('#company-container');
+  if(element) {
+    accessibleAutocomplete({
+      element,
       id: 'company',
       name: 'company',
       minLength: 3,
       showAllValues: true,
+      defaultValue: element.dataset.company,
       templates: {
-        inputValue: (result) => result && result.name,
+        inputValue: function(result) {
+          return result && result.name;
+        },
         suggestion: (result) => result && `<strong>${result.name}</strong><div>${result.address}</div>`
       },
-      source: (query, populateResults) => {
-        getCountries(query)
-          .then(result => {
-            populateResults(result);
-          });
-      }
+      source: apiCall.bind({ endpoint: 'companies' })
     });
   }
 }
 
 function initContacts() {
-  const contacts = document.querySelector('#contacts-container');
-  if(contacts) {
+  const element = document.querySelector('#background-checks-person');
+  if(element) {
     accessibleAutocomplete({
-      element: contacts,
+      element,
       id: 'background-checks-person',
-      name: 'background-checks-person',
+      name: 'backgroundChecksPerson',
       minLength: 3,
       showAllValues: true,
+      defaultValue: element.dataset.backgroundChecksPerson,
       templates: {
         inputValue: (result) => result && `${result.name} (${result.team})`,
-        suggestion: (result) => result && `<strong>${result.name}</strong><span> (${result.team})</span>`
+        suggestion: (result) => result && `${result.name} <span>(${result.team})</span>`
       },
-      source: (query, populateResults) => {
-        getContacts(query)
-          .then(result => {
-            populateResults(result);
-          });
-      }
+      source: apiCall.bind({ endpoint: 'contacts' })
     });
   }
 }
 
 function initClients() {
-  const clients = document.querySelector('#clients-contact-container');
-  if(clients) {
+  const element = document.querySelector('#clients-contact');
+  if(element) {
     accessibleAutocomplete({
-      element: clients,
+      element,
       id: 'client-contact',
-      name: 'client-contact',
+      name: 'clientContact',
       minLength: 3,
       showAllValues: true,
-      templates: {
-        inputValue: (result) => result && result.name,
-        suggestion: (result) => result && `<strong>${result.name}</strong>`
-      },
-      source: (query, populateResults) => {
-        getClients(query)
-          .then(result => {
-            populateResults(result);
-          });
-      }
+      defaultValue: element.dataset.clientContact,
+      templates: { inputValue, suggestion },
+      source: apiCall.bind({ endpoint: 'clients' })
     });
   }
 }
 
 function initClientRelationshipManager() {
-  const managers = document.querySelector('#client-relationship-manager-container');
-  if(managers) {
+  const element = document.querySelector('#client-relationship-manager');
+  if(element) {
     accessibleAutocomplete({
-      element: managers,
+      element,
       id: 'client-relationship-manager',
-      name: 'client-relationship-manager',
+      name: 'clientRelationshipManager',
       minLength: 3,
       showAllValues: true,
-      templates: {
-        inputValue: (result) => result && result.name,
-        suggestion: (result) => result && `<strong>${result.name}</strong>`
-      },
-      source: (query, populateResults) => {
-        getClientRelationshipManager(query)
-          .then(result => {
-            populateResults(result);
-          });
-      }
+      defaultValue: element.dataset.clientRelationshipManager,
+      templates: { inputValue, suggestion },
+      source: apiCall.bind({ endpoint: 'client-relationship-managers' })
     });
   }
 }
 
 function initClientReferralSourceAdviser() {
-  const referralSourceAdviser = document.querySelector('#referral-source-adviser-container');
-  if(referralSourceAdviser) {
+  const element = document.querySelector('#referral-source-adviser');
+  if(element) {
     accessibleAutocomplete({
-      element: referralSourceAdviser,
+      element,
       id: 'referral-source-adviser',
-      name: 'referral-source-adviser',
+      name: 'referralSourceAdviser',
       minLength: 3,
       showAllValues: true,
-      templates: {
-        inputValue: (result) => result && result.name,
-        suggestion: (result) => result && `<strong>${result.name}</strong>`
-      },
-      source: (query, populateResults) => {
-        getReferralSourceAdviser(query)
-          .then(result => {
-            populateResults(result);
-          });
-      }
+      defaultValue: element.dataset.referralSourceAdviser,
+      templates: { inputValue, suggestion },
+      source: apiCall.bind({ endpoint: 'referral-source-adviser' })
     });
   }
 }
 
 $(document).ready(() => {
+  initCountryOfOrigin();
   initCountries();
   initCompanies();
   initContacts();
   initClients();
   initClientRelationshipManager();
   initClientReferralSourceAdviser();
+  new Details();
 });

@@ -1,5 +1,3 @@
-$govuk-error-colour: red;
-
 .govuk-header {
   border-bottom: 0;
   .govuk-header__container {
@@ -16,22 +14,9 @@ $govuk-error-colour: red;
   margin-top: 30px;
 }
 
-.govuk-tag {
-  padding: 2px 4px 0 4px;
-  position: absolute;
-  top: 13px;
-  left: 140px;
-}
-
-.govuk-details {
-  margin-bottom: 0;
-  border: 2px solid #026aae;
-  padding: 10px 0 3px 15px;
-  margin-top: 2px;
-}
-
-.govuk-details__text {
-  border-left: none;
-  padding-left: 0;
-  padding-top: 0;
-}
+//.govuk-tag {
+//  padding: 2px 4px 0 4px;
+//  position: absolute;
+//  top: 13px;
+//  left: 140px;
+//}

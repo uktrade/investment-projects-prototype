@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { investmentTypes } = require('app/paths');
+const { investmentTypes, capitalInvestment } = require('app/paths');
 
 const investTypes = [
   {
@@ -50,7 +50,7 @@ router.post(investmentTypes, (req, res) => {
     });
   } else {
     if(investmentType === 'ci-investor-opportunity') {
-      res.redirect(req.body.investmentType);
+      res.redirect(capitalInvestment.createProject);
     } else {
       throw new Error('This has not been implemented yet! Go back and try \`CI Investor Opportunity\` instead.');
     }

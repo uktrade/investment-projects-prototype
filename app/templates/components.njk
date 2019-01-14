@@ -19,6 +19,8 @@
 
 <div class="govuk-form-group {{ errorClass(field) }}">
 
+  **<pre>{{ field | dump(2) }}</pre>**
+
   <label class="govuk-label {{ "visually-hidden" if hideLabel }}" for="{{ id }}">
     {{ label }}
     {%- if hint %}

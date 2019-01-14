@@ -1,0 +1,70 @@
+{% extends "base.njk" %}
+
+{% from "radios/macro.njk" import govukRadios %}
+
+{% block pageTitle %}
+Create project
+{% endblock %}
+
+{% block content %}
+
+<div class="investment-types">
+  <img src="/assets/images/app-ip-selected.png" class="img-horizontal-app-list">
+  <nav>
+    <ul>
+      <li><a href="/">Home</span></a></li>
+      <li><a href="/investment-projects">Investment projects</a></li>
+      <li><span>Create project</span></li>
+    </ul>
+  </nav>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1>Create a project</h1>
+
+      <form class="govuk-!-padding-top-5" method="post" action="{{ paths.capitalInvestment.createProject }}">
+
+        <!-- accessible-autocomplete -->
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="country-of-origin">Opportunity details</label>
+          <span class="govuk-hint">Enter the basic details of the opportunity</span>
+          <div id="country-of-origin"></div>
+        </div>
+
+        <!-- accessible-autocomplete -->
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="company">Investor / entity name</label>
+          <span class="govuk-hint">Search for the company, individual or other entity name</span>
+          <div id="company-container"></div>
+        </div>
+
+        {{
+          govukRadios({
+            idPrefix: "sizeOfOpportunity",
+            name: "sizeOfOpportunity",
+            fieldset: {
+              legend: {
+                text: "Size of opportunity",
+                isPageHeading: false
+              }
+            },
+            items: [
+              {
+                value: "largeCapital",
+                text: "Large Capital"
+              },
+              {
+                value: "growthCapital",
+                text: "Growth Capital"
+              }
+            ]
+          })
+        }}
+
+        <div>
+          <button type="submit" class="govuk-button">Continue</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

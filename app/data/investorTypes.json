@@ -1,7 +1,8 @@
 [
-  { "label": "Sovereign Wealth Fund", "value": "sovereign-wealth-fund" },
-  { "label": "State Pension Fund", "value": "state-pension-fund" },
-  { "label": "Regulated Insurance / Investment Fund", "value": "regulated-insurance-investment-fund" },
-  { "label": "Corporation", "value": "corporation" },
-  { "label": "Other", "value": "other" }
+  { "text": "-- Please select an investor type --", "value": ""},
+  { "text": "Sovereign Wealth Fund", "value": "Sovereign Wealth Fund" },
+  { "text": "State Pension Fund", "value": "State Pension Fund" },
+  { "text": "Regulated Insurance / Investment Fund", "value": "Regulated Insurance / Investment Fund" },
+  { "text": "Corporation", "value": "Corporation" },
+  { "text": "Other", "value": "Other" }
 ]

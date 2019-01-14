@@ -4,9 +4,11 @@ const nunjucks = require('nunjucks');
 const express = require('express');
 const path = require('path');
 
+const locals = require('app/locals');
+const api = require('app/api');
 const routes = require('app/routes');
 const investmentTypesRoute = require('app/modules/investment-types/route');
-const ciInvestorOpportunity = require('app/modules/ci-investor-opportunity/route');
+const ciInvestorOpportunity = require('app/modules/capital-investment/route');
 const session = require('app/session/session');
 const sessionCheck = require('app/session/sessionCheck');
 const app = express();
@@ -27,7 +29,10 @@ app.use('/assets', express.static(`${govukFrontend}/assets`));
 nunjucks.configure([
   'app/templates',
   'app/modules/investment-types/',
-  'app/modules/ci-investor-opportunity/',
+  'app/modules/capital-investment/',
+  'app/modules/capital-investment/client-requirements/',
+  'app/modules/capital-investment/investor-details/',
+  'app/modules/capital-investment/location/',
   'node_modules/govuk-frontend/',
   'node_modules/govuk-frontend/components/'
 ], {
@@ -38,6 +43,8 @@ nunjucks.configure([
 app.set('view engine', 'html');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(locals);
+app.use(api);
 app.use(routes);
 app.use(investmentTypesRoute);
 app.use(ciInvestorOpportunity);
