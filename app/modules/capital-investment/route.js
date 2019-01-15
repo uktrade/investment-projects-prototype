@@ -1,14 +1,12 @@
 const express = require('express');
-const router = express.Router();
-
 const investorTypes = require('app/data/investorTypes');
 const referralSourceActivity = require('app/data/referral-source-activity');
 const specificInvestmentProgramme = require('app/data/specific-investment-programme');
 const overallRelationshipHealth = require('app/data/overallRelationshipHealth');
 const countries = require('app/data/countries');
-
 const { capitalInvestment } = require('app/paths');
 
+const router = express.Router();
 const INVESTOR_DETAILS_FIELDS_REQUIRED = 10;
 
 const excludedKeys = [
@@ -27,7 +25,6 @@ const getValueKeys = (obj) => {
         return false;
       }
     }
-
     return obj[key] !== '';
   });
 };
@@ -83,8 +80,7 @@ router.get(capitalInvestment.investorOpportunity, (req, res) => {
 
 // CI Investor Opportunity - Investor Details (Edit & Save)
 router.post(capitalInvestment.investorOpportunityDetails, (req, res) => {
-
-  // Merge the POST into the session investorDetails object and save back to the session.
+  // Merge the POST into the session investorDetails object.
   req.session.ci.investorDetails = { ...req.session.ci.investorDetails, ...req.body };
 
   // Reference the session investorDetails object.
@@ -103,7 +99,6 @@ router.post(capitalInvestment.investorOpportunityDetails, (req, res) => {
   investorDetails.requiredFieldsCount = INVESTOR_DETAILS_FIELDS_REQUIRED - valueKeys.length;
 
   if(investorDetails.edit === 'true') {
-
     // Create a fields object for the page.
     const fields = { ...req.session.ci };
 
@@ -119,7 +114,6 @@ router.post(capitalInvestment.investorOpportunityDetails, (req, res) => {
       fields
     });
   } else {
-
     // User wishes to save their changes.
     res.redirect(capitalInvestment.investorOpportunity);
   }
