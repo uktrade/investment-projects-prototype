@@ -10,7 +10,6 @@ const contacts = require('app/data/contacts');
 const clients = require('app/data/clients');
 const advisers = require('app/data/referral-source-advisers');
 
-// API
 router.get('/api/countries',(req, res) => {
   const searchTerm = req.query.term.toLowerCase();
   const searchResults = filter(countries, (country) => country.toLowerCase().includes(searchTerm));
