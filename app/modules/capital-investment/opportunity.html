@@ -2,8 +2,9 @@
 
 {% from "textarea/macro.njk" import govukTextarea %}
 {% from "input/macro.njk" import govukInput %}
-{% from "components.njk" import select %}
 {% from "details/macro.njk" import govukDetails %}
+
+{% from "singularOrPlural.njk" import singularOrPlural %}
 
 {% block pageTitle %}
 New Project
@@ -50,18 +51,16 @@ New Project
               {% if fields.investorDetails.requiredFieldsCount === 0 %}
                 <i class="fas fa-check"></i>
                 <span class="complete">Complete</span>
-              {% elseif fields.investorDetails.requiredFieldsCount === 1 %}
-                <span>{{ fields.investorDetails.requiredFieldsCount }} field required</span>
               {% else  %}
-                <span>{{ fields.investorDetails.requiredFieldsCount }} fields required</span>
+                <span>{{ singularOrPlural(fields.investorDetails.requiredFieldsCount, 'field') }} required</span>
               {% endif %}
             </div>
           </summary>
           <div class="govuk-details__text">
             {% if fields.investorDetails.edit === 'true' %}
-              {% include "investor-details-edit.njk" %}
+              {% include "investor-details-edit.html" %}
             {% else %}
-              {% include "investor-details-read.njk" %}
+              {% include "investor-details-read.html" %}
             {% endif %}
           </div>
         </details>
@@ -71,7 +70,7 @@ New Project
             <span class="govuk-details__summary-text">Client requirements</span>
           </summary>
           <div class="govuk-details__text">
-            Client requirements...
+            ...
           </div>
         </details>
 
@@ -80,7 +79,7 @@ New Project
             <span class="govuk-details__summary-text">Location</span>
           </summary>
           <div class="govuk-details__text">
-            Location...
+            ...
           </div>
         </details>
 

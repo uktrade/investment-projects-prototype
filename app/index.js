@@ -28,6 +28,7 @@ app.use('/assets', express.static(`${govukFrontend}/assets`));
 
 nunjucks.configure([
   'app/templates',
+  'app/macro/',
   'app/modules/investment-types/',
   'app/modules/capital-investment/',
   'app/modules/capital-investment/client-requirements/',

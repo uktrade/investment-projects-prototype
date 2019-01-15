@@ -1,0 +1,63 @@
+{% macro appTaskListItem(title, field) %}
+  <li class="app-task-list__item">
+    <span class="app-task-list__task-name" aria-describedby="eligibility-completed">
+      {{ title }}
+    </span>
+    <span class="app-task-list__task-completed">
+     {{ field }}
+    </span>
+  </li>
+{% endmacro %}
+
+{% macro appTaskListItemRequired(title, field) %}
+    <li class="app-task-list__item">
+      <span class="app-task-list__task-name" aria-describedby="read-declaration-completed">
+        {{ title }}
+      </span>
+      {% if field %}
+        <span class="app-task-list__task-completed">
+          {{ field }}
+        </span>
+      {% else %}
+        <strong class="govuk-tag app-task-list__task-completed" id="read-declaration-completed">REQUIRED</strong>
+      {% endif %}
+    </li>
+{% endmacro %}
+
+{% macro backgroundChecks(backgroundChecks, day, month, year, backgroundChecksPerson) %}
+    <li class="app-task-list__item">
+        <span class="app-task-list__task-name" aria-describedby="read-declaration-completed">
+            Have background checks been conducted within the last 12 months?
+        </span>
+        {% if backgroundChecks === 'true' %}
+            <span class="app-task-list__task-completed">
+              Yes
+            </span>
+            <ul class="app-task-list__items">
+                <li class="app-task-list__item">
+                    <span class="app-task-list__task-name__child" aria-describedby="read-declaration-completed">
+                      Date of most recent checks
+                    </span>
+                    <span class="app-task-list__task-completed">
+                      {{ day }}
+                      {{ month }}
+                      {{ year }}
+                    </span>
+                </li>
+                <li class="app-task-list__item">
+                    <span class="app-task-list__task-name__child" aria-describedby="read-declaration-completed">
+                      Person responsible for most recent checks
+                    </span>
+                    <span class="app-task-list__task-completed">
+                      {{ backgroundChecksPerson }}
+                    </span>
+                </li>
+            </ul>
+        {% elif backgroundChecks === 'false' %}
+          <span class="app-task-list__task-completed">No</span>
+        {% else %}
+          <strong class="govuk-tag app-task-list__task-completed" id="read-declaration-completed">REQUIRED</strong>
+        {% endif %}
+    </li>
+{% endmacro %}
+

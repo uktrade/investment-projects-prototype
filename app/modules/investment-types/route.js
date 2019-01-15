@@ -40,7 +40,7 @@ router.post(investmentTypes, (req, res) => {
       investmentTypes: investTypes,
       errorList: [
         {
-          text: "Please select an investment type",
+          text: "Select an investment type",
           href: "#investmentType-error"
         }
       ],

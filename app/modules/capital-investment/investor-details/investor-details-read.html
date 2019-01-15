@@ -1,0 +1,41 @@
+{% from "appTaskListItems.njk" import appTaskListItem, appTaskListItemRequired, backgroundChecks %}
+
+<form method="post" class="investor-details-read" action="{{ paths.capitalInvestment.investorOpportunityDetails }}">
+  <input type="text" type="text" name="edit" value="true" style="display: none" />
+  <button type="submit" class="govuk-button">Edit</button>
+</form>
+
+<ul class="app-task-list__items">
+
+  {{ appTaskListItem('Country of origin', fields.project.countryOfOrigin ) }}
+
+  {{ appTaskListItem('Investor / entity name', fields.project.company ) }}
+
+  {{ appTaskListItemRequired('Investor type', fields.investorDetails.investorType) }}
+
+  {{ appTaskListItemRequired('Assets under management/investable capital', fields.investorDetails.assetsUnderManagement) }}
+
+  {{ appTaskListItemRequired('Overall relationship health', fields.investorDetails.overallRelationshipHealth) }}
+
+  {{
+     backgroundChecks(
+       fields.investorDetails.backgroundChecks,
+       fields.investorDetails.backgroundChecksDay,
+       fields.investorDetails.backgroundChecksMonth,
+       fields.investorDetails.backgroundChecksYear,
+       fields.investorDetails.backgroundChecksPerson)
+  }}
+
+  {{ appTaskListItemRequired('Opportunity description', fields.investorDetails.description) }}
+
+  {{ appTaskListItemRequired('Client contact', fields.investorDetails.clientContact) }}
+
+  {{ appTaskListItemRequired('Client relationship manager', fields.investorDetails.clientRelationshipManager) }}
+
+  {{ appTaskListItemRequired('Referral source adviser', fields.investorDetails.referralSourceAdviser) }}
+
+  {{ appTaskListItemRequired('Referral source activity', fields.investorDetails.referralSourceActivity) }}
+
+  {{ appTaskListItemRequired('Specific Investment Programme', fields.investorDetails.specificInvestmentProgramme) }}
+
+</ul>
