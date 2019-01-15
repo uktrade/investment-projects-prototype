@@ -8,7 +8,7 @@ Create project
 
 {% block content %}
 
-<div class="investment-types">
+<div class="create-project">
   <img src="/assets/images/app-ip-selected.png" class="img-horizontal-app-list">
   <nav>
     <ul>
@@ -25,8 +25,8 @@ Create project
 
         <!-- accessible-autocomplete -->
         <div class="govuk-form-group">
-          <label class="govuk-label" for="country-of-origin">Opportunity details</label>
-          <span class="govuk-hint">Enter the basic details of the opportunity</span>
+          <label class="govuk-label" for="country-of-origin">Country of origin</label>
+          <span class="govuk-hint">Select the country that the company or individual is based in</span>
           <div id="country-of-origin"></div>
         </div>
 
@@ -60,8 +60,9 @@ Create project
           })
         }}
 
-        <div>
-          <button type="submit" class="govuk-button">Continue</button>
+        <div class="save-and-edit">
+          <button type="submit" class="govuk-button">Save</button>
+          <a href="{{ paths.investmentProjects }}">Cancel</a>
         </div>
       </form>
     </div>

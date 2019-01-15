@@ -52,11 +52,24 @@
 
     <li class="app-task-list__item">
         <span class="app-task-list__task-name" aria-describedby="read-declaration-completed">
-            Overall relationship health
+            Geographical distribution of assets / capital (incl. % UK)
         </span>
         {% if fields.investorDetails.geographicalDistributionOfAssets %}
           <span class="app-task-list__task-completed">
             {{ fields.investorDetails.geographicalDistributionOfAssets }}
+          </span>
+        {% else %}
+          <strong class="govuk-tag app-task-list__task-completed" id="read-declaration-completed">REQUIRED</strong>
+        {% endif %}
+    </li>
+
+    <li class="app-task-list__item">
+        <span class="app-task-list__task-name" aria-describedby="read-declaration-completed">
+            Overall relationship health
+        </span>
+        {% if fields.investorDetails.overallRelationshipHealth %}
+          <span class="app-task-list__task-completed">
+            {{ fields.investorDetails.overallRelationshipHealth }}
           </span>
         {% else %}
           <strong class="govuk-tag app-task-list__task-completed" id="read-declaration-completed">REQUIRED</strong>

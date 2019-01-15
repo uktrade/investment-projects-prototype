@@ -9,7 +9,7 @@ const countries = require('app/data/countries');
 
 const { capitalInvestment } = require('app/paths');
 
-const INVESTOR_DETAILS_FIELDS_REQUIRED = 10;
+const INVESTOR_DETAILS_FIELDS_REQUIRED = 11;
 
 const excludedKeys = [
   'edit',
@@ -33,7 +33,7 @@ const getValueKeys = (obj) => {
 };
 
 const selectItem = (items, item, selectionType) => {
-  if(!items || !item || !selectionType) {
+  if(item === undefined) {
     return;
   }
   items.forEach(type => type.value === item ?

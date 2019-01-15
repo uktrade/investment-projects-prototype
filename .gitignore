@@ -6,3 +6,6 @@ node_modules/
 
 # Ignore the generated dist directory
 dist
+
+# Redis dump
+dump.rdb

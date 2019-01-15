@@ -1,5 +1,6 @@
 {% from "select/macro.njk" import govukSelect %}
 {% from "input/macro.njk" import govukInput %}
+{% from "radios/macro.njk" import govukRadios %}
 
 <form method="post" action="{{ paths.capitalInvestment.investorOpportunityDetails }}">
   <input type="text" type="text" name="edit" value="false" style="display: none" />
@@ -53,6 +54,20 @@
       id: "geographicalDistributionOfAssets",
       name: "geographicalDistributionOfAssets",
       value: fields.investorDetails.geographicalDistributionOfAssets
+    })
+  }}
+
+  {{
+    govukRadios({
+      idPrefix: "overallRelationshipHealth",
+      name: "overallRelationshipHealth",
+      fieldset: {
+        legend: {
+          text: "Overall relationship health",
+          isPageHeading: false
+        }
+      },
+      items: overallRelationshipHealth
     })
   }}
 

@@ -2,7 +2,9 @@
 @import "~accessible-autocomplete/src/autocomplete.css";
 @import "govuk-overrides";
 @import "investment-projects";
-@import "_ci-investor-opportunity";
+@import "investment-types";
+@import "create-project";
+@import "opportunity";
 
 body {
   font-family: Arial, "Helvetica Neue", sans-serif;
