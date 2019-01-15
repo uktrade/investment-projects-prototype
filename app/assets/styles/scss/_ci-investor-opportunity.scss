@@ -23,12 +23,13 @@
       border-bottom: 2px solid lightgray;
       margin: 25px 0 0 0;
       padding: 0 0 20px 0;
-      &:focus {
-        outline: none !important;
-      }
-      summary {
-        &:focus {
-          outline: none !important;
+      .govuk-details__text {
+        .investor-details-read {
+          display: flex;
+          justify-content: flex-end;
+        }
+        select {
+          width: 100%;
         }
       }
 
@@ -50,7 +51,33 @@
       span {
         color: $govuk-error-colour;
       }
+      i, span.complete {
+        color: green;
+      }
+      span.complete {
+        padding-left: 10px;
+      }
     }
+  }
+
+  .heading {
+    margin-bottom: 0;
+  }
+
+  .badge {
+    border: 2px solid rgba(11, 12, 12, 0.15);
+    border-radius: 4px;
+    color: inherit;
+    white-space: nowrap;
+    transition: 60ms;
+    cursor: default;
+    padding: 2px 4px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .address {
+    margin-bottom: 20px;
   }
 }
 

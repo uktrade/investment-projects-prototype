@@ -1,3 +1,8 @@
+<form method="post" class="investor-details-read" action="{{ paths.capitalInvestment.investorOpportunityDetails }}">
+  <input type="text" type="text" name="edit" value="true" style="display: none" />
+  <button type="submit" class="govuk-button">Edit</button>
+</form>
+
 <ul class="app-task-list__items">
 
     <li class="app-task-list__item">
@@ -170,10 +175,4 @@
           <strong class="govuk-tag app-task-list__task-completed" id="read-declaration-completed">REQUIRED</strong>
         {% endif %}
     </li>
-
 </ul>
-
-<form method="post" action="{{ paths.capitalInvestment.investorOpportunityDetails }}">
-  <input type="text" type="text" name="edit" value="true" style="display: none" />
-  <button type="submit" class="govuk-button">Edit</button>
-</form>

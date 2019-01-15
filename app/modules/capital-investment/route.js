@@ -9,6 +9,29 @@ const countries = require('app/data/countries');
 
 const { capitalInvestment } = require('app/paths');
 
+const INVESTOR_DETAILS_FIELDS_REQUIRED = 10;
+
+const excludedKeys = [
+  'edit',
+  'requiredFieldsCount',
+  'backgroundChecksDay',
+  'backgroundChecksMonth',
+  'backgroundChecksYear',
+  'backgroundChecksPerson',
+];
+
+const getValueKeys = (obj) => {
+  return Object.keys(obj).filter(key => {
+    for (let i = 0; i < excludedKeys.length; i++) {
+      if (key === excludedKeys[i]) {
+        return false;
+      }
+    }
+
+    return obj[key] !== '';
+  });
+};
+
 const selectItem = (items, item, selectionType) => {
   if(!items || !item || !selectionType) {
     return;
@@ -17,16 +40,6 @@ const selectItem = (items, item, selectionType) => {
     type[selectionType] = true :
     type[selectionType] = false
   );
-};
-
-const getFields = (session = {}) => {
-  const fields = {};
-  Object.keys(session).forEach( key => {
-    fields[key] = {
-      value: session[key]
-    };
-  });
-  return fields;
 };
 
 const selectInvestorDetailsFields = (investorDetails) => {
@@ -43,7 +56,9 @@ router.get(capitalInvestment.createProject, (req, res) => {
 router.post(capitalInvestment.createProject, (req, res) => {
   req.session.ci = {
     project: {},
-    investorDetails: {},
+    investorDetails: {
+      requiredFieldsCount: INVESTOR_DETAILS_FIELDS_REQUIRED
+    },
     clientRequirements: {},
     location: {}
   };
@@ -68,19 +83,34 @@ router.get(capitalInvestment.investorOpportunity, (req, res) => {
 
 // CI Investor Opportunity - Investor Details (Edit & Save)
 router.post(capitalInvestment.investorOpportunityDetails, (req, res) => {
+
+  // Merge the POST into the session investorDetails object and save back to the session.
   req.session.ci.investorDetails = { ...req.session.ci.investorDetails, ...req.body };
 
-  // Cleanup the background checks
-  if(req.session.ci.investorDetails.backgroundChecks === 'false') {
-    delete req.session.ci.investorDetails.backgroundChecksDay;
-    delete req.session.ci.investorDetails.backgroundChecksMonth;
-    delete req.session.ci.investorDetails.backgroundChecksYear;
-    delete req.session.ci.investorDetails.backgroundChecksPerson;
+  // Reference the session investorDetails object.
+  let investorDetails = req.session.ci.investorDetails;
+
+  // Cleanup the background checks as they may have been set previously.
+  if(investorDetails.backgroundChecks === 'false') {
+    delete investorDetails.backgroundChecksDay;
+    delete investorDetails.backgroundChecksMonth;
+    delete investorDetails.backgroundChecksYear;
+    delete investorDetails.backgroundChecksPerson;
   }
 
-  const fields = { ...req.session.ci };
-  if(fields.investorDetails.edit === 'true') {
-    selectInvestorDetailsFields(fields.investorDetails);
+  // Determine the number of required fields the user is yet to complete.
+  const valueKeys = getValueKeys(investorDetails);
+  investorDetails.requiredFieldsCount = INVESTOR_DETAILS_FIELDS_REQUIRED - valueKeys.length;
+
+  if(investorDetails.edit === 'true') {
+
+    // Create a fields object for the page.
+    const fields = { ...req.session.ci };
+
+    // As we're editing we need to set any controls they were previously set by the user.
+    selectInvestorDetailsFields(investorDetails);
+
+    // Render the opportunity page including the form data and fields.
     res.render('opportunity', {
       investorTypes,
       overallRelationshipHealth,
@@ -89,6 +119,8 @@ router.post(capitalInvestment.investorOpportunityDetails, (req, res) => {
       fields
     });
   } else {
+
+    // User wishes to save their changes.
     res.redirect(capitalInvestment.investorOpportunity);
   }
 });
@@ -102,32 +134,5 @@ router.post(capitalInvestment.investorOpportunityClientRequirements, (req, res) 
 router.post(capitalInvestment.investorOpportunityLocation, (req, res) => {
 
 });
-
-// router.get(capitalInvestment.investorOpportunityEdit, (req, res) => {
-//   const fields = getFields(req.session.ci);
-//   selectFields(fields);
-//   res.render('ci-investor-opportunity-edit', {
-//     investorTypes,
-//     overallRelationshipHealth,
-//     referralSourceActivity,
-//     specificInvestmentProgramme,
-//     fields
-//   });
-// });
-
-// router.post(capitalInvestment.investorOpportunityEdit, (req, res) => {
-//   const post = { ...req.body };
-//
-//   post.backgroundChecks = post.backgroundChecks === 'true';
-//   if(post.backgroundChecks === false) {
-//     delete post.backgroundChecksDay;
-//     delete post.backgroundChecksMonth;
-//     delete post.backgroundChecksYear;
-//     delete post.backgroundChecksPerson;
-//   }
-//
-//   req.session.ci = { ...post };
-//   res.redirect(ciInvestorOpportunity);
-// });
 
 module.exports = router;

@@ -37,41 +37,6 @@ nav {
   color: govuk-colour("grey-2")
 }
 
-.govuk-button-discard {
-  @extend .govuk-button;
-  background-color: grey;
-  &:focus,
-  &:hover {
-    background-color: #686866;
-  }
-}
-
-.ci-investor-opportunity {
-  select {
-    width: 100%;
-  }
-}
-
-.heading {
-  margin-bottom: 0;
-}
-
-.badge {
-  border: 2px solid rgba(11, 12, 12, 0.15);
-  border-radius: 4px;
-  color: inherit;
-  white-space: nowrap;
-  transition: 60ms;
-  cursor: default;
-  padding: 2px 4px;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.address {
-  margin-bottom: 20px;
-}
-
 // Task list pattern
 
 .app-task-list {
