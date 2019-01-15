@@ -9,7 +9,7 @@ const countries = require('app/data/countries');
 
 const { capitalInvestment } = require('app/paths');
 
-const INVESTOR_DETAILS_FIELDS_REQUIRED = 11;
+const INVESTOR_DETAILS_FIELDS_REQUIRED = 10;
 
 const excludedKeys = [
   'edit',
