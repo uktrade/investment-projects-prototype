@@ -88,26 +88,31 @@ class Details {
 }
 
 function initCountries() {
-  const selectElement = document.querySelector('#country');
-  if(selectElement) {
-    accessibleAutocomplete.enhanceSelectElement({
-      selectElement,
+  const element = document.querySelector('#country');
+  if(element) {
+    accessibleAutocomplete({
+      element,
+      id: 'country',
+      name: 'country',
       minLength: 3,
-      showAllValues: true
+      showAllValues: true,
+      defaultValue: element.dataset.country,
+      source: apiCall.bind({ endpoint: 'countries' })
     });
   }
 }
 
-function initCountryOfOrigin() {
-  const element = document.querySelector('#country-of-origin');
+function initUkLocation() {
+  const element = document.querySelector('#uk-location');
   if(element) {
     accessibleAutocomplete({
       element,
-      id: 'country-of-origin',
-      name: 'countryOfOrigin',
+      id: 'uk-location',
+      name: 'ukLocation',
       minLength: 3,
       showAllValues: true,
-      source: apiCall.bind({ endpoint: 'countries' })
+      defaultValue: element.dataset.ukLocation,
+      source: apiCall.bind({ endpoint: 'uk-locations' })
     });
   }
 }
@@ -201,8 +206,8 @@ function initClientReferralSourceAdviser() {
 }
 
 $(document).ready(() => {
-  initCountryOfOrigin();
   initCountries();
+  initUkLocation();
   initCompanies();
   initContacts();
   initClients();

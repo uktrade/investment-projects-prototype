@@ -3,6 +3,7 @@
 {% from "textarea/macro.njk" import govukTextarea %}
 {% from "input/macro.njk" import govukInput %}
 {% from "details/macro.njk" import govukDetails %}
+{% from "details.njk" import details %}
 {% from "singularOrPlural.njk" import singularOrPlural %}
 
 {% block pageTitle %}
@@ -43,44 +44,29 @@ New Project
 
       <div class="sections">
 
-        <details class="govuk-details" {{ "open" if fields.investorDetails.edit }}>
-          <summary class="govuk-details__summary">
-            <span class="govuk-details__summary-text">Investor details</span>
-            <div class="edit-button-container">
-              {% if fields.investorDetails.requiredFieldsCount === 0 %}
-                <i class="fas fa-check"></i>
-                <span class="complete">Complete</span>
-              {% else  %}
-                <span>{{ singularOrPlural(fields.investorDetails.requiredFieldsCount, 'field') }} required</span>
-              {% endif %}
-            </div>
-          </summary>
-          <div class="govuk-details__text">
-            {% if fields.investorDetails.edit === 'true' %}
-              {% include "investor-details-edit.html" %}
-            {% else %}
-              {% include "investor-details-read.html" %}
-            {% endif %}
-          </div>
-        </details>
+        {% call details('Investor details', fields.investorDetails) -%}
+          {% if fields.investorDetails.edit === 'true' %}
+            {% include "investor-details-edit.html" %}
+          {% else %}
+            {% include "investor-details-read.html" %}
+          {% endif %}
+        {%- endcall %}
 
-        <details class="govuk-details">
-          <summary class="govuk-details__summary">
-            <span class="govuk-details__summary-text">Client requirements</span>
-          </summary>
-          <div class="govuk-details__text">
-            ...
-          </div>
-        </details>
+        {% call details('Client requirements', fields.clientRequirements) -%}
+          {% if fields.clientRequirements.edit === 'true' %}
+            {% include "client-requirements-edit.html" %}
+          {% else %}
+            {% include "client-requirements-read.html" %}
+          {% endif %}
+        {%- endcall %}
 
-        <details class="govuk-details">
-          <summary class="govuk-details__summary">
-            <span class="govuk-details__summary-text">Location</span>
-          </summary>
-          <div class="govuk-details__text">
-            ...
-          </div>
-        </details>
+        {% call details('Location', fields.location) -%}
+          {% if fields.location.edit === 'true' %}
+            {% include "location-edit.html" %}
+          {% else %}
+            {% include "location-read.html" %}
+          {% endif %}
+        {%- endcall %}
 
       </div>
     </div>

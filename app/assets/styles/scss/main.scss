@@ -39,6 +39,11 @@ nav {
   color: govuk-colour("grey-2")
 }
 
+.edit-button-form {
+  display: flex;
+  justify-content: flex-end;
+}
+
 // Task list pattern
 
 .app-task-list {

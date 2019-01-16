@@ -1,0 +1,12 @@
+{% from "appTaskListItems.njk" import appTaskListItemRequired %}
+
+<form method="post" class="edit-button-form" action="{{ paths.capitalInvestment.investorOpportunityLocation }}">
+  <input type="text" type="text" name="edit" value="true" style="display: none" />
+  <button type="submit" class="govuk-button">Edit</button>
+</form>
+
+<ul class="app-task-list__items">
+  {{ appTaskListItemRequired('Possible UK locations for this investment', fields.location.ukLocation) }}
+  {{ appTaskListItemRequired('Other countries the client is considering', fields.location.country) }}
+</ul>
+

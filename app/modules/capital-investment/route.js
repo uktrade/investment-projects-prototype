@@ -7,7 +7,12 @@ const countries = require('app/data/countries');
 const { capitalInvestment } = require('app/paths');
 
 const router = express.Router();
-const INVESTOR_DETAILS_FIELDS_REQUIRED = 10;
+
+const fieldsRequired = {
+  INVESTOR_DETAILS: 10,
+  CLIENT_REQUIREMENTS: 9,
+  LOCATION: 2
+};
 
 const excludedKeys = [
   'edit',
@@ -52,15 +57,17 @@ router.get(capitalInvestment.createProject, (req, res) => {
 
 router.post(capitalInvestment.createProject, (req, res) => {
   req.session.ci = {
-    project: {},
+    project: { ...req.body },
     investorDetails: {
-      requiredFieldsCount: INVESTOR_DETAILS_FIELDS_REQUIRED
+      requiredFieldsCount: fieldsRequired.INVESTOR_DETAILS
     },
-    clientRequirements: {},
-    location: {}
+    clientRequirements: {
+      requiredFieldsCount: fieldsRequired.CLIENT_REQUIREMENTS
+    },
+    location: {
+      requiredFieldsCount: fieldsRequired.LOCATION
+    }
   };
-
-  req.session.ci.project = { ...req.body };
 
   if(req.session.ci.project.sizeOfOpportunity === 'largeCapital') {
     res.redirect(capitalInvestment.investorOpportunity);
@@ -72,6 +79,9 @@ router.post(capitalInvestment.createProject, (req, res) => {
 // CI Investor Opportunity - Investor Details, Client Requirements and Location
 router.get(capitalInvestment.investorOpportunity, (req, res) => {
   req.session.ci.investorDetails.edit = false;
+  req.session.ci.clientRequirements.edit = false;
+  req.session.ci.location.edit = false;
+
   const fields = { ...req.session.ci };
   res.render('opportunity', {
     fields
@@ -96,7 +106,7 @@ router.post(capitalInvestment.investorOpportunityDetails, (req, res) => {
 
   // Determine the number of required fields the user is yet to complete.
   const valueKeys = getValueKeys(investorDetails);
-  investorDetails.requiredFieldsCount = INVESTOR_DETAILS_FIELDS_REQUIRED - valueKeys.length;
+  investorDetails.requiredFieldsCount = fieldsRequired.INVESTOR_DETAILS - valueKeys.length;
 
   if(investorDetails.edit === 'true') {
     // Create a fields object for the page.
@@ -119,14 +129,54 @@ router.post(capitalInvestment.investorOpportunityDetails, (req, res) => {
   }
 });
 
-// CI Investor Opportunity - Client Requirements.
+// CI Investor Opportunity - Client Requirements (Edit & Save)
 router.post(capitalInvestment.investorOpportunityClientRequirements, (req, res) => {
 
+  // Merge the POST into the session investorDetails object.
+  req.session.ci.clientRequirements = { ...req.session.ci.clientRequirements, ...req.body };
+
+  // Reference the session clientRequirements object.
+  let clientRequirements = req.session.ci.clientRequirements;
+
+  if(clientRequirements.edit === 'true') {
+    // Create a fields object for the page.
+    const fields = { ...req.session.ci };
+
+    // Render the opportunity page including the form data and fields.
+    res.render('opportunity', {
+      fields
+    });
+  } else {
+    // User wishes to save their changes.
+    res.redirect(capitalInvestment.investorOpportunity);
+  }
 });
 
-// CI Investor Opportunity - Location.
+// CI Investor Opportunity - Location (Edit & Save)
 router.post(capitalInvestment.investorOpportunityLocation, (req, res) => {
 
+  // Merge the POST into the session location object.
+  req.session.ci.location = { ...req.session.ci.location, ...req.body };
+
+  // Reference the session location object.
+  let location = req.session.ci.location;
+
+  // Determine the number of required fields the user is yet to complete.
+  const valueKeys = getValueKeys(location);
+  location.requiredFieldsCount = fieldsRequired.LOCATION - valueKeys.length;
+
+  if(location.edit === 'true') {
+    // Create a fields object for the page.
+    const fields = { ...req.session.ci };
+
+    // Render the opportunity page including the form data and fields.
+    res.render('opportunity', {
+      fields
+    });
+  } else {
+    // User wishes to save their changes.
+    res.redirect(capitalInvestment.investorOpportunity);
+  }
 });
 
 module.exports = router;

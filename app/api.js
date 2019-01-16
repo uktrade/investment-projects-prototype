@@ -5,6 +5,7 @@ const { filter } = require('lodash');
 
 const managers = require('app/data/client-relationship-managers');
 const countries = require('app/data/countries');
+const ukLocations = require('app/data/uk-locations');
 const companies = require('app/data/companies');
 const contacts = require('app/data/contacts');
 const clients = require('app/data/clients');
@@ -13,6 +14,12 @@ const advisers = require('app/data/referral-source-advisers');
 router.get('/api/countries',(req, res) => {
   const searchTerm = req.query.term.toLowerCase();
   const searchResults = filter(countries, (country) => country.toLowerCase().includes(searchTerm));
+  res.send(searchResults);
+});
+
+router.get('/api/uk-locations',(req, res) => {
+  const searchTerm = req.query.term.toLowerCase();
+  const searchResults = filter(ukLocations, (ukLocation) => ukLocation.toLowerCase().includes(searchTerm));
   res.send(searchResults);
 });
 

@@ -1,13 +1,13 @@
 {% from "appTaskListItems.njk" import appTaskListItem, appTaskListItemRequired, backgroundChecks %}
 
-<form method="post" class="investor-details-read" action="{{ paths.capitalInvestment.investorOpportunityDetails }}">
+<form method="post" class="edit-button-form" action="{{ paths.capitalInvestment.investorOpportunityDetails }}">
   <input type="text" type="text" name="edit" value="true" style="display: none" />
   <button type="submit" class="govuk-button">Edit</button>
 </form>
 
 <ul class="app-task-list__items">
 
-  {{ appTaskListItem('Country of origin', fields.project.countryOfOrigin ) }}
+  {{ appTaskListItem('Country of origin', fields.project.country ) }}
 
   {{ appTaskListItem('Investor / entity name', fields.project.company ) }}
 
