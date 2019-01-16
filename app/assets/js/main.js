@@ -205,6 +205,21 @@ function initClientReferralSourceAdviser() {
   }
 }
 
+function assetClassesOfInterest() {
+  const element = document.querySelector('#asset-classes-of-interest');
+  if(element) {
+    accessibleAutocomplete({
+      element,
+      id: 'asset-classes-of-interest',
+      name: 'assetClassesOfInterest',
+      minLength: 3,
+      showAllValues: true,
+      defaultValue: element.dataset.assetClassesOfInterest,
+      source: apiCall.bind({ endpoint: 'asset-classes-of-interest' })
+    });
+  }
+}
+
 $(document).ready(() => {
   initCountries();
   initUkLocation();
@@ -213,5 +228,6 @@ $(document).ready(() => {
   initClients();
   initClientRelationshipManager();
   initClientReferralSourceAdviser();
+  assetClassesOfInterest();
   new Details();
 });

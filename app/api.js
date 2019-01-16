@@ -10,6 +10,7 @@ const companies = require('app/data/companies');
 const contacts = require('app/data/contacts');
 const clients = require('app/data/clients');
 const advisers = require('app/data/referral-source-advisers');
+const assetClasses = require('app/data/asset-classes');
 
 router.get('/api/countries',(req, res) => {
   const searchTerm = req.query.term.toLowerCase();
@@ -50,6 +51,12 @@ router.get('/api/client-relationship-managers',(req, res) => {
 router.get('/api/referral-source-adviser',(req, res) => {
   const searchTerm = req.query.term.toLowerCase();
   const searchResults = filter(advisers, (adviser) => adviser.name.toLowerCase().includes(searchTerm));
+  res.send(searchResults);
+});
+
+router.get('/api/asset-classes-of-interest',(req, res) => {
+  const searchTerm = req.query.term.toLowerCase();
+  const searchResults = filter(assetClasses, (assetClass) => assetClass.toLowerCase().includes(searchTerm));
   res.send(searchResults);
 });
 
