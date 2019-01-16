@@ -1,7 +1,351 @@
-<h6>Client requirements edit</h6>
+{% from "checkboxes/macro.njk" import govukCheckboxes %}
 
-<form method="post" action="{{ paths.capitalInvestment.investorOpportunityClientRequirements }}">
+<form method="post" class="client-requirements" action="{{ paths.capitalInvestment.investorOpportunityClientRequirements }}">
   <input type="text" type="text" name="edit" value="false" style="display: none" />
+
+  <div class="govuk-form-group">
+
+    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+
+      <legend class="govuk-fieldset__legend">
+        <strong>Deal ticket size</strong>
+      </legend>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-1" name="waste" type="checkbox" value="1">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-1">
+          Up to £10 million
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-2" name="waste" type="checkbox" value="2">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-2">
+          £10-49 million
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="3">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+          £50-99 million
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-4" name="waste" type="checkbox" value="4">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-4">
+          £100-240 million
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-5" name="waste" type="checkbox" value="5">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-5">
+          £250-499 million
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-6" name="waste" type="checkbox" value="6">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-6">
+          £500+ million
+        </label>
+      </div>
+
+    </fieldset>
+  </div>
+
+  <div class="govuk-form-group">
+    Assets classes of interest
+  </div>
+
+  <div class="govuk-form-group">
+
+    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+
+      <legend class="govuk-fieldset__legend">
+        <strong>Type(s) of investment</strong>
+      </legend>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="1" name="waste" type="checkbox" value="1">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-1">
+          Direct Investment in Project Equity
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="2" name="waste" type="checkbox" value="2">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-2">
+          Direct Investment in Project Debt
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="3" name="waste" type="checkbox" value="3">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+          Direct Investment in Corporate Equity
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="4" name="waste" type="checkbox" value="4">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-4">
+          Direct Investment in Corporate Debt
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="5" name="waste" type="checkbox" value="5">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-5">
+          Mezzanine Debt (incl. preferred shares, convertibles)
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="6" name="waste" type="checkbox" value="6">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-6">
+          Venture capital funds
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="7" name="waste" type="checkbox" value="6">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-6">
+          Energy / Infrastructure / Real Estate Funds (UKEIREFs)
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="8" name="waste" type="checkbox" value="6">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-6">
+          Private Equity / Venture Capital
+        </label>
+      </div>
+
+    </fieldset>
+  </div>
+
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend">
+        <strong>Minimum return rate</strong>
+      </legend>
+      <div class="govuk-radios">
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="where-do-you-live-1" name="where-do-you-live" type="radio" value="england">
+          <label class="govuk-label govuk-radios__label" for="where-do-you-live-1">
+            Up to 5% IRR
+          </label>
+        </div>
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="where-do-you-live-2" name="where-do-you-live" type="radio" value="scotland">
+          <label class="govuk-label govuk-radios__label" for="where-do-you-live-2">
+            5-10%
+          </label>
+        </div>
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="where-do-you-live-3" name="where-do-you-live" type="radio" value="wales">
+          <label class="govuk-label govuk-radios__label" for="where-do-you-live-3">
+            10-15%
+          </label>
+        </div>
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="where-do-you-live-4" name="where-do-you-live" type="radio" value="northern-ireland">
+          <label class="govuk-label govuk-radios__label" for="where-do-you-live-4">
+            15%
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="govuk-form-group">
+
+    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+
+      <legend class="govuk-fieldset__legend">
+        <strong>Time horizon / tenor</strong>
+      </legend>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-1" name="waste" type="checkbox" value="1">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-1">
+          Up to 5 years
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-2" name="waste" type="checkbox" value="2">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-2">
+          5-9 years
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="3">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+          10-14 years
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-4" name="waste" type="checkbox" value="4">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-4">
+          15 years +
+        </label>
+      </div>
+
+    </fieldset>
+  </div>
+
+  <div class="govuk-form-group">
+
+    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+
+      <legend class="govuk-fieldset__legend">
+        <strong>Restrictions / conditions</strong>
+      </legend>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-1" name="waste" type="checkbox" value="1">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-1">
+          Liquidity / Exchange Listing
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-2" name="waste" type="checkbox" value="2">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-2">
+          Inflation Adjustment
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="3">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+          Require FX Hedge
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-4" name="waste" type="checkbox" value="4">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-4">
+          Require Board Seat
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="3">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+          Require Linked Technology / Knowledge Transfer
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-4" name="waste" type="checkbox" value="4">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-4">
+          Will participate in competitive bids / auctions
+        </label>
+      </div>
+
+    </fieldset>
+  </div>
+
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+
+      <legend class="govuk-fieldset__legend">
+        <strong>Project stages considered</strong>
+      </legend>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-1" name="waste" type="checkbox" value="1">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-1">
+          Greenfield (construction risk)
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-2" name="waste" type="checkbox" value="2">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-2">
+          Brownfield (some construction risk)
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="3">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+          Operational (no construction risk)
+        </label>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend">
+        <strong>Minimum equity percentage</strong>
+      </legend>
+      <div class="govuk-radios">
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="where-do-you-live-1" name="where-do-you-live" type="radio" value="england">
+          <label class="govuk-label govuk-radios__label" for="where-do-you-live-1">
+            0% - Not required
+          </label>
+        </div>
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="where-do-you-live-2" name="where-do-you-live" type="radio" value="scotland">
+          <label class="govuk-label govuk-radios__label" for="where-do-you-live-2">
+            1-19%
+          </label>
+        </div>
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="where-do-you-live-3" name="where-do-you-live" type="radio" value="wales">
+          <label class="govuk-label govuk-radios__label" for="where-do-you-live-3">
+            20-49%
+          </label>
+        </div>
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="where-do-you-live-4" name="where-do-you-live" type="radio" value="northern-ireland">
+          <label class="govuk-label govuk-radios__label" for="where-do-you-live-4">
+            50% +
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset" aria-describedby="waste-hint">
+
+      <legend class="govuk-fieldset__legend">
+        <strong>Desired deal role</strong>
+      </legend>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-1" name="waste" type="checkbox" value="1">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-1">
+          Lead manager / deal structure
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-2" name="waste" type="checkbox" value="2">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-2">
+          Co-lead Manager
+        </label>
+      </div>
+
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="3">
+        <label class="govuk-label govuk-checkboxes__label" for="waste-3">
+          Co-investor / Syndicate member
+        </label>
+      </div>
+    </fieldset>
+  </div>
 
   <div class="save-and-edit">
     <button type="submit" class="govuk-button">Save</button>

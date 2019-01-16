@@ -12,11 +12,10 @@
   .expand-all {
     display: flex;
     justify-content: flex-end;
-    padding-bottom: 10px;
+    margin-bottom: -50px;
   }
 
   .sections {
-    border-top: 2px solid lightgray;
     display: flex;
     flex-direction: column;
     details {
@@ -26,6 +25,9 @@
       .govuk-details__text {
         select {
           width: 100%;
+        }
+        .client-requirements {
+          margin-top: 40px;
         }
       }
 

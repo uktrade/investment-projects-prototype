@@ -18,3 +18,13 @@
   outline: none !important;
   background: none !important;
 }
+
+@media (min-width: 40.0625em) {
+  .js-enabled .govuk-tabs__panel {
+    padding-right: 0;
+    padding-left: 0;
+    border: none;
+    padding-top: 0;
+    border-top: 0;
+  }
+}

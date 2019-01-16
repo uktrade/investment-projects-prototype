@@ -44,6 +44,13 @@ nav {
   justify-content: flex-end;
 }
 
+.govuk-checkboxes {
+  display: flex;
+  .right {
+    margin-left: 100px;
+  }
+}
+
 // Task list pattern
 
 .app-task-list {

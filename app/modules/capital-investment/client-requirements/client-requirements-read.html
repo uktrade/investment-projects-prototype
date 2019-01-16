@@ -1,6 +1,18 @@
+{% from "appTaskListItems.njk" import appTaskListItemRequired %}
+
 <form method="post" class="edit-button-form" action="{{ paths.capitalInvestment.investorOpportunityClientRequirements }}">
   <input type="text" type="text" name="edit" value="true" style="display: none" />
   <button type="submit" class="govuk-button">Edit</button>
 </form>
 
-<h6>Client requirements read</h6>
+<ul class="app-task-list__items">
+  {{ appTaskListItemRequired('Deal ticket size', undefined) }}
+  {{ appTaskListItemRequired('Assets classes of interest', undefined) }}
+  {{ appTaskListItemRequired('Type(s) of investment', undefined) }}
+  {{ appTaskListItemRequired('Minimum return rate', undefined) }}
+  {{ appTaskListItemRequired('Time horizon / tenor', undefined) }}
+  {{ appTaskListItemRequired('Restrictions / conditions', undefined) }}
+  {{ appTaskListItemRequired('Project stages considered', undefined) }}
+  {{ appTaskListItemRequired('Minimum equity percentage', undefined) }}
+  {{ appTaskListItemRequired('Desired deal role', undefined) }}
+</ul>

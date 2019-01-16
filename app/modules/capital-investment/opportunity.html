@@ -25,7 +25,7 @@ New Project
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full address">
       <h1 class="govuk-heading-l heading">{{ fields.project.company }}</h1>
-      <p>3 Sheldon Square, Paddington, London, W2 6PX</p>
+      <p>Reception: 3rd floor, 5650 Yonge Street, Toronto, Ontario M2M 4H5</p>
       <span class="badge">European HQ</span>
     </div>
   </div>
@@ -42,33 +42,58 @@ New Project
         <a id="expand-all" href="javascript:void(0);">Expand all</a>
       </div>
 
-      <div class="sections">
+      <div class="govuk-tabs" data-module="tabs">
 
-        {% call details('Investor details', fields.investorDetails) -%}
-          {% if fields.investorDetails.edit === 'true' %}
-            {% include "investor-details-edit.html" %}
-          {% else %}
-            {% include "investor-details-read.html" %}
-          {% endif %}
-        {%- endcall %}
+        <ul class="govuk-tabs__list">
+          <li class="govuk-tabs__list-item">
+            <a class="govuk-tabs__tab govuk-tabs__tab--selected" href="#large-capital">
+              Large capital
+            </a>
+          </li>
+          <li class="govuk-tabs__list-item">
+            <a class="govuk-tabs__tab" href="#growth-capital">
+              Growth capital
+            </a>
+          </li>
+        </ul>
 
-        {% call details('Client requirements', fields.clientRequirements) -%}
-          {% if fields.clientRequirements.edit === 'true' %}
-            {% include "client-requirements-edit.html" %}
-          {% else %}
-            {% include "client-requirements-read.html" %}
-          {% endif %}
-        {%- endcall %}
+        <section class="govuk-tabs__panel" id="large-capital">
 
-        {% call details('Location', fields.location) -%}
-          {% if fields.location.edit === 'true' %}
-            {% include "location-edit.html" %}
-          {% else %}
-            {% include "location-read.html" %}
-          {% endif %}
-        {%- endcall %}
+          <div class="sections">
+
+            {% call details('Investor details', fields.investorDetails) -%}
+              {% if fields.investorDetails.edit === 'true' %}
+                {% include "investor-details-edit.html" %}
+              {% else %}
+                {% include "investor-details-read.html" %}
+              {% endif %}
+            {%- endcall %}
+
+            {% call details('Client requirements', fields.clientRequirements) -%}
+              {% if fields.clientRequirements.edit === 'true' %}
+                {% include "client-requirements-edit.html" %}
+              {% else %}
+                {% include "client-requirements-read.html" %}
+              {% endif %}
+            {%- endcall %}
+
+            {% call details('Location', fields.location) -%}
+              {% if fields.location.edit === 'true' %}
+                {% include "location-edit.html" %}
+              {% else %}
+                {% include "location-read.html" %}
+              {% endif %}
+            {%- endcall %}
+
+          </div>
+        </section>
+
+        <section class="govuk-tabs__panel" id="growth-capital">
+          <h2 class="govuk-heading-l">Growth capital</h2>
+        </section>
 
       </div>
+
     </div>
   </div>
 </div>
