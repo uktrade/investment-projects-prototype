@@ -14,12 +14,12 @@ Create project
     <ul>
       <li><a href="/">Home</span></a></li>
       <li><a href="/investment-projects">Investment projects</a></li>
-      <li><span>Create project</span></li>
+      <li><span>Create a Capital investor profile</span></li>
     </ul>
   </nav>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <h1>Create a project</h1>
+      <h1>Create a Capital investor profile</h1>
 
       <form class="govuk-!-padding-top-5" method="post" action="{{ paths.capitalInvestment.createProject }}">
 
@@ -32,7 +32,7 @@ Create project
 
         <!-- accessible-autocomplete -->
         <div class="govuk-form-group">
-          <label class="govuk-label" for="company">Investor / entity name</label>
+          <label class="govuk-label" for="company">Investor name</label>
           <span class="govuk-hint">Search for the company, individual or other entity name</span>
           <div id="company-container"></div>
         </div>
@@ -43,7 +43,7 @@ Create project
             name: "sizeOfOpportunity",
             fieldset: {
               legend: {
-                text: "Opportunity type",
+                text: "Investor type",
                 isPageHeading: false
               }
             },

@@ -9,7 +9,7 @@
   </li>
 {% endmacro %}
 
-{% macro appTaskListItemRequired(title, field) %}
+{% macro appTaskListItemIncomplete(title, field) %}
 <li class="app-task-list__item">
   <span class="app-task-list__task-name" aria-describedby="read-declaration-completed">
     {{ title }}
@@ -19,7 +19,7 @@
       {{ field }}
     </span>
   {% else %}
-    <strong class="govuk-tag app-task-list__task-completed" id="read-declaration-completed">REQUIRED</strong>
+    <strong class="govuk-tag app-task-list__task-completed" id="read-declaration-completed">INCOMPLETE</strong>
   {% endif %}
 </li>
 {% endmacro %}
@@ -56,7 +56,7 @@
 {% elif backgroundChecks === 'false' %}
   <span class="app-task-list__task-completed">No</span>
 {% else %}
-  <strong class="govuk-tag app-task-list__task-completed" id="read-declaration-completed">REQUIRED</strong>
+  <strong class="govuk-tag app-task-list__task-completed" id="read-declaration-completed">INCOMPLETE</strong>
 {% endif %}
 </li>
 {% endmacro %}

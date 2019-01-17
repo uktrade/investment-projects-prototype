@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const { filter } = require('lodash');
-
 const managers = require('app/data/client-relationship-managers');
 const countries = require('app/data/countries');
 const ukLocations = require('app/data/uk-locations');
@@ -12,52 +10,46 @@ const clients = require('app/data/clients');
 const advisers = require('app/data/referral-source-advisers');
 const assetClasses = require('app/data/asset-classes');
 
+const { filter } = require('lodash');
+
+const filterResults = (req, list, field) => {
+  const searchTerm = req.query.term;
+  return filter(list, item => {
+    let str = field ? item[field] : item;
+    return str.toLowerCase().includes(searchTerm.toLowerCase())
+  });
+};
+
 router.get('/api/countries',(req, res) => {
-  const searchTerm = req.query.term.toLowerCase();
-  const searchResults = filter(countries, (country) => country.toLowerCase().includes(searchTerm));
-  res.send(searchResults);
+  res.send(filterResults(req, countries));
 });
 
 router.get('/api/uk-locations',(req, res) => {
-  const searchTerm = req.query.term.toLowerCase();
-  const searchResults = filter(ukLocations, (ukLocation) => ukLocation.toLowerCase().includes(searchTerm));
-  res.send(searchResults);
-});
-
-router.get('/api/companies',(req, res) => {
-  const searchTerm = req.query.term.toLowerCase();
-  const searchResults = filter(companies, (company) => company.name.toLowerCase().includes(searchTerm));
-  res.send(searchResults);
-});
-
-router.get('/api/contacts',(req, res) => {
-  const searchTerm = req.query.term.toLowerCase();
-  const searchResults = filter(contacts, (contact) => contact.name.toLowerCase().includes(searchTerm));
-  res.send(searchResults);
-});
-
-router.get('/api/clients',(req, res) => {
-  const searchTerm = req.query.term.toLowerCase();
-  const searchResults = filter(clients, (client) => client.name.toLowerCase().includes(searchTerm));
-  res.send(searchResults);
-});
-
-router.get('/api/client-relationship-managers',(req, res) => {
-  const searchTerm = req.query.term.toLowerCase();
-  const searchResults = filter(managers, (manager) => manager.name.toLowerCase().includes(searchTerm));
-  res.send(searchResults);
-});
-
-router.get('/api/referral-source-adviser',(req, res) => {
-  const searchTerm = req.query.term.toLowerCase();
-  const searchResults = filter(advisers, (adviser) => adviser.name.toLowerCase().includes(searchTerm));
-  res.send(searchResults);
+  res.send(filterResults(req, ukLocations));
 });
 
 router.get('/api/asset-classes-of-interest',(req, res) => {
-  const searchTerm = req.query.term.toLowerCase();
-  const searchResults = filter(assetClasses, (assetClass) => assetClass.toLowerCase().includes(searchTerm));
-  res.send(searchResults);
+  res.send(filterResults(req, assetClasses));
+});
+
+router.get('/api/companies',(req, res) => {
+  res.send(filterResults(req, companies, 'name'));
+});
+
+router.get('/api/contacts',(req, res) => {
+  res.send(filterResults(req, contacts, 'name'));
+});
+
+router.get('/api/clients',(req, res) => {
+  res.send(filterResults(req, clients, 'name'));
+});
+
+router.get('/api/client-relationship-managers',(req, res) => {
+  res.send(filterResults(req, managers, 'name'));
+});
+
+router.get('/api/referral-source-adviser',(req, res) => {
+  res.send(filterResults(req, advisers, 'name'));
 });
 
 module.exports = router;

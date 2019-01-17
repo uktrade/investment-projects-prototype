@@ -5,11 +5,11 @@
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">{{ summaryText }}</span>
     <div class="edit-button-container">
-      {% if field.requiredFieldsCount === 0 %}
+      {% if field.incompleteFieldsCount === 0 %}
       <i class="fas fa-check"></i>
       <span class="complete">Complete</span>
       {% else  %}
-      <span>{{ singularOrPlural(field.requiredFieldsCount, 'field') }} required</span>
+      <span>{{ singularOrPlural(field.incompleteFieldsCount, 'field') }} incomplete</span>
       {% endif %}
     </div>
   </summary>

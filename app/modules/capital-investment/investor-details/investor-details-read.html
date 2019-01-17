@@ -1,4 +1,4 @@
-{% from "appTaskListItems.njk" import appTaskListItem, appTaskListItemRequired, backgroundChecks %}
+{% from "appTaskListItems.njk" import appTaskListItem, appTaskListItemIncomplete, backgroundChecks %}
 
 <form method="post" class="edit-button-form" action="{{ paths.capitalInvestment.investorOpportunityDetails }}">
   <input type="text" type="text" name="edit" value="true" style="display: none" />
@@ -11,11 +11,11 @@
 
   {{ appTaskListItem('Investor / entity name', fields.project.company ) }}
 
-  {{ appTaskListItemRequired('Investor type', fields.investorDetails.investorType) }}
+  {{ appTaskListItemIncomplete('Investor type', fields.investorDetails.investorType) }}
 
-  {{ appTaskListItemRequired('Assets under management/investable capital', fields.investorDetails.assetsUnderManagement) }}
+  {{ appTaskListItemIncomplete('Assets under management/investable capital', fields.investorDetails.assetsUnderManagement) }}
 
-  {{ appTaskListItemRequired('Overall relationship health', fields.investorDetails.overallRelationshipHealth) }}
+  {{ appTaskListItemIncomplete('Overall relationship health', fields.investorDetails.overallRelationshipHealth) }}
 
   {{
      backgroundChecks(
@@ -26,16 +26,16 @@
        fields.investorDetails.backgroundChecksPerson)
   }}
 
-  {{ appTaskListItemRequired('Opportunity description', fields.investorDetails.description) }}
+  {{ appTaskListItemIncomplete('Investor description', fields.investorDetails.description) }}
 
-  {{ appTaskListItemRequired('Client contact', fields.investorDetails.clientContact) }}
+  {{ appTaskListItemIncomplete('Client contact', fields.investorDetails.clientContact) }}
 
-  {{ appTaskListItemRequired('Client relationship manager', fields.investorDetails.clientRelationshipManager) }}
+  {{ appTaskListItemIncomplete('Client relationship manager', fields.investorDetails.clientRelationshipManager) }}
 
-  {{ appTaskListItemRequired('Referral source adviser', fields.investorDetails.referralSourceAdviser) }}
+  {{ appTaskListItemIncomplete('Referral source adviser', fields.investorDetails.referralSourceAdviser) }}
 
-  {{ appTaskListItemRequired('Referral source activity', fields.investorDetails.referralSourceActivity) }}
+  {{ appTaskListItemIncomplete('Referral source activity', fields.investorDetails.referralSourceActivity) }}
 
-  {{ appTaskListItemRequired('Specific Investment Programme', fields.investorDetails.specificInvestmentProgramme) }}
+  {{ appTaskListItemIncomplete('Specific Investment Programme', fields.investorDetails.specificInvestmentProgramme) }}
 
 </ul>

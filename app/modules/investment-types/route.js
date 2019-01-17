@@ -17,12 +17,12 @@ const investTypes = [
     text: "Commitment to invest"
   },
   {
-    value: "ci-investor-opportunity",
-    text: "CI Investor Opportunity"
+    value: "cip",
+    text: "Capital investor profile"
   },
   {
     value: "ci",
-    text: "UK Investment Need (Project or Portfolio)"
+    text: "UK Investment Opportunity (Project or Portfolio)"
   }
 ];
 
@@ -49,10 +49,10 @@ router.post(investmentTypes, (req, res) => {
       },
     });
   } else {
-    if(investmentType === 'ci-investor-opportunity') {
+    if(investmentType === 'cip') {
       res.redirect(capitalInvestment.createProject);
     } else {
-      throw new Error('This has not been implemented yet! Go back and try \`CI Investor Opportunity\` instead.');
+      throw new Error('This has not been implemented yet! Go back and try \`Capital investor profile\` instead.');
     }
   }
 });

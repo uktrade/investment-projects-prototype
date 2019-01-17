@@ -1,4 +1,4 @@
-{% from "appTaskListItems.njk" import appTaskListItemRequired %}
+{% from "appTaskListItems.njk" import appTaskListItemIncomplete %}
 
 <form method="post" class="edit-button-form" action="{{ paths.capitalInvestment.investorOpportunityClientRequirements }}">
   <input type="text" type="text" name="edit" value="true" style="display: none" />
@@ -6,13 +6,13 @@
 </form>
 
 <ul class="app-task-list__items">
-  {{ appTaskListItemRequired('Deal ticket size', undefined) }}
-  {{ appTaskListItemRequired('Assets classes of interest', undefined) }}
-  {{ appTaskListItemRequired('Type(s) of investment', undefined) }}
-  {{ appTaskListItemRequired('Minimum return rate', undefined) }}
-  {{ appTaskListItemRequired('Time horizon / tenor', undefined) }}
-  {{ appTaskListItemRequired('Restrictions / conditions', undefined) }}
-  {{ appTaskListItemRequired('Project stages considered', undefined) }}
-  {{ appTaskListItemRequired('Minimum equity percentage', undefined) }}
-  {{ appTaskListItemRequired('Desired deal role', undefined) }}
+  {{ appTaskListItemIncomplete('Deal ticket size', undefined) }}
+  {{ appTaskListItemIncomplete('Assets classes of interest', undefined) }}
+  {{ appTaskListItemIncomplete('Type(s) of investment', undefined) }}
+  {{ appTaskListItemIncomplete('Minimum return rate', undefined) }}
+  {{ appTaskListItemIncomplete('Time horizon / tenor', undefined) }}
+  {{ appTaskListItemIncomplete('Restrictions / conditions', undefined) }}
+  {{ appTaskListItemIncomplete('Project stages considered', undefined) }}
+  {{ appTaskListItemIncomplete('Minimum equity percentage', undefined) }}
+  {{ appTaskListItemIncomplete('Desired deal role', undefined) }}
 </ul>

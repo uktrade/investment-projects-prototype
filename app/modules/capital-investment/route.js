@@ -8,7 +8,7 @@ const { capitalInvestment } = require('app/paths');
 
 const router = express.Router();
 
-const fieldsRequired = {
+const incompleteFieldsCount = {
   INVESTOR_DETAILS: 10,
   CLIENT_REQUIREMENTS: 9,
   LOCATION: 2
@@ -16,7 +16,7 @@ const fieldsRequired = {
 
 const excludedKeys = [
   'edit',
-  'requiredFieldsCount',
+  'incompleteFieldsCount',
   'backgroundChecksDay',
   'backgroundChecksMonth',
   'backgroundChecksYear',
@@ -59,13 +59,13 @@ router.post(capitalInvestment.createProject, (req, res) => {
   req.session.ci = {
     project: { ...req.body },
     investorDetails: {
-      requiredFieldsCount: fieldsRequired.INVESTOR_DETAILS
+      incompleteFieldsCount: incompleteFieldsCount.INVESTOR_DETAILS
     },
     clientRequirements: {
-      requiredFieldsCount: fieldsRequired.CLIENT_REQUIREMENTS
+      incompleteFieldsCount: incompleteFieldsCount.CLIENT_REQUIREMENTS
     },
     location: {
-      requiredFieldsCount: fieldsRequired.LOCATION
+      incompleteFieldsCount: incompleteFieldsCount.LOCATION
     }
   };
 
@@ -104,9 +104,9 @@ router.post(capitalInvestment.investorOpportunityDetails, (req, res) => {
     delete investorDetails.backgroundChecksPerson;
   }
 
-  // Determine the number of required fields the user is yet to complete.
+  // Determine the number of incomplete fields the user is yet to complete.
   const valueKeys = getValueKeys(investorDetails);
-  investorDetails.requiredFieldsCount = fieldsRequired.INVESTOR_DETAILS - valueKeys.length;
+  investorDetails.incompleteFieldsCount = incompleteFieldsCount.INVESTOR_DETAILS - valueKeys.length;
 
   if(investorDetails.edit === 'true') {
     // Create a fields object for the page.
@@ -161,9 +161,9 @@ router.post(capitalInvestment.investorOpportunityLocation, (req, res) => {
   // Reference the session location object.
   let location = req.session.ci.location;
 
-  // Determine the number of required fields the user is yet to complete.
+  // Determine the number of incomplete fields the user is yet to complete.
   const valueKeys = getValueKeys(location);
-  location.requiredFieldsCount = fieldsRequired.LOCATION - valueKeys.length;
+  location.incompleteFieldsCount = incompleteFieldsCount.LOCATION - valueKeys.length;
 
   if(location.edit === 'true') {
     // Create a fields object for the page.
