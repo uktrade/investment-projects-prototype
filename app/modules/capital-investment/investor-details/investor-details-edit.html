@@ -42,7 +42,7 @@
       },
       id: "assetsUnderManagement",
       name: "assetsUnderManagement",
-      value: fields.investorDetails.assetsUnderManagement
+      value: fields.investorDetails.assetsUnderManagement.value
     })
   }}
 
@@ -77,7 +77,7 @@
               type="radio"
               value="{{ true }}"
               data-aria-controls="conditional-background-checks-true"
-              {{ "checked" if fields.investorDetails.backgroundChecks === 'true' }}
+              {{ "checked" if fields.investorDetails.backgroundChecks.value === 'true' }}
           >
           <label class="govuk-label govuk-radios__label" for="background-checks-true">
             Yes
@@ -108,7 +108,7 @@
                         name="backgroundChecksDay"
                         type="number"
                         pattern="[0-9]*"
-                        value="{{ fields.investorDetails.backgroundChecksDay }}"
+                        value="{{ fields.investorDetails.backgroundChecks.day }}"
                     >
                   </div>
                 </div>
@@ -123,7 +123,7 @@
                         name="backgroundChecksMonth"
                         type="number"
                         pattern="[0-9]*"
-                        value="{{ fields.investorDetails.backgroundChecksMonth }}"
+                        value="{{ fields.investorDetails.backgroundChecks.month }}"
                     >
                   </div>
                 </div>
@@ -138,7 +138,7 @@
                         name="backgroundChecksYear"
                         type="number"
                         pattern="[0-9]*"
-                        value="{{ fields.investorDetails.backgroundChecksYear }}"
+                        value="{{ fields.investorDetails.backgroundChecks.year }}"
                     >
                   </div>
                 </div>
@@ -148,7 +148,7 @@
             <!-- accessible-autocomplete -->
             <div class="govuk-form-group govuk-!-padding-top-4">
               <label class="govuk-label" for="background-checks-person">Person responsible for most recent checks</label>
-              <div id="background-checks-person" data-background-checks-person="{{ fields.investorDetails.backgroundChecksPerson }}"></div>
+              <div id="background-checks-person" data-background-checks-person="{{ fields.investorDetails.backgroundChecks.person }}"></div>
             </div>
 
           </div>
@@ -161,7 +161,7 @@
               name="backgroundChecks"
               type="radio"
               value="{{ false }}"
-              {{ "checked" if fields.investorDetails.backgroundChecks === 'false' }}
+              {{ "checked" if fields.investorDetails.backgroundChecks.value === 'false' }}
           >
           <label class="govuk-label govuk-radios__label">
             No
@@ -178,26 +178,26 @@
       label: {
         text: "Investor description"
       },
-      value: fields.investorDetails.description
+      value: fields.investorDetails.description.value
     })
   }}
 
   <!-- accessible-autocomplete -->
   <div class="govuk-form-group">
     <label class="govuk-label" for="clients-contact">Client contact</label>
-    <div id="clients-contact" data-client-contact="{{ fields.investorDetails.clientContact }}"></div>
+    <div id="clients-contact" data-client-contact="{{ fields.investorDetails.clientContact.value }}"></div>
   </div>
 
   <!-- accessible-autocomplete -->
   <div class="govuk-form-group">
     <label class="govuk-label" for="client-relationship-manager">Client relationship manager</label>
-    <div id="client-relationship-manager" data-client-relationship-manager="{{ fields.investorDetails.clientRelationshipManager }}"></div>
+    <div id="client-relationship-manager" data-client-relationship-manager="{{ fields.investorDetails.clientRelationshipManager.value }}"></div>
   </div>
 
   <!-- accessible-autocomplete -->
   <div class="govuk-form-group">
     <label class="govuk-label" for="referral-source-adviser">Referral source adviser</label>
-    <div id="referral-source-adviser" data-referral-source-adviser="{{ fields.investorDetails.referralSourceAdviser }}"></div>
+    <div id="referral-source-adviser" data-referral-source-adviser="{{ fields.investorDetails.referralSourceAdviser.value }}"></div>
   </div>
 
   {{

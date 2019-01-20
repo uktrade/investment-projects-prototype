@@ -1,4 +1,4 @@
-{% from "appTaskListItems.njk" import appTaskListItem, appTaskListItemIncomplete, backgroundChecks %}
+{% from "appTaskListItems.njk" import appTaskListItemIncomplete, backgroundChecks %}
 
 <form method="post" class="edit-button-form" action="{{ paths.capitalInvestment.investorOpportunityDetails }}">
   <input type="text" type="text" name="edit" value="true" style="display: none" />
@@ -7,35 +7,35 @@
 
 <ul class="app-task-list__items">
 
-  {{ appTaskListItem('Country of origin', fields.project.country ) }}
+  {{ appTaskListItemIncomplete('Country of origin', fields.project.country ) }}
 
-  {{ appTaskListItem('Investor / entity name', fields.project.company ) }}
+  {{ appTaskListItemIncomplete('Investor / entity name', fields.project.company ) }}
 
-  {{ appTaskListItemIncomplete('Investor type', fields.investorDetails.investorType) }}
+  {{ appTaskListItemIncomplete('Investor type', fields.investorDetails.investorType.value) }}
 
-  {{ appTaskListItemIncomplete('Assets under management/investable capital', fields.investorDetails.assetsUnderManagement) }}
+  {{ appTaskListItemIncomplete('Assets under management/investable capital', fields.investorDetails.assetsUnderManagement.value) }}
 
-  {{ appTaskListItemIncomplete('Overall relationship health', fields.investorDetails.overallRelationshipHealth) }}
+  {{ appTaskListItemIncomplete('Overall relationship health', fields.investorDetails.overallRelationshipHealth.value) }}
 
   {{
      backgroundChecks(
-       fields.investorDetails.backgroundChecks,
-       fields.investorDetails.backgroundChecksDay,
-       fields.investorDetails.backgroundChecksMonth,
-       fields.investorDetails.backgroundChecksYear,
-       fields.investorDetails.backgroundChecksPerson)
+       fields.investorDetails.backgroundChecks.value,
+       fields.investorDetails.backgroundChecks.day,
+       fields.investorDetails.backgroundChecks.month,
+       fields.investorDetails.backgroundChecks.year,
+       fields.investorDetails.backgroundChecks.person)
   }}
 
-  {{ appTaskListItemIncomplete('Investor description', fields.investorDetails.description) }}
+  {{ appTaskListItemIncomplete('Investor description', fields.investorDetails.description.value) }}
 
-  {{ appTaskListItemIncomplete('Client contact', fields.investorDetails.clientContact) }}
+  {{ appTaskListItemIncomplete('Client contact', fields.investorDetails.clientContact.value) }}
 
-  {{ appTaskListItemIncomplete('Client relationship manager', fields.investorDetails.clientRelationshipManager) }}
+  {{ appTaskListItemIncomplete('Client relationship manager', fields.investorDetails.clientRelationshipManager.value) }}
 
-  {{ appTaskListItemIncomplete('Referral source adviser', fields.investorDetails.referralSourceAdviser) }}
+  {{ appTaskListItemIncomplete('Referral source adviser', fields.investorDetails.referralSourceAdviser.value) }}
 
-  {{ appTaskListItemIncomplete('Referral source activity', fields.investorDetails.referralSourceActivity) }}
+  {{ appTaskListItemIncomplete('Referral source activity', fields.investorDetails.referralSourceActivity.value) }}
 
-  {{ appTaskListItemIncomplete('Specific Investment Programme', fields.investorDetails.specificInvestmentProgramme) }}
+  {{ appTaskListItemIncomplete('Specific Investment Programme', fields.investorDetails.specificInvestmentProgramme.value) }}
 
 </ul>

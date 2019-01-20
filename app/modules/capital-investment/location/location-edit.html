@@ -4,13 +4,13 @@
   <!-- accessible-autocomplete -->
   <div class="govuk-form-group">
     <label class="govuk-label" for="uk-location">Possible UK locations for this investment</label>
-    <div id="uk-location" data-uk-location="{{ fields.location.ukLocation }}"></div>
+    <div id="uk-location" data-uk-location="{{ fields.location.ukLocation.value }}"></div>
   </div>
 
   <!-- accessible-autocomplete -->
   <div class="govuk-form-group">
     <label class="govuk-label" for="country">Other countries the client is considering</label>
-    <div id="country" data-country="{{ fields.location.country }}"></div>
+    <div id="country" data-country="{{ fields.location.country.value }}"></div>
   </div>
 
   <div class="save-and-edit">

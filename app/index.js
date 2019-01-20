@@ -39,7 +39,9 @@ nunjucks.configure([
 ], {
   autoescape: true,
   express: app,
-});
+})
+.addGlobal('isArray', value => Array.isArray(value))
+.addGlobal('isString', value => typeof value === 'string');
 
 app.set('view engine', 'html');
 app.use(bodyParser.json());

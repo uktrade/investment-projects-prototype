@@ -6,13 +6,13 @@
 </form>
 
 <ul class="app-task-list__items">
-  {{ appTaskListItemIncomplete('Deal ticket size', undefined) }}
-  {{ appTaskListItemIncomplete('Assets classes of interest', undefined) }}
-  {{ appTaskListItemIncomplete('Type(s) of investment', undefined) }}
-  {{ appTaskListItemIncomplete('Minimum return rate', undefined) }}
-  {{ appTaskListItemIncomplete('Time horizon / tenor', undefined) }}
-  {{ appTaskListItemIncomplete('Restrictions / conditions', undefined) }}
-  {{ appTaskListItemIncomplete('Project stages considered', undefined) }}
-  {{ appTaskListItemIncomplete('Minimum equity percentage', undefined) }}
-  {{ appTaskListItemIncomplete('Desired deal role', undefined) }}
+  {{ appTaskListItemIncomplete( 'Deal ticket size', fields.clientRequirements.dealTicketSize.valueLabels) }}
+  {{ appTaskListItemIncomplete('Assets classes of interest', fields.clientRequirements.assetClassesOfInterest.value) }}
+  {{ appTaskListItemIncomplete('Type(s) of investment', fields.clientRequirements.typesOfInvestment.valueLabels) }}
+  {{ appTaskListItemIncomplete('Minimum return rate', fields.clientRequirements.minimumRateOfReturn.valueLabels) }}
+  {{ appTaskListItemIncomplete('Time horizon / tenor', fields.clientRequirements.timeHorizonTenure.valueLabels) }}
+  {{ appTaskListItemIncomplete('Restrictions / conditions', fields.clientRequirements.restrictionsConditions.valueLabels) }}
+  {{ appTaskListItemIncomplete('Project stages considered', fields.clientRequirements.projectStagesConsidered.valueLabels) }}
+  {{ appTaskListItemIncomplete('Minimum equity percentage', fields.clientRequirements.minimumEquityPercentage.valueLabels) }}
+  {{ appTaskListItemIncomplete('Desired deal role', fields.clientRequirements.desiredDealRole.valueLabels) }}
 </ul>

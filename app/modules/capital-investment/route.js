@@ -3,35 +3,19 @@ const investorTypes = require('app/data/investorTypes');
 const referralSourceActivity = require('app/data/referral-source-activity');
 const specificInvestmentProgramme = require('app/data/specific-investment-programme');
 const overallRelationshipHealth = require('app/data/overallRelationshipHealth');
+const investorDetails = require('app/modules/capital-investment/investor-details/fields');
+const clientRequirements = require('app/modules/capital-investment/client-requirements/fields');
+const location = require('app/modules/capital-investment/location/fields');
 const countries = require('app/data/countries');
 const { capitalInvestment } = require('app/paths');
+const { isObject } = require('app/utils/checks');
 
 const router = express.Router();
 
 const incompleteFieldsCount = {
-  INVESTOR_DETAILS: 10,
-  CLIENT_REQUIREMENTS: 9,
-  LOCATION: 2
-};
-
-const excludedKeys = [
-  'edit',
-  'incompleteFieldsCount',
-  'backgroundChecksDay',
-  'backgroundChecksMonth',
-  'backgroundChecksYear',
-  'backgroundChecksPerson',
-];
-
-const getValueKeys = (obj) => {
-  return Object.keys(obj).filter(key => {
-    for (let i = 0; i < excludedKeys.length; i++) {
-      if (key === excludedKeys[i]) {
-        return false;
-      }
-    }
-    return obj[key] !== '';
-  });
+  INVESTOR_DETAILS: investorDetails.incompleteFieldsCount,
+  CLIENT_REQUIREMENTS: clientRequirements.incompleteFieldsCount,
+  LOCATION: location.incompleteFieldsCount,
 };
 
 const selectItem = (items, item, selectionType) => {
@@ -45,10 +29,45 @@ const selectItem = (items, item, selectionType) => {
 };
 
 const selectInvestorDetailsFields = (investorDetails) => {
-  selectItem(investorTypes, investorDetails.investorType, 'selected');
-  selectItem(referralSourceActivity, investorDetails.referralSourceActivity, 'selected');
-  selectItem(specificInvestmentProgramme, investorDetails.specificInvestmentProgramme, 'selected');
-  selectItem(overallRelationshipHealth, investorDetails.overallRelationshipHealth, 'checked');
+  selectItem(investorTypes, investorDetails.investorType.value, 'selected');
+  selectItem(referralSourceActivity, investorDetails.referralSourceActivity.value, 'selected');
+  selectItem(specificInvestmentProgramme, investorDetails.specificInvestmentProgramme.value, 'selected');
+  selectItem(overallRelationshipHealth, investorDetails.overallRelationshipHealth.value, 'checked');
+};
+
+const getValueLabels = (value, options) => {
+  if(!value) {
+    return value;
+  }
+
+  let valueLabels = [];
+
+  let values = [];
+  if(typeof value === 'string') {
+    values.push(value);
+  } else if (Array.isArray(value)) {
+    values = value;
+  }
+
+  values.forEach(function(value) {
+    options.forEach(function(option) {
+      if(value === option.value) {
+        valueLabels.push(option.label);
+      }
+    });
+  });
+
+  return valueLabels;
+};
+
+const setValueLabels = (obj, field) => {
+  obj[field].valueLabels = getValueLabels(obj[field].value, obj[field].options);
+};
+
+const getValueKeys = (obj) => {
+  return Object.keys(obj).filter(key => {
+    return isObject(obj[key]) && obj[key].value
+  });
 };
 
 router.get(capitalInvestment.createProject, (req, res) => {
@@ -58,15 +77,9 @@ router.get(capitalInvestment.createProject, (req, res) => {
 router.post(capitalInvestment.createProject, (req, res) => {
   req.session.ci = {
     project: { ...req.body },
-    investorDetails: {
-      incompleteFieldsCount: incompleteFieldsCount.INVESTOR_DETAILS
-    },
-    clientRequirements: {
-      incompleteFieldsCount: incompleteFieldsCount.CLIENT_REQUIREMENTS
-    },
-    location: {
-      incompleteFieldsCount: incompleteFieldsCount.LOCATION
-    }
+    investorDetails,
+    clientRequirements,
+    location
   };
 
   if(req.session.ci.project.sizeOfOpportunity === 'largeCapital') {
@@ -83,6 +96,7 @@ router.get(capitalInvestment.investorOpportunity, (req, res) => {
   req.session.ci.location.edit = false;
 
   const fields = { ...req.session.ci };
+
   res.render('opportunity', {
     fields
   });
@@ -90,32 +104,17 @@ router.get(capitalInvestment.investorOpportunity, (req, res) => {
 
 // CI Investor Opportunity - Investor Details (Edit & Save)
 router.post(capitalInvestment.investorOpportunityDetails, (req, res) => {
-  // Merge the POST into the session investorDetails object.
-  req.session.ci.investorDetails = { ...req.session.ci.investorDetails, ...req.body };
 
-  // Reference the session investorDetails object.
-  let investorDetails = req.session.ci.investorDetails;
+  const investorDetails = req.session.ci.investorDetails;
 
-  // Cleanup the background checks as they may have been set previously.
-  if(investorDetails.backgroundChecks === 'false') {
-    delete investorDetails.backgroundChecksDay;
-    delete investorDetails.backgroundChecksMonth;
-    delete investorDetails.backgroundChecksYear;
-    delete investorDetails.backgroundChecksPerson;
-  }
-
-  // Determine the number of incomplete fields the user is yet to complete.
-  const valueKeys = getValueKeys(investorDetails);
-  investorDetails.incompleteFieldsCount = incompleteFieldsCount.INVESTOR_DETAILS - valueKeys.length;
+  // Update the session
+  investorDetails.edit = req.body.edit;
 
   if(investorDetails.edit === 'true') {
-    // Create a fields object for the page.
-    const fields = { ...req.session.ci };
-
     // As we're editing we need to set any controls they were previously set by the user.
     selectInvestorDetailsFields(investorDetails);
 
-    // Render the opportunity page including the form data and fields.
+    const fields = { ...req.session.ci };
     res.render('opportunity', {
       investorTypes,
       overallRelationshipHealth,
@@ -123,31 +122,72 @@ router.post(capitalInvestment.investorOpportunityDetails, (req, res) => {
       specificInvestmentProgramme,
       fields
     });
-  } else {
-    // User wishes to save their changes.
+  } else if (investorDetails.edit === 'false') {
+    investorDetails.investorType.value = req.body.investorType;
+    investorDetails.assetsUnderManagement.value = req.body.assetsUnderManagement;
+    investorDetails.overallRelationshipHealth.value = req.body.overallRelationshipHealth;
+    investorDetails.backgroundChecks.value = req.body.backgroundChecks;
+
+    const hasBackgroundChecks = investorDetails.backgroundChecks.value === 'true';
+    investorDetails.backgroundChecks.day = hasBackgroundChecks ? req.body.backgroundChecksDay : null;
+    investorDetails.backgroundChecks.month = hasBackgroundChecks ? req.body.backgroundChecksMonth : null;
+    investorDetails.backgroundChecks.year = hasBackgroundChecks ? req.body.backgroundChecksYear : null;
+    investorDetails.backgroundChecks.person = hasBackgroundChecks ? req.body.backgroundChecksPerson : null;
+
+    investorDetails.description.value = req.body.description;
+    investorDetails.clientContact.value = req.body.clientContact;
+    investorDetails.clientRelationshipManager.value = req.body.clientRelationshipManager;
+    investorDetails.referralSourceAdviser.value = req.body.referralSourceAdviser;
+    investorDetails.referralSourceActivity.value = req.body.referralSourceActivity;
+    investorDetails.specificInvestmentProgramme.value = req.body.specificInvestmentProgramme;
+
+    // Determine the number of incomplete fields.
+    const valueKeys = getValueKeys(investorDetails);
+    investorDetails.incompleteFieldsCount = incompleteFieldsCount.INVESTOR_DETAILS - valueKeys.length;
+
     res.redirect(capitalInvestment.investorOpportunity);
   }
+
 });
 
 // CI Investor Opportunity - Client Requirements (Edit & Save)
 router.post(capitalInvestment.investorOpportunityClientRequirements, (req, res) => {
+  const clientRequirements = req.session.ci.clientRequirements;
 
-  // Merge the POST into the session investorDetails object.
-  req.session.ci.clientRequirements = { ...req.session.ci.clientRequirements, ...req.body };
-
-  // Reference the session clientRequirements object.
-  let clientRequirements = req.session.ci.clientRequirements;
+  // Update the session
+  clientRequirements.edit = req.body.edit;
 
   if(clientRequirements.edit === 'true') {
-    // Create a fields object for the page.
     const fields = { ...req.session.ci };
-
-    // Render the opportunity page including the form data and fields.
     res.render('opportunity', {
       fields
     });
-  } else {
-    // User wishes to save their changes.
+  } else if (clientRequirements.edit === 'false') {
+    clientRequirements.dealTicketSize.value = req.body.dealTicketSize;
+    clientRequirements.assetClassesOfInterest.value = req.body.assetClassesOfInterest;
+    clientRequirements.typesOfInvestment.value = req.body.typesOfInvestment;
+    clientRequirements.minimumRateOfReturn.value = req.body.minimumRateOfReturn;
+    clientRequirements.timeHorizonTenure.value = req.body.timeHorizonTenure;
+    clientRequirements.restrictionsConditions.value = req.body.restrictionsConditions;
+    clientRequirements.projectStagesConsidered.value = req.body.projectStagesConsidered;
+    clientRequirements.minimumEquityPercentage.value = req.body.minimumEquityPercentage;
+    clientRequirements.desiredDealRole.value = req.body.desiredDealRole;
+
+    // Map the values from the post to their corresponding display labels.
+    setValueLabels(clientRequirements, 'dealTicketSize');
+    setValueLabels(clientRequirements, 'typesOfInvestment');
+    setValueLabels(clientRequirements, 'minimumRateOfReturn');
+    setValueLabels(clientRequirements, 'timeHorizonTenure');
+    setValueLabels(clientRequirements, 'restrictionsConditions');
+    setValueLabels(clientRequirements, 'projectStagesConsidered');
+    setValueLabels(clientRequirements, 'minimumEquityPercentage');
+    setValueLabels(clientRequirements, 'desiredDealRole');
+
+    // Determine the number of incomplete fields.
+    const valueKeys = getValueKeys(clientRequirements);
+    clientRequirements.incompleteFieldsCount = incompleteFieldsCount.CLIENT_REQUIREMENTS - valueKeys.length;
+
+    // Redirect
     res.redirect(capitalInvestment.investorOpportunity);
   }
 });
@@ -155,26 +195,24 @@ router.post(capitalInvestment.investorOpportunityClientRequirements, (req, res) 
 // CI Investor Opportunity - Location (Edit & Save)
 router.post(capitalInvestment.investorOpportunityLocation, (req, res) => {
 
-  // Merge the POST into the session location object.
-  req.session.ci.location = { ...req.session.ci.location, ...req.body };
+  const location = req.session.ci.location;
 
-  // Reference the session location object.
-  let location = req.session.ci.location;
-
-  // Determine the number of incomplete fields the user is yet to complete.
-  const valueKeys = getValueKeys(location);
-  location.incompleteFieldsCount = incompleteFieldsCount.LOCATION - valueKeys.length;
+  // Update the session
+  location.edit = req.body.edit;
 
   if(location.edit === 'true') {
-    // Create a fields object for the page.
     const fields = { ...req.session.ci };
-
-    // Render the opportunity page including the form data and fields.
     res.render('opportunity', {
       fields
     });
-  } else {
-    // User wishes to save their changes.
+  } else if (location.edit === 'false') {
+    location.ukLocation.value = req.body.ukLocation;
+    location.country.value = req.body.country;
+
+    // Determine the number of incomplete fields.
+    const valueKeys = getValueKeys(location);
+    location.incompleteFieldsCount = incompleteFieldsCount.LOCATION - valueKeys.length;
+
     res.redirect(capitalInvestment.investorOpportunity);
   }
 });

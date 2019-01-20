@@ -1,0 +1,56 @@
+{
+  "dealTicketSize": [
+    { "label": "Up to £10 million", "value": "upToTenMill" },
+    { "label": "£10-49 million", "value": "tenToFortyNineMill" },
+    { "label": "£50-99 million", "value": "fiftyToNinetyNineMill" },
+    { "label": "£100-240 million", "value": "oneHundredToTwoFortyMill" },
+    { "label": "£250-499 million", "value": "twoFiftyToFourNineNineMill" },
+    { "label": "£500+ million", "value": "fiveHundredMillPlus" }
+  ],
+  "typesOfInvestment": [
+    { "label": "Direct Investment in Project Equity", "value": "directInvestmentProjectEquity" },
+    { "label": "Direct Investment in Project Debt", "value": "directInvestmentProjectDebt" },
+    { "label": "Direct Investment in Corporate Equity", "value": "directInvestmentCorporateEquity" },
+    { "label": "Direct Investment in Corporate Debt", "value": "directInvestmentCorporateDebt" },
+    { "label": "Mezzanine Debt (incl. preferred shares, convertibles)", "value": "mezzanineDebt" },
+    { "label": "Venture capital funds", "value": "ventureCapitalFunds" },
+    { "label": "Energy / Infrastructure / Real Estate Funds (UKEIREFs)", "value": "energyInfrastructure" },
+    { "label": "Private Equity / Venture Capital", "value": "privateEquity" }
+  ],
+  "minimumRateOfReturn": [
+    { "label": "Up to 5% IRR", "value": "upTo5PercentIRR" },
+    { "label": "5-10%", "value": "fiveToTenPercent" },
+    { "label": "10-15%", "value": "tenToFifteenPercent" },
+    { "label": "15%", "value": "fifteenPercent" }
+  ],
+  "timeHorizonTenure": [
+    { "label": "Up to 5 years", "value": "upTo5Years" },
+    { "label": "5-9 years", "value": "fiveToNineYears" },
+    { "label": "10-14 years", "value": "tenToFourteenYears" },
+    { "label": "15 years +", "value": "fifteenYearsPlus" }
+  ],
+  "restrictionsConditions": [
+    { "label": " Liquidity / Exchange Listing", "value": "liquidityExchangeListing" },
+    { "label": "Inflation Adjustment", "value": "inflationAdjustment" },
+    { "label": "Require FX Hedge", "value": "requireFXHedge" },
+    { "label": "Require Board Seat", "value": "requireBoardSeat" },
+    { "label": "Require Linked Technology / Knowledge Transfer", "value": "requireLinkedTech" },
+    { "label": " Will participate in competitive bids / auctions", "value": "willParticipateInCompBids" }
+  ],
+  "projectStagesConsidered": [
+    { "label": "Greenfield (construction risk)", "value": "greenfield" },
+    { "label": "Brownfield (some construction risk)", "value": "brownfield" },
+    { "label": "Operational (no construction risk)", "value": "operational" }
+  ],
+  "minimumEquityPercentage": [
+    { "label": "0% - Not required", "value": "zeroPercentToNotRequired" },
+    { "label": "1-19%", "value": "oneToNineteenPercent" },
+    { "label": "20-49%", "value": "twentyToFortyNinePercent" },
+    { "label": "50% +", "value": "fiftyPercentPlus" }
+  ],
+  "desiredDealRole": [
+    { "label": "Lead manager / deal structure", "value": "leadManagerDealStructure" },
+    { "label": "Co-lead Manager", "value": "coLeadManager" },
+    { "label": "Co-investor / Syndicate member", "value": "coInvestorSyndicateMember" }
+  ]
+}

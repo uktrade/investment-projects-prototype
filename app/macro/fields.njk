@@ -1,0 +1,77 @@
+{% macro checkBoxes(field, question, options={}) %}
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset" aria-describedby="some-hint">
+      <legend class="govuk-fieldset__legend">
+        <strong>{{ question }}</strong>
+      </legend>
+      {% for option in options -%}
+        {{ checkBox(field, option) }}
+      {%- endfor %}
+    </fieldset>
+  </div>
+{% endmacro %}
+
+{% macro checkBox(field, options={}) %}
+  {% set option_value = options.value or options.label|lower %}
+  {% set option_disabled = options.disabled or false %}
+  <div class="govuk-checkboxes__item">
+    <input
+       class="govuk-checkboxes__input"
+       type="checkbox"
+       id="{{ field.id }}-{{ option_value }}"
+       name="{{ field.id }}"
+       {% if isArray(field.value) and option_value in field.value %}
+       checked="checked"
+       {% endif %}
+       {% if field.value == option_value %}
+       checked="checked"
+       {% endif %}
+       {% if option_disabled %}
+       disabled
+       {% endif %}
+       value="{{ option_value }}">
+    <label for="{{ field.id }}-{{ option_value }}" class="govuk-label govuk-checkboxes__label">
+      {{ options.label }}
+    </label>
+  </div>
+{% endmacro %}
+
+{% macro radioButtons(field, question, options={}) %}
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset" aria-describedby="some-hint">
+      <legend class="govuk-fieldset__legend">
+        <strong>{{ question }}</strong>
+      </legend>
+      <div class="govuk-radios">
+      {% for option in options -%}
+        {{ radioButton(field, option) }}
+      {%- endfor %}
+      </div>
+    </fieldset>
+  </div>
+{% endmacro %}
+
+{% macro radioButton(field, options={}) %}
+  {% set option_value = options.value or options.label|lower %}
+  {% set option_disabled = options.disabled or false %}
+  <div class="govuk-radios__item">
+    <input
+        class="govuk-radios__input"
+        type="radio"
+        id="{{ field.id }}-{{ option_value }}"
+        name="{{ field.id }}"
+        {% if isArray(field.value) and option_value in field.value %}
+          checked="checked"
+        {% endif %}
+        {% if field.value == option_value %}
+          checked="checked"
+        {% endif %}
+        {% if option_disabled %}
+          disabled
+        {% endif %}
+        value="{{ option_value }}">
+    <label class="govuk-label govuk-radios__label" for="{{ field.id }}-{{ option_value }}">
+      {{ options.label }}
+    </label>
+  </div>
+{% endmacro %}
