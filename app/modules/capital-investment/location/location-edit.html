@@ -9,6 +9,17 @@
     <div id="uk-location" data-uk-location="{{ fields.location.ukLocation.value }}"></div>
   </div>
 
+  {{
+    govukTextarea({
+      name: "ukLocationNotes",
+      id: "ukLocationNotes",
+      label: {
+        text: "Notes on specific UK locations"
+      },
+      value: fields.location.ukLocationNotes.value
+    })
+  }}
+
   <!-- accessible-autocomplete -->
   <div class="govuk-form-group">
     <label class="govuk-label" for="country">Other countries the client is considering</label>

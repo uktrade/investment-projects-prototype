@@ -207,6 +207,7 @@ router.post(capitalInvestment.investorOpportunityLocation, (req, res) => {
     });
   } else if (location.edit === 'false') {
     location.ukLocation.value = req.body.ukLocation;
+    location.ukLocationNotes.value = req.body.ukLocationNotes;
     location.country.value = req.body.country;
 
     // Determine the number of incomplete fields.
