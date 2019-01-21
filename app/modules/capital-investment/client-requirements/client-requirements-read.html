@@ -1,18 +1,16 @@
-{% from "appTaskListItems.njk" import appTaskListItemIncomplete %}
-
-<form method="post" class="edit-button-form" action="{{ paths.capitalInvestment.investorOpportunityClientRequirements }}">
-  <input type="text" type="text" name="edit" value="true" style="display: none" />
-  <button type="submit" class="govuk-button">Edit</button>
-</form>
+{% from "appTaskListItems.njk" import appTaskListItem %}
+{% from "snippets.njk" import editForm %}
 
 <ul class="app-task-list__items">
-  {{ appTaskListItemIncomplete( 'Deal ticket size', fields.clientRequirements.dealTicketSize.valueLabels) }}
-  {{ appTaskListItemIncomplete('Assets classes of interest', fields.clientRequirements.assetClassesOfInterest.value) }}
-  {{ appTaskListItemIncomplete('Type(s) of investment', fields.clientRequirements.typesOfInvestment.valueLabels) }}
-  {{ appTaskListItemIncomplete('Minimum return rate', fields.clientRequirements.minimumRateOfReturn.valueLabels) }}
-  {{ appTaskListItemIncomplete('Time horizon / tenor', fields.clientRequirements.timeHorizonTenure.valueLabels) }}
-  {{ appTaskListItemIncomplete('Restrictions / conditions', fields.clientRequirements.restrictionsConditions.valueLabels) }}
-  {{ appTaskListItemIncomplete('Project stages considered', fields.clientRequirements.projectStagesConsidered.valueLabels) }}
-  {{ appTaskListItemIncomplete('Minimum equity percentage', fields.clientRequirements.minimumEquityPercentage.valueLabels) }}
-  {{ appTaskListItemIncomplete('Desired deal role', fields.clientRequirements.desiredDealRole.valueLabels) }}
+  {{ appTaskListItem( 'Deal ticket size', fields.clientRequirements.dealTicketSize.valueLabels) }}
+  {{ appTaskListItem('Assets classes of interest', fields.clientRequirements.assetClassesOfInterest.value) }}
+  {{ appTaskListItem('Type(s) of investment', fields.clientRequirements.typesOfInvestment.valueLabels) }}
+  {{ appTaskListItem('Minimum return rate', fields.clientRequirements.minimumRateOfReturn.valueLabels) }}
+  {{ appTaskListItem('Time horizon / tenor', fields.clientRequirements.timeHorizonTenure.valueLabels) }}
+  {{ appTaskListItem('Restrictions / conditions', fields.clientRequirements.restrictionsConditions.valueLabels) }}
+  {{ appTaskListItem('Project stages considered', fields.clientRequirements.projectStagesConsidered.valueLabels) }}
+  {{ appTaskListItem('Minimum equity percentage', fields.clientRequirements.minimumEquityPercentage.valueLabels) }}
+  {{ appTaskListItem('Desired deal role', fields.clientRequirements.desiredDealRole.valueLabels) }}
 </ul>
+
+{{ editForm(paths.capitalInvestment.investorOpportunityClientRequirements) }}

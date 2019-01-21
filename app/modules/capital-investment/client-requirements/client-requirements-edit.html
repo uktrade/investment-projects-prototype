@@ -1,7 +1,8 @@
 {% from "checkboxes/macro.njk" import govukCheckboxes %}
-{% from "fields.njk" import checkBox, checkBoxes, radioButtons %}
+{% from "fields.njk" import checkBoxes, radioButtons %}
+{% from "snippets.njk" import saveOrCancel %}
 
-<form method="post" class="client-requirements" action="{{ paths.capitalInvestment.investorOpportunityClientRequirements }}">
+<form method="post" action="{{ paths.capitalInvestment.investorOpportunityClientRequirements }}">
   <input type="text" type="text" name="edit" value="false" style="display: none" />
 
   {{
@@ -76,8 +77,6 @@
     )
   }}
 
-  <div class="save-and-edit">
-    <button type="submit" class="govuk-button">Save</button>
-    <a id="expand-all" href="{{ paths.capitalInvestment.investorOpportunity }}">Cancel</a>
-  </div>
+  {{ saveOrCancel(paths.capitalInvestment.investorOpportunity) }}
+
 </form>

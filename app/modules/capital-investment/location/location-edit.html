@@ -1,3 +1,5 @@
+{% from "snippets.njk" import saveOrCancel %}
+
 <form method="post" action="{{ paths.capitalInvestment.investorOpportunityLocation }}">
   <input type="text" type="text" name="edit" value="false" style="display: none" />
 
@@ -13,8 +15,6 @@
     <div id="country" data-country="{{ fields.location.country.value }}"></div>
   </div>
 
-  <div class="save-and-edit">
-    <button type="submit" class="govuk-button">Save</button>
-    <a id="expand-all" href="{{ paths.capitalInvestment.investorOpportunity }}">Cancel</a>
-  </div>
+  {{ saveOrCancel(paths.capitalInvestment.investorOpportunity) }}
+
 </form>

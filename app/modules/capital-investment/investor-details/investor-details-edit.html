@@ -1,6 +1,7 @@
 {% from "select/macro.njk" import govukSelect %}
 {% from "input/macro.njk" import govukInput %}
 {% from "radios/macro.njk" import govukRadios %}
+{% from "snippets.njk" import saveOrCancel %}
 
 <form method="post" action="{{ paths.capitalInvestment.investorOpportunityDetails }}">
   <input type="text" type="text" name="edit" value="false" style="display: none" />
@@ -222,8 +223,6 @@
       })
   }}
 
-  <div class="save-and-edit">
-    <button type="submit" class="govuk-button">Save</button>
-    <a id="expand-all" href="{{ paths.capitalInvestment.investorOpportunity }}">Cancel</a>
-  </div>
+  {{ saveOrCancel(paths.capitalInvestment.investorOpportunity) }}
+
 </form>

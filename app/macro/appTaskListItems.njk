@@ -1,4 +1,4 @@
-{% macro appTaskListItemIncomplete(title, field) %}
+{% macro appTaskListItem(title, field) %}
   <li class="app-task-list__item {{ "item-complete" if field }}">
     <span class="app-task-list__task-name" aria-describedby="todo-set-this-in-the-field">
       {{ title }}
@@ -19,14 +19,12 @@
   </li>
 {% endmacro %}
 
-{% macro backgroundChecks(backgroundChecks, day, month, year, backgroundChecksPerson) %}
-<li class="app-task-list__item {{ "item-complete" if backgroundChecks === 'true' }}">
-
+{% macro bgChecksListItem(title, backgroundChecks) %}
+<li class="app-task-list__item {{ "item-complete" if backgroundChecks.value === 'true' }} background-checks">
   <span class="app-task-list__task-name" aria-describedby="read-declaration-completed">
-    Have background checks been conducted?
+    {{ title }}
   </span>
-
-  {% if backgroundChecks === 'true' %}
+  {% if backgroundChecks.value === 'true' %}
     <span class="app-task-list__task-completed">
       Yes
     </span>
@@ -36,9 +34,9 @@
             <strong>Date of most recent checks</strong>
           </span>
           <span class="app-task-list__task-completed">
-            {{ day }}
-            {{ month }}
-            {{ year }}
+            {{ backgroundChecks.day }}
+            {{ backgroundChecks.month }}
+            {{ backgroundChecks.year }}
           </span>
       </li>
       <li class="app-task-list__item item-complete">
@@ -46,11 +44,11 @@
             <strong>Person responsible for most recent checks</strong>
           </span>
           <span class="app-task-list__task-completed">
-            {{ backgroundChecksPerson }}
+            {{ backgroundChecks.person }}
           </span>
       </li>
     </ul>
-  {% elif backgroundChecks === 'false' %}
+  {% elif backgroundChecks.value === 'false' %}
     <span class="app-task-list__task-completed">No</span>
   {% else %}
     <strong class="govuk-tag app-task-list__task-completed" id="read-declaration-completed">INCOMPLETE</strong>

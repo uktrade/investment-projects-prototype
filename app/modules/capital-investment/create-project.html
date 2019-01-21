@@ -1,6 +1,7 @@
 {% extends "base.njk" %}
 
 {% from "radios/macro.njk" import govukRadios %}
+{% from "snippets.njk" import saveOrCancel %}
 
 {% block pageTitle %}
 Create project
@@ -60,10 +61,8 @@ Create project
           })
         }}
 
-        <div class="save-and-edit">
-          <button type="submit" class="govuk-button">Save</button>
-          <a href="{{ paths.investmentProjects }}">Cancel</a>
-        </div>
+        {{ saveOrCancel(paths.investmentProjects) }}
+
       </form>
     </div>
   </div>

@@ -1,0 +1,20 @@
+{% macro editForm(action) %}
+<form method="post" class="edit-form-button" action="{{ action }}">
+  <input type="text" type="text" name="edit" value="true" style="display: none" />
+  <button type="submit" class="govuk-button">Edit</button>
+</form>
+{% endmacro %}
+
+{% macro saveOrCancel(href) %}
+  <div class="save-or-cancel">
+    <button type="submit" class="govuk-button">Save</button>
+    <a href="{{ href }}">Cancel</a>
+  </div>
+{% endmacro %}
+
+{% macro continueOrCancel(href) %}
+  <div class="continue-or-cancel">
+    <button type="submit" class="govuk-button">Continue</button>
+    <a href="{{ href }}">Cancel</a>
+  </div>
+{% endmacro %}

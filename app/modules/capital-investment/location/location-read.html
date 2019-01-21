@@ -1,12 +1,9 @@
-{% from "appTaskListItems.njk" import appTaskListItemIncomplete %}
-
-<form method="post" class="edit-button-form" action="{{ paths.capitalInvestment.investorOpportunityLocation }}">
-  <input type="text" type="text" name="edit" value="true" style="display: none" />
-  <button type="submit" class="govuk-button">Edit</button>
-</form>
+{% from "appTaskListItems.njk" import appTaskListItem %}
+{% from "snippets.njk" import editForm %}
 
 <ul class="app-task-list__items">
-  {{ appTaskListItemIncomplete('Possible UK locations for this investment', fields.location.ukLocation.value) }}
-  {{ appTaskListItemIncomplete('Other countries the client is considering', fields.location.country.value) }}
+  {{ appTaskListItem('Possible UK locations for this investment', fields.location.ukLocation.value) }}
+  {{ appTaskListItem('Other countries the client is considering', fields.location.country.value) }}
 </ul>
 
+{{ editForm(paths.capitalInvestment.investorOpportunityLocation) }}

@@ -18,27 +18,15 @@
   .sections {
     display: flex;
     flex-direction: column;
+
     details {
       border-bottom: 2px solid lightgray;
       margin: 25px 0 0 0;
       padding: 0 0 20px 0;
       .govuk-details__text {
+        margin-top: 20px;
         select {
           width: 100%;
-        }
-        .client-requirements {
-          margin-top: 40px;
-        }
-      }
-
-      .save-and-edit {
-        display: flex;
-        align-items: center;
-        button {
-          margin-left: 0;
-        }
-        a {
-          margin-left: 20px;
         }
       }
     }
@@ -56,10 +44,6 @@
         padding-left: 10px;
       }
     }
-  }
-
-  #large-capital > div > details:nth-child(2) > div > form > div:nth-child(3) > div > label {
-    font-weight: bold;
   }
 
   .heading {
@@ -80,62 +64,5 @@
 
   .address {
     margin-bottom: 20px;
-  }
-}
-
-// GOV UK overrides
-
-.ci-investor-opportunity {
-
-  .govuk-button {
-    margin-bottom: 0;
-    margin-left: 10px;;
-  }
-
-  .govuk-details__text {
-    border-left: none;
-    padding-left: 0;
-    padding-top: 0;
-  }
-
-  .govuk-details__summary {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 35px;
-  }
-
-  .govuk-details__summary-text {
-    font-size: 25px;
-  }
-
-  .govuk-details__summary:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    margin: auto;
-    display: block;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-color: transparent;
-    -webkit-clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
-    clip-path: polygon(0% 0%, 100% 50%, 0% 100%);
-    border-width: 10px 0 10px 15px;
-    border-left-color: inherit;
-  }
-
-  .govuk-details[open] > .govuk-details__summary:before {
-    display: block;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-color: transparent;
-    -webkit-clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
-    clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
-    border-width: 15px 10px 0 10px;
-    border-top-color: inherit;
   }
 }

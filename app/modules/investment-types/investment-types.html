@@ -2,6 +2,7 @@
 
 {% from "radios/macro.njk" import govukRadios %}
 {% from "error-summary/macro.njk" import govukErrorSummary %}
+{% from "snippets.njk" import continueOrCancel %}
 
 {% block pageTitle %}
 Investment Types
@@ -29,9 +30,10 @@ Investment Types
       }}
     {% endif %}
 
-
     <div class="govuk-grid-column-two-thirds">
+
       <form class="govuk-!-padding-top-5" method="post" action="/investment-types">
+
         {{
           govukRadios({
             idPrefix: "investmentType",
@@ -50,10 +52,9 @@ Investment Types
             items: investmentTypes
           })
         }}
-        <div class="save-and-edit">
-          <button type="submit" class="govuk-button">Continue</button>
-          <a href="{{ paths.investmentProjects }}">Cancel</a>
-        </div>
+
+        {{ continueOrCancel(paths.investmentProjects) }}
+
       </form>
     </div>
   </div>
