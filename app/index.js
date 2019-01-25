@@ -7,6 +7,7 @@ const path = require('path');
 const locals = require('app/locals');
 const api = require('app/api');
 const routes = require('app/routes');
+const { isArray, isString, isObject, isEmpty, isUndefined } = require('lodash');
 const investmentTypesRoute = require('app/modules/investment-types/route');
 const ciInvestorOpportunity = require('app/modules/capital-investment/route');
 const session = require('app/session/session');
@@ -40,8 +41,11 @@ nunjucks.configure([
   autoescape: true,
   express: app,
 })
-.addGlobal('isArray', value => Array.isArray(value))
-.addGlobal('isString', value => typeof value === 'string');
+.addGlobal('isArray',  value => isArray(value))
+.addGlobal('isString', value => isString(value))
+.addGlobal('isObject', value => isObject(value))
+.addGlobal('isEmpty',  value => isEmpty(value))
+.addGlobal('isUndefined',  value => isUndefined(value));
 
 app.set('view engine', 'html');
 app.use(bodyParser.json());

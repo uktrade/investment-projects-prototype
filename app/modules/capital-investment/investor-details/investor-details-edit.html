@@ -183,11 +183,16 @@
     })
   }}
 
-  <!-- accessible-autocomplete -->
+  {% for clientContact in fields.investorDetails.clientContacts.value %}
   <div class="govuk-form-group">
-    <label class="govuk-label" for="clients-contact">Client contact</label>
-    <div id="clients-contact" data-client-contact="{{ fields.investorDetails.clientContact.value }}"></div>
+    <label class="govuk-label" for="client-contact-{{ loop.index }}">Client contact {{ loop.index }}</label>
+    <div id="client-contact-{{ loop.index }}" data-client-contact{{loop.index}}="{{ clientContact.name }}"></div>
   </div>
+  {% endfor %}
+
+  <button type="button" class="govuk-button add-another">
+    Add another client contact
+  </button>
 
   <!-- accessible-autocomplete -->
   <div class="govuk-form-group">

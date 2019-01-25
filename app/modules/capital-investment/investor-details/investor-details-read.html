@@ -1,19 +1,24 @@
-{% from "appTaskListItems.njk" import appTaskListItem, bgChecksListItem %}
+{% from "appTaskListItems.njk" import liRenderer, liRendererBGChecks %}
 {% from "snippets.njk" import editForm %}
 
+{% set clientContacts = fields.investorDetails.clientContacts.value %}
+{% if isEmpty(clientContacts[0])  %}
+  {% set clientContacts = undefined %}
+{% endif %}
+
 <ul class="app-task-list__items">
-  {{ appTaskListItem('Country of origin', fields.project.country ) }}
-  {{ appTaskListItem('Investor / entity name', fields.project.company ) }}
-  {{ appTaskListItem('Investor type', fields.investorDetails.investorType.value) }}
-  {{ appTaskListItem('Assets under management/investable capital', fields.investorDetails.assetsUnderManagement.value) }}
-  {{ appTaskListItem('Overall relationship health', fields.investorDetails.overallRelationshipHealth.value) }}
-  {{ bgChecksListItem('Have background checks been conducted?', fields.investorDetails.backgroundChecks) }}
-  {{ appTaskListItem('Investor description', fields.investorDetails.description.value) }}
-  {{ appTaskListItem('Client contact', fields.investorDetails.clientContact.value) }}
-  {{ appTaskListItem('Client relationship manager', fields.investorDetails.clientRelationshipManager.value) }}
-  {{ appTaskListItem('Referral source adviser', fields.investorDetails.referralSourceAdviser.value) }}
-  {{ appTaskListItem('Referral source activity', fields.investorDetails.referralSourceActivity.value) }}
-  {{ appTaskListItem('Specific Investment Programme', fields.investorDetails.specificInvestmentProgramme.value) }}
+  {{ liRenderer('Country of origin', fields.project.country ) }}
+  {{ liRenderer('Investor / entity name', fields.project.company ) }}
+  {{ liRenderer('Investor type', fields.investorDetails.investorType.value) }}
+  {{ liRenderer('Assets under management/investable capital', fields.investorDetails.assetsUnderManagement.value) }}
+  {{ liRenderer('Overall relationship health', fields.investorDetails.overallRelationshipHealth.value) }}
+  {{ liRendererBGChecks('Have background checks been conducted?', fields.investorDetails.backgroundChecks) }}
+  {{ liRenderer('Investor description', fields.investorDetails.description.value) }}
+  {{ liRenderer('Client contact', clientContacts) }}
+  {{ liRenderer('Client relationship manager', fields.investorDetails.clientRelationshipManager.value) }}
+  {{ liRenderer('Referral source adviser', fields.investorDetails.referralSourceAdviser.value) }}
+  {{ liRenderer('Referral source activity', fields.investorDetails.referralSourceActivity.value) }}
+  {{ liRenderer('Specific Investment Programme', fields.investorDetails.specificInvestmentProgramme.value) }}
 </ul>
 
 {{ editForm(paths.capitalInvestment.investorOpportunityDetails) }}

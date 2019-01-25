@@ -1,26 +1,48 @@
-{% macro appTaskListItem(title, field) %}
-  <li class="app-task-list__item {{ "item-complete" if field }}">
-    <span class="app-task-list__task-name" aria-describedby="todo-set-this-in-the-field">
-      {{ title }}
-    </span>
-    {% if isArray(field) %}
-    <ul>
-      {% for label in field %}
-        <li>{{ label }}</li>
-      {% endfor %}
-    </ul>
-    {% elif field %}
-      <span class="app-task-list__task-completed">
-        {{ field }}
-      </span>
-    {% else %}
-      <strong class="govuk-tag app-task-list__task-completed" id="read-declaration-completed">INCOMPLETE</strong>
-    {% endif %}
+{% macro liRenderer(title, field) %}
+  {% if isEmpty(field) or isUndefined(field) %}
+    {{ createIncompleteListItem(title) }}
+  {% elif isString(field) %}
+    {{ createListItemFromString(title, field) }}
+  {% elif isArray(field) %}
+    {{ createListItemFromArray(title, field) }}
+  {% endif %}
+{% endmacro %}
+
+{% macro createIncompleteListItem(title) %}
+  <li class="app-task-list__item">
+  <span class="app-task-list__task-name" aria-describedby="todo-set-this-in-the-field">
+    {{ title }}
+  </span>
+    <strong class="govuk-tag app-task-list__task-completed" id="read-declaration-completed">INCOMPLETE</strong>
   </li>
 {% endmacro %}
 
-{% macro bgChecksListItem(title, backgroundChecks) %}
-<li class="app-task-list__item {{ "item-complete" if backgroundChecks.value === 'true' }} background-checks">
+{% macro createListItemFromString(title, str) %}
+<li class="app-task-list__item item-complete">
+  <span class="app-task-list__task-name" aria-describedby="todo-set-this-in-the-field">
+    {{ title }}
+  </span>
+  <span class="app-task-list__task-completed">
+    {{ str }}
+  </span>
+</li>
+{% endmacro %}
+
+{% macro createListItemFromArray(title, items) %}
+  <li class="app-task-list__item item-complete">
+  <span class="app-task-list__task-name" aria-describedby="todo-set-this-in-the-field">
+    {{ title }}
+  </span>
+    <ul>
+      {% for item in items %}
+        <li>{{ item.name or item }}</li>
+      {% endfor %}
+    </ul>
+  </li>
+{% endmacro %}
+
+{% macro liRendererBGChecks(title, backgroundChecks) %}
+<li class="app-task-list__item {{ "item-complete" if backgroundChecks.value }} background-checks">
   <span class="app-task-list__task-name" aria-describedby="read-declaration-completed">
     {{ title }}
   </span>
@@ -49,7 +71,9 @@
       </li>
     </ul>
   {% elif backgroundChecks.value === 'false' %}
-    <span class="app-task-list__task-completed">No</span>
+    <span class="app-task-list__task-completed">
+      No
+    </span>
   {% else %}
     <strong class="govuk-tag app-task-list__task-completed" id="read-declaration-completed">INCOMPLETE</strong>
   {% endif %}

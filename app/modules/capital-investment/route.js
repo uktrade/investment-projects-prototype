@@ -8,7 +8,7 @@ const clientRequirements = require('app/modules/capital-investment/client-requir
 const location = require('app/modules/capital-investment/location/fields');
 const countries = require('app/data/countries');
 const { capitalInvestment } = require('app/paths');
-const { isObject } = require('app/utils/checks');
+const { isObject } = require('lodash');
 
 const router = express.Router();
 
@@ -89,11 +89,20 @@ router.post(capitalInvestment.createProject, (req, res) => {
   }
 });
 
+const addClientContact = clientContacts => {
+  if(!clientContacts.value || !clientContacts.value.length) {
+    clientContacts.value = [{}];
+  }
+};
+
 // CI Investor Opportunity - Investor Details, Client Requirements and Location
 router.get(capitalInvestment.investorOpportunity, (req, res) => {
   req.session.ci.investorDetails.edit = false;
   req.session.ci.clientRequirements.edit = false;
   req.session.ci.location.edit = false;
+
+  // Display at least one client contact field.
+  addClientContact(req.session.ci.investorDetails.clientContacts);
 
   const fields = { ...req.session.ci };
 
@@ -113,7 +122,6 @@ router.post(capitalInvestment.investorOpportunityDetails, (req, res) => {
   if(investorDetails.edit === 'true') {
     // As we're editing we need to set any controls they were previously set by the user.
     selectInvestorDetailsFields(investorDetails);
-
     const fields = { ...req.session.ci };
     res.render('opportunity', {
       investorTypes,
@@ -133,9 +141,24 @@ router.post(capitalInvestment.investorOpportunityDetails, (req, res) => {
     investorDetails.backgroundChecks.month = hasBackgroundChecks ? req.body.backgroundChecksMonth : null;
     investorDetails.backgroundChecks.year = hasBackgroundChecks ? req.body.backgroundChecksYear : null;
     investorDetails.backgroundChecks.person = hasBackgroundChecks ? req.body.backgroundChecksPerson : null;
-
     investorDetails.description.value = req.body.description;
-    investorDetails.clientContact.value = req.body.clientContact;
+
+    investorDetails.clientContacts.value = [];
+    const keyCount = Object.keys(req.body).length;
+    for(let i = 0; i < keyCount; i++) {
+      const value = req.body[`clientContact${i+1}`];
+      if(value) {
+        investorDetails.clientContacts.value.push({ name: value });
+      }
+    }
+
+    // Display at least one client contact field.
+    addClientContact(investorDetails.clientContacts);
+
+    if(!investorDetails.clientContacts.value.length) {
+      investorDetails.clientContacts.value.push({});
+    }
+
     investorDetails.clientRelationshipManager.value = req.body.clientRelationshipManager;
     investorDetails.referralSourceAdviser.value = req.body.referralSourceAdviser;
     investorDetails.referralSourceActivity.value = req.body.referralSourceActivity;
@@ -147,7 +170,6 @@ router.post(capitalInvestment.investorOpportunityDetails, (req, res) => {
 
     res.redirect(capitalInvestment.investorOpportunity);
   }
-
 });
 
 // CI Investor Opportunity - Client Requirements (Edit & Save)

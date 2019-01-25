@@ -44,7 +44,7 @@ router.get('/api/clients',(req, res) => {
   res.send(filterResults(req, clients, 'name'));
 });
 
-router.get('/api/client-relationship-managers',(req, res) => {
+router.get('/api/client-relationship-manager',(req, res) => {
   res.send(filterResults(req, managers, 'name'));
 });
 

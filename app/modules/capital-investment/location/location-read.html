@@ -1,10 +1,10 @@
-{% from "appTaskListItems.njk" import appTaskListItem %}
+{% from "appTaskListItems.njk" import liRenderer %}
 {% from "snippets.njk" import editForm %}
 
 <ul class="app-task-list__items">
-  {{ appTaskListItem('Possible UK locations for this investment', fields.location.ukLocation.value) }}
-  {{ appTaskListItem('Notes on specific UK locations', fields.location.ukLocationNotes.value) }}
-  {{ appTaskListItem('Other countries the client is considering', fields.location.country.value) }}
+  {{ liRenderer('Possible UK locations for this investment', fields.location.ukLocation.value) }}
+  {{ liRenderer('Notes on specific UK locations', fields.location.ukLocationNotes.value) }}
+  {{ liRenderer('Other countries the client is considering', fields.location.country.value) }}
 </ul>
 
 {{ editForm(paths.capitalInvestment.investorOpportunityLocation) }}

@@ -1,16 +1,16 @@
-{% from "appTaskListItems.njk" import appTaskListItem %}
+{% from "appTaskListItems.njk" import liRenderer %}
 {% from "snippets.njk" import editForm %}
 
 <ul class="app-task-list__items">
-  {{ appTaskListItem( 'Deal ticket size', fields.clientRequirements.dealTicketSize.valueLabels) }}
-  {{ appTaskListItem('Assets classes of interest', fields.clientRequirements.assetClassesOfInterest.value) }}
-  {{ appTaskListItem('Type(s) of investment', fields.clientRequirements.typesOfInvestment.valueLabels) }}
-  {{ appTaskListItem('Minimum return rate', fields.clientRequirements.minimumRateOfReturn.valueLabels) }}
-  {{ appTaskListItem('Time horizon / tenor', fields.clientRequirements.timeHorizonTenure.valueLabels) }}
-  {{ appTaskListItem('Restrictions / conditions', fields.clientRequirements.restrictionsConditions.valueLabels) }}
-  {{ appTaskListItem('Project stages considered', fields.clientRequirements.projectStagesConsidered.valueLabels) }}
-  {{ appTaskListItem('Minimum equity percentage', fields.clientRequirements.minimumEquityPercentage.valueLabels) }}
-  {{ appTaskListItem('Desired deal role', fields.clientRequirements.desiredDealRole.valueLabels) }}
+  {{ liRenderer( 'Deal ticket size', fields.clientRequirements.dealTicketSize.valueLabels) }}
+  {{ liRenderer('Assets classes of interest', fields.clientRequirements.assetClassesOfInterest.value) }}
+  {{ liRenderer('Type(s) of investment', fields.clientRequirements.typesOfInvestment.valueLabels) }}
+  {{ liRenderer('Minimum return rate', fields.clientRequirements.minimumRateOfReturn.valueLabels) }}
+  {{ liRenderer('Time horizon / tenor', fields.clientRequirements.timeHorizonTenure.valueLabels) }}
+  {{ liRenderer('Restrictions / conditions', fields.clientRequirements.restrictionsConditions.valueLabels) }}
+  {{ liRenderer('Project stages considered', fields.clientRequirements.projectStagesConsidered.valueLabels) }}
+  {{ liRenderer('Minimum equity percentage', fields.clientRequirements.minimumEquityPercentage.valueLabels) }}
+  {{ liRenderer('Desired deal role', fields.clientRequirements.desiredDealRole.valueLabels) }}
 </ul>
 
 {{ editForm(paths.capitalInvestment.investorOpportunityClientRequirements) }}

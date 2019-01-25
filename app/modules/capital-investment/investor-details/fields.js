@@ -18,7 +18,7 @@ const fields = {
   description: {
     id: 'description'
   },
-  clientContact: {
+  clientContacts: {
     id: 'clientContact'
   },
   clientRelationshipManager: {
