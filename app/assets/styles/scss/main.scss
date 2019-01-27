@@ -63,6 +63,32 @@ nav {
   padding-top: 20px;
 }
 
-.add-another {
+.add-another-client {
   background-color: #949896;
 }
+
+.auto-complete-delete {
+  position: relative;
+  button {
+    display: none;
+    position: absolute;
+    top: 31px;
+    right: 0;
+    border: none;
+    padding-right: 0;
+    i {
+      font-size: 30px;
+      color: #005ea5;
+    }
+  }
+  &.show-delete-button {
+    > div {
+      width: calc(100% - 50px);
+    };
+    button {
+      display: block;
+    }
+  }
+}
+
+

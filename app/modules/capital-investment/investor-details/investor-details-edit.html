@@ -184,13 +184,16 @@
   }}
 
   {% for clientContact in fields.investorDetails.clientContacts.value %}
-  <div class="govuk-form-group">
-    <label class="govuk-label" for="client-contact-{{ loop.index }}">Client contact {{ loop.index }}</label>
+  <div class="govuk-form-group auto-complete-delete {{ 'show-delete-button' if fields.investorDetails.clientContacts.value.length > 1 }}">
+    <label class="govuk-label" for="client-contact-{{ loop.index }}">Client contact</label>
     <div id="client-contact-{{ loop.index }}" data-client-contact{{loop.index}}="{{ clientContact.name }}"></div>
+    <button class="client-contact-{{ loop.index }}" type="button">
+      <i class="fas fa-user-times"></i>
+    </button>
   </div>
   {% endfor %}
 
-  <button type="button" class="govuk-button add-another">
+  <button type="button" class="govuk-button add-another-client">
     Add another client contact
   </button>
 
