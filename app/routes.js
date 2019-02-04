@@ -2,7 +2,6 @@ const investorRequirementsRoute = require('app/modules/capital-investor-profile/
 const investorDetailsRoute = require('app/modules/capital-investor-profile/large-capital/investor-details/route');
 const investorProfileRoute = require('app/modules/capital-investor-profile/large-capital/investor-profile/route');
 const locationRoute = require('app/modules/capital-investor-profile/large-capital/location/route');
-const largeCapitalRoute = require('app/modules/capital-investor-profile/large-capital/investor-profile/route');
 const createProfile = require('app/modules/capital-investor-profile/create-profile/route');
 const investmentProjectsRoute = require('app/modules/investment-projects/route');
 const investmentTypesRoute = require('app/modules/investment-types/route');
@@ -20,12 +19,11 @@ router.get(root, (req, res) => {
 module.exports = (app) => {
   app.use(router);
   app.use(sessionsRoute);
-  app.use(investorDetailsRoute);
-  app.use(investorProfileRoute);
-  app.use(investorRequirementsRoute);
-  app.use(locationRoute);
-  app.use(largeCapitalRoute);
   app.use(createProfile);
+  app.use(locationRoute);
+  app.use(investorProfileRoute);
+  app.use(investorDetailsRoute);
   app.use(investmentTypesRoute);
   app.use(investmentProjectsRoute);
+  app.use(investorRequirementsRoute);
 };
