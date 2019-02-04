@@ -1,5 +1,6 @@
 @import "~govuk-frontend/all";
 @import "~accessible-autocomplete/src/autocomplete.css";
+@import "colours";
 @import "task-list-pattern";
 @import "govuk-overrides";
 @import "investment-projects";
@@ -44,8 +45,7 @@ nav {
   justify-content: flex-start;
 }
 
-.save-or-cancel,
-.continue-or-cancel {
+.submit-or-cancel {
   display: flex;
   align-items: baseline;
   button {
@@ -56,10 +56,8 @@ nav {
   }
 }
 
-.save-or-cancel,
-.edit-form-button,
-.continue-or-cancel
- {
+.submit-or-cancel,
+.edit-form-button {
   padding-top: 20px;
 }
 
@@ -78,7 +76,7 @@ nav {
     padding-right: 0;
     i {
       font-size: 30px;
-      color: #005ea5;
+      color: $investment-projects
     }
   }
   &.show-delete-button {
@@ -90,5 +88,3 @@ nav {
     }
   }
 }
-
-

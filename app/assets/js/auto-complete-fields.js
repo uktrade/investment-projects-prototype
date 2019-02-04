@@ -74,56 +74,6 @@ const initContacts = () => {
   }
 };
 
-const initClientRelationshipManager = () => {
-  const id = 'client-relationship-manager';
-  const element = document.querySelector(`#${id}`);
-  if(element) {
-    accessibleAutocomplete({
-      id,
-      element,
-      name: camelCase(id),
-      minLength: 3,
-      showAllValues: true,
-      defaultValue: element.dataset[camelCase(id)],
-      templates: { inputValue, suggestion },
-      source: apiCall.bind({ endpoint: id })
-    });
-  }
-};
-
-const initClientReferralSourceAdviser = () => {
-  const id = 'referral-source-adviser';
-  const element = document.querySelector(`#${id}`);
-  if(element) {
-    accessibleAutocomplete({
-      id,
-      element,
-      name: camelCase(id),
-      minLength: 3,
-      showAllValues: true,
-      defaultValue: element.dataset[camelCase(id)],
-      templates: { inputValue, suggestion },
-      source: apiCall.bind({ endpoint: id })
-    });
-  }
-};
-
-const initAssetClassesOfInterest = () => {
-  const id = 'asset-classes-of-interest';
-  const element = document.querySelector(`#${id}`);
-  if(element) {
-    accessibleAutocomplete({
-      id,
-      element,
-      name: camelCase(id),
-      minLength: 3,
-      showAllValues: true,
-      defaultValue: element.dataset[camelCase(id)],
-      source: apiCall.bind({ endpoint: id })
-    });
-  }
-};
-
 const initClientContactsAutoComplete = () => {
   const id = 'client-contact';
   const elements = document.querySelectorAll(`div[id^='${id}']`);
@@ -135,8 +85,5 @@ export const initAutoCompleteFields = () => {
   initUkLocation();
   initCompanies();
   initContacts();
-  initClientRelationshipManager();
-  initClientReferralSourceAdviser();
-  initAssetClassesOfInterest();
   initClientContactsAutoComplete();
 };

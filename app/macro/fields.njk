@@ -1,12 +1,18 @@
-{% macro checkBoxes(field, question, options={}) %}
+{% macro checkBoxes(field, question, options={}, classes) %}
   <div class="govuk-form-group">
     <fieldset class="govuk-fieldset" aria-describedby="some-hint">
       <legend class="govuk-fieldset__legend">
         <strong>{{ question }}</strong>
       </legend>
-      {% for option in options -%}
-        {{ checkBox(field, option) }}
-      {%- endfor %}
+      <div class="govuk-checkboxes {{ classes }}" data-module="checkboxes">
+        {% if caller %}
+          {{ caller() }}
+        {% else %}
+          {% for option in options -%}
+            {{ checkBox(field, option) }}
+          {%- endfor %}
+        {% endif %}
+      </div>
     </fieldset>
   </div>
 {% endmacro %}
@@ -20,6 +26,9 @@
        type="checkbox"
        id="{{ field.id }}-{{ option_value }}"
        name="{{ field.id }}"
+       {% if options.dac %}
+       data-aria-controls="{{ options.dac }}"
+       {% endif %}
        {% if isArray(field.value) and option_value in field.value %}
        checked="checked"
        {% endif %}
@@ -73,5 +82,19 @@
     <label class="govuk-label govuk-radios__label" for="{{ field.id }}-{{ option_value }}">
       {{ options.label }}
     </label>
+  </div>
+{% endmacro %}
+
+{% macro textArea(options) %}
+  <div class="govuk-form-group">
+    <label class="govuk-label" for="{{ options.id }}">
+      <strong>{{ options.label }}</strong>
+    </label>
+    <div class="{{ options.classes }}">
+      <span id="{{ options.id }}-hint" class="govuk-hint">
+        {{ options.hint }}
+      </span>
+      <textarea class="govuk-textarea" id="{{ options.id }}" name="{{ options.name }}" rows="5" aria-describedby="{{ options.id }}-hint">{{ options.value }}</textarea>
+    </div>
   </div>
 {% endmacro %}

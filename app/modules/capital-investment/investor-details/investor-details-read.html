@@ -7,18 +7,13 @@
 {% endif %}
 
 <ul class="app-task-list__items">
-  {{ liRenderer('Country of origin', fields.project.country ) }}
-  {{ liRenderer('Investor / entity name', fields.project.company ) }}
   {{ liRenderer('Investor type', fields.investorDetails.investorType.value) }}
-  {{ liRenderer('Assets under management/investable capital', fields.investorDetails.assetsUnderManagement.value) }}
-  {{ liRenderer('Overall relationship health', fields.investorDetails.overallRelationshipHealth.value) }}
-  {{ liRendererBGChecks('Have background checks been conducted?', fields.investorDetails.backgroundChecks) }}
+  {{ liRenderer('Assets under management / investable capital', fields.investorDetails.assetsUnderManagement.value) }}
   {{ liRenderer('Investor description', fields.investorDetails.description.value) }}
-  {{ liRenderer('Client contact', clientContacts) }}
   {{ liRenderer('Client relationship manager', fields.investorDetails.clientRelationshipManager.value) }}
-  {{ liRenderer('Referral source adviser', fields.investorDetails.referralSourceAdviser.value) }}
-  {{ liRenderer('Referral source activity', fields.investorDetails.referralSourceActivity.value) }}
-  {{ liRenderer('Specific Investment Programme', fields.investorDetails.specificInvestmentProgramme.value) }}
+  {{ liRenderer('Client contact', clientContacts) }}
+  {{ liRenderer('Overall relationship health', fields.investorDetails.overallRelationshipHealth.value) }}
+  {{ liRendererBGChecks('Have background checks been conducted within the last 12 months?', fields.investorDetails.backgroundChecks) }}
 </ul>
 
 {{ editForm(paths.capitalInvestment.investorOpportunityDetails) }}

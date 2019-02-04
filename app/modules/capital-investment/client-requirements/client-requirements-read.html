@@ -1,9 +1,26 @@
-{% from "appTaskListItems.njk" import liRenderer %}
+{% from "appTaskListItems.njk" import liRenderer, liGroupRenderer %}
 {% from "snippets.njk" import editForm %}
+
+{% set assetClasses = fields.clientRequirements.assetClasses %}
 
 <ul class="app-task-list__items">
   {{ liRenderer( 'Deal ticket size', fields.clientRequirements.dealTicketSize.valueLabels) }}
-  {{ liRenderer('Assets classes of interest', fields.clientRequirements.assetClassesOfInterest.value) }}
+  {{
+    liGroupRenderer('Asset classes of interest', assetClasses.isComplete, [
+      {
+        title: 'Energy and Infrastructure',
+        value: assetClasses.energyAndInfrastructure.valueLabels
+      },
+      {
+        title: 'Real estate',
+        value: assetClasses.realEstate.valueLabels
+      },
+      {
+        title: 'Other asset classes',
+        value: [ assetClasses.otherAssetClasses.value ]
+      }
+    ])
+  }}
   {{ liRenderer('Type(s) of investment', fields.clientRequirements.typesOfInvestment.valueLabels) }}
   {{ liRenderer('Minimum return rate', fields.clientRequirements.minimumRateOfReturn.valueLabels) }}
   {{ liRenderer('Time horizon / tenor', fields.clientRequirements.timeHorizonTenure.valueLabels) }}

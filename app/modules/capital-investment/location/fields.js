@@ -10,6 +10,4 @@ const fields = {
   }
 };
 
-fields.incompleteFieldsCount = Object.keys(fields).length;
-
 module.exports = fields;

@@ -1,21 +1,19 @@
 const express = require('express');
 const investorTypes = require('app/data/investorTypes');
-const referralSourceActivity = require('app/data/referral-source-activity');
-const specificInvestmentProgramme = require('app/data/specific-investment-programme');
 const overallRelationshipHealth = require('app/data/overall-relationship-health');
-const investorDetails = require('app/modules/capital-investment/investor-details/fields');
-const clientRequirements = require('app/modules/capital-investment/client-requirements/fields');
-const location = require('app/modules/capital-investment/location/fields');
+const investorDetailsFields = require('app/modules/capital-investment/investor-details/fields');
+const clientRequirementsFields = require('app/modules/capital-investment/client-requirements/fields');
+const locationFields = require('app/modules/capital-investment/location/fields');
 const countries = require('app/data/countries');
 const { capitalInvestment } = require('app/paths');
-const { isObject } = require('lodash');
+const { isEmpty } = require('lodash');
 
 const router = express.Router();
 
-const incompleteFieldsCount = {
-  INVESTOR_DETAILS: investorDetails.incompleteFieldsCount,
-  CLIENT_REQUIREMENTS: clientRequirements.incompleteFieldsCount,
-  LOCATION: location.incompleteFieldsCount,
+const totalFieldsCount = {
+  INVESTOR_DETAILS: Object.keys(investorDetailsFields).length,
+  CLIENT_REQUIREMENTS: Object.keys(clientRequirementsFields).length,
+  LOCATION: Object.keys(locationFields).length,
 };
 
 const selectItem = (items, item, selectionType) => {
@@ -30,14 +28,12 @@ const selectItem = (items, item, selectionType) => {
 
 const selectInvestorDetailsFields = (investorDetails) => {
   selectItem(investorTypes, investorDetails.investorType.value, 'selected');
-  selectItem(referralSourceActivity, investorDetails.referralSourceActivity.value, 'selected');
-  selectItem(specificInvestmentProgramme, investorDetails.specificInvestmentProgramme.value, 'selected');
   selectItem(overallRelationshipHealth, investorDetails.overallRelationshipHealth.value, 'checked');
 };
 
 const getValueLabels = (value, options) => {
-  if(!value) {
-    return value;
+  if(!value || !options) {
+    return null;
   }
 
   let valueLabels = [];
@@ -61,12 +57,13 @@ const getValueLabels = (value, options) => {
 };
 
 const setValueLabels = (obj, field) => {
-  obj[field].valueLabels = getValueLabels(obj[field].value, obj[field].options);
+  const valueLabels = getValueLabels(obj[field].value, obj[field].options);
+  obj[field].valueLabels = valueLabels ? valueLabels : [];
 };
 
 const getValueKeys = (obj) => {
   return Object.keys(obj).filter(key => {
-    return isObject(obj[key]) && obj[key].value
+    return !isEmpty(obj[key].value)
   });
 };
 
@@ -77,35 +74,33 @@ router.get(capitalInvestment.createProject, (req, res) => {
 router.post(capitalInvestment.createProject, (req, res) => {
   req.session.ci = {
     project: { ...req.body },
-    investorDetails,
-    clientRequirements,
-    location
+    investorDetails: investorDetailsFields,
+    clientRequirements: clientRequirementsFields,
+    location: locationFields
   };
 
-  if(req.session.ci.project.sizeOfOpportunity === 'largeCapital') {
+  const ci = req.session.ci;
+
+  ci.investorDetails.incompleteFieldsCount = totalFieldsCount.INVESTOR_DETAILS - 1;
+  ci.clientRequirements.incompleteFieldsCount = totalFieldsCount.CLIENT_REQUIREMENTS;
+  ci.location.incompleteFieldsCount = totalFieldsCount.LOCATION;
+
+  // Add a client contact field for the user to complete.
+  ci.investorDetails.clientContacts.value = [{}];
+
+  if(ci.project.sizeOfOpportunity === 'largeCapital') {
     res.redirect(capitalInvestment.investorOpportunity);
   } else {
     res.send('TODO: Growth Capital');
   }
 });
 
-const addClientContact = clientContacts => {
-  if(!clientContacts.value || !clientContacts.value.length) {
-    clientContacts.value = [{}];
-  }
-};
-
 // CI Investor Opportunity - Investor Details, Client Requirements and Location
 router.get(capitalInvestment.investorOpportunity, (req, res) => {
   req.session.ci.investorDetails.edit = false;
   req.session.ci.clientRequirements.edit = false;
   req.session.ci.location.edit = false;
-
-  // Display at least one client contact field.
-  addClientContact(req.session.ci.investorDetails.clientContacts);
-
   const fields = { ...req.session.ci };
-
   res.render('opportunity', {
     fields
   });
@@ -126,47 +121,46 @@ router.post(capitalInvestment.investorOpportunityDetails, (req, res) => {
     res.render('opportunity', {
       investorTypes,
       overallRelationshipHealth,
-      referralSourceActivity,
-      specificInvestmentProgramme,
       fields
     });
   } else if (investorDetails.edit === 'false') {
     investorDetails.investorType.value = req.body.investorType;
     investorDetails.assetsUnderManagement.value = req.body.assetsUnderManagement;
-    investorDetails.overallRelationshipHealth.value = req.body.overallRelationshipHealth;
-    investorDetails.backgroundChecks.value = req.body.backgroundChecks;
+    investorDetails.description.value = req.body.description;
 
+    // The client relationship manager will never be defined by the user.
+    investorDetails.clientRelationshipManager.value = investorDetailsFields.clientRelationshipManager.value;
+
+    investorDetails.clientContacts.value = [];
+    const keyCount = Object.keys(req.body).length;
+    for (let i = 0; i < keyCount; i++) {
+      const value = req.body[`clientContact${i+1}`];
+      if (value) {
+        investorDetails.clientContacts.value.push({ name: value });
+      }
+    }
+
+    investorDetails.overallRelationshipHealth.value = req.body.overallRelationshipHealth;
+
+    investorDetails.backgroundChecks.value = req.body.backgroundChecks;
     const hasBackgroundChecks = investorDetails.backgroundChecks.value === 'true';
     investorDetails.backgroundChecks.day = hasBackgroundChecks ? req.body.backgroundChecksDay : null;
     investorDetails.backgroundChecks.month = hasBackgroundChecks ? req.body.backgroundChecksMonth : null;
     investorDetails.backgroundChecks.year = hasBackgroundChecks ? req.body.backgroundChecksYear : null;
     investorDetails.backgroundChecks.person = hasBackgroundChecks ? req.body.backgroundChecksPerson : null;
-    investorDetails.description.value = req.body.description;
 
-    investorDetails.clientContacts.value = [];
-    const keyCount = Object.keys(req.body).length;
-    for(let i = 0; i < keyCount; i++) {
-      const value = req.body[`clientContact${i+1}`];
-      if(value) {
-        investorDetails.clientContacts.value.push({ name: value });
-      }
-    }
-
-    // Display at least one client contact field.
-    addClientContact(investorDetails.clientContacts);
-
-    if(!investorDetails.clientContacts.value.length) {
-      investorDetails.clientContacts.value.push({});
-    }
-
-    investorDetails.clientRelationshipManager.value = req.body.clientRelationshipManager;
-    investorDetails.referralSourceAdviser.value = req.body.referralSourceAdviser;
-    investorDetails.referralSourceActivity.value = req.body.referralSourceActivity;
-    investorDetails.specificInvestmentProgramme.value = req.body.specificInvestmentProgramme;
+    // Get all investorDetails keys where the corresponding value has been set.
+    const valueKeys = getValueKeys(investorDetails);
 
     // Determine the number of incomplete fields.
-    const valueKeys = getValueKeys(investorDetails);
-    investorDetails.incompleteFieldsCount = incompleteFieldsCount.INVESTOR_DETAILS - valueKeys.length;
+    investorDetails.incompleteFieldsCount = totalFieldsCount.INVESTOR_DETAILS - valueKeys.length;
+
+    // Client contacts:
+    // 1. Ensure we always have a client contact field to display to the user.
+    // 2. Ensure it comes after the incompleteFieldsCount calculation.
+    if(investorDetails.clientContacts.value.length === 0) {
+      investorDetails.clientContacts.value.push({});
+    }
 
     res.redirect(capitalInvestment.investorOpportunity);
   }
@@ -186,7 +180,9 @@ router.post(capitalInvestment.investorOpportunityClientRequirements, (req, res) 
     });
   } else if (clientRequirements.edit === 'false') {
     clientRequirements.dealTicketSize.value = req.body.dealTicketSize;
-    clientRequirements.assetClassesOfInterest.value = req.body.assetClassesOfInterest;
+    clientRequirements.assetClasses.energyAndInfrastructure.value = req.body.energyAndInfrastructure;
+    clientRequirements.assetClasses.realEstate.value = req.body.realEstate;
+    clientRequirements.assetClasses.otherAssetClasses.value = req.body.otherAssetClasses;
     clientRequirements.typesOfInvestment.value = req.body.typesOfInvestment;
     clientRequirements.minimumRateOfReturn.value = req.body.minimumRateOfReturn;
     clientRequirements.timeHorizonTenure.value = req.body.timeHorizonTenure;
@@ -197,6 +193,8 @@ router.post(capitalInvestment.investorOpportunityClientRequirements, (req, res) 
 
     // Map the values from the post to their corresponding display labels.
     setValueLabels(clientRequirements, 'dealTicketSize');
+    setValueLabels(clientRequirements.assetClasses, 'energyAndInfrastructure');
+    setValueLabels(clientRequirements.assetClasses, 'realEstate');
     setValueLabels(clientRequirements, 'typesOfInvestment');
     setValueLabels(clientRequirements, 'minimumRateOfReturn');
     setValueLabels(clientRequirements, 'timeHorizonTenure');
@@ -205,9 +203,20 @@ router.post(capitalInvestment.investorOpportunityClientRequirements, (req, res) 
     setValueLabels(clientRequirements, 'minimumEquityPercentage');
     setValueLabels(clientRequirements, 'desiredDealRole');
 
+    // Get all keys that have values against them.
+    let valueKeys = getValueKeys(clientRequirements).length;
+
+    // If any of the asset classes have been set then increment valueKeys by one.
+    const valueKeysAssetClasses = getValueKeys(clientRequirements.assetClasses);
+    if(valueKeysAssetClasses.length) {
+      valueKeys++;
+    }
+
+    // If at least one field is set within Asset classes then it's complete.
+    clientRequirements.assetClasses.isComplete = valueKeysAssetClasses.length > 0;
+
     // Determine the number of incomplete fields.
-    const valueKeys = getValueKeys(clientRequirements);
-    clientRequirements.incompleteFieldsCount = incompleteFieldsCount.CLIENT_REQUIREMENTS - valueKeys.length;
+    clientRequirements.incompleteFieldsCount = totalFieldsCount.CLIENT_REQUIREMENTS - valueKeys;
 
     // Redirect
     res.redirect(capitalInvestment.investorOpportunity);
@@ -234,7 +243,7 @@ router.post(capitalInvestment.investorOpportunityLocation, (req, res) => {
 
     // Determine the number of incomplete fields.
     const valueKeys = getValueKeys(location);
-    location.incompleteFieldsCount = incompleteFieldsCount.LOCATION - valueKeys.length;
+    location.incompleteFieldsCount = totalFieldsCount.LOCATION - valueKeys.length;
 
     res.redirect(capitalInvestment.investorOpportunity);
   }

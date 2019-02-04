@@ -1,6 +1,6 @@
 import { initAutoCompleteFields } from './auto-complete-fields';
-import AddAnotherClient from './AddAnotherClient';
-import Details from './Details';
+import AddAnotherClient from './add-another-client';
+import Details from './details';
 import $ from 'jquery';
 
 $(document).ready(() => {

@@ -10,17 +10,19 @@
 
 {% macro createIncompleteListItem(title) %}
   <li class="app-task-list__item">
-  <span class="app-task-list__task-name" aria-describedby="todo-set-this-in-the-field">
-    {{ title }}
-  </span>
-    <strong class="govuk-tag app-task-list__task-completed" id="read-declaration-completed">INCOMPLETE</strong>
+    <span class="app-task-list__task-name" aria-describedby="todo-set-this-in-the-field">
+      <strong>{{ title }}</strong>
+    </span>
+    <span class="govuk-tag app-task-list__task-completed">
+      INCOMPLETE
+    </span>
   </li>
 {% endmacro %}
 
 {% macro createListItemFromString(title, str) %}
 <li class="app-task-list__item item-complete">
   <span class="app-task-list__task-name" aria-describedby="todo-set-this-in-the-field">
-    {{ title }}
+    <strong>{{ title }}</strong>
   </span>
   <span class="app-task-list__task-completed">
     {{ str }}
@@ -30,10 +32,10 @@
 
 {% macro createListItemFromArray(title, items) %}
   <li class="app-task-list__item item-complete">
-  <span class="app-task-list__task-name" aria-describedby="todo-set-this-in-the-field">
-    {{ title }}
-  </span>
-    <ul>
+    <span class="app-task-list__task-name" aria-describedby="todo-set-this-in-the-field">
+      <strong>{{ title }}</strong>
+    </span>
+    <ul class="app-task-list__items">
       {% for item in items %}
         <li>{{ item.name or item }}</li>
       {% endfor %}
@@ -41,10 +43,36 @@
   </li>
 {% endmacro %}
 
+{% macro liGroupRenderer(groupName, isComplete, fields) %}
+  {% if isComplete %}
+    <li class="app-task-list__item {{ "item-complete" if isComplete }}">
+      <span class="app-task-list__task-name" aria-describedby="todo-set-this-in-the-field">
+        <strong>{{ groupName }}</strong>
+      </span>
+      <ul class="app-task-list__items">
+        {% for field in fields %}
+        <li>
+          <span>{{ field.title }}</span>
+          {% if isArray(field.value) %}
+          <ul class="app-task-list__indented">
+            {% for value in field.value %}
+              <li>{{ value }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </li>
+  {% else %}
+    {{ createIncompleteListItem(groupName) }}
+  {% endif %}
+{% endmacro %}
+
 {% macro liRendererBGChecks(title, backgroundChecks) %}
-<li class="app-task-list__item {{ "item-complete" if backgroundChecks.value }}">
+<li class="app-task-list__item background-checks {{ "item-complete" if backgroundChecks.value }}">
   <span class="app-task-list__task-name" aria-describedby="read-declaration-completed">
-    {{ title }}
+    <strong>{{ title }}</strong>
   </span>
   {% if backgroundChecks.value === 'true' %}
     <span class="app-task-list__task-completed">
@@ -53,7 +81,7 @@
     <ul class="app-task-list__items">
       <li class="app-task-list__item item-complete">
           <span class="app-task-list__task-name__child" aria-describedby="read-declaration-completed">
-            <strong>Date of most recent checks</strong>
+            <strong>Date of most recent background checks</strong>
           </span>
           <span class="app-task-list__task-completed">
             {{ backgroundChecks.day }}
@@ -63,7 +91,7 @@
       </li>
       <li class="app-task-list__item item-complete">
           <span class="app-task-list__task-name__child" aria-describedby="read-declaration-completed">
-            <strong>Person responsible for most recent checks</strong>
+            <strong>Personal responsible for most recent background checks</strong>
           </span>
           <span class="app-task-list__task-completed">
             {{ backgroundChecks.person }}
@@ -74,8 +102,14 @@
     <span class="app-task-list__task-completed">
       No
     </span>
+  {% elif backgroundChecks.value === 'notApplicable' %}
+    <span class="app-task-list__task-completed">
+      N/A
+    </span>
   {% else %}
-    <strong class="govuk-tag app-task-list__task-completed" id="read-declaration-completed">INCOMPLETE</strong>
+    <span class="govuk-tag app-task-list__task-completed">
+      INCOMPLETE
+    </span>
   {% endif %}
 </li>
 {% endmacro %}

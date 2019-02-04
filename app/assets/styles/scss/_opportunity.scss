@@ -1,3 +1,15 @@
+@mixin leftBorder {
+  border-left: 7px solid #b3b3b3;
+  padding-left: 15px;
+}
+
+@mixin columnLayoutWithLeftBorder {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  @include leftBorder;
+}
+
 .ci-investor-opportunity {
 
   .progress-bar {
@@ -12,7 +24,7 @@
   .expand-all {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: -50px;
+    margin-bottom: -40px;
   }
 
   .sections {
@@ -28,6 +40,43 @@
         select {
           width: 100%;
         }
+      }
+      .govuk-button {
+        padding: 10px 30px 6px 30px;
+      }
+    }
+
+    .investor-details {
+      .client-relationship-manager {
+        input {
+          border: 2px solid #a1a1a1;
+        }
+      }
+      .background-checks,
+      .overall-relationship-health {
+        > fieldset > legend {
+          font-weight: bold;
+        }
+        .dob,
+        .person-responsible {
+          label {
+            font-weight: normal;
+          }
+        }
+      }
+    }
+
+    .client-requirements {
+      .left-border {
+        @include leftBorder;
+      }
+      .energy-and-infrastructure {
+        @include columnLayoutWithLeftBorder;
+        height: 400px;
+      }
+      .real-estate {
+        @include columnLayoutWithLeftBorder;
+        height: 250px;
       }
     }
 
@@ -64,5 +113,18 @@
 
   .address {
     margin-bottom: 20px;
+  }
+}
+
+@include govuk-media-query($until: tablet) {
+  .client-requirements {
+    .energy-and-infrastructure {
+      @include columnLayoutWithLeftBorder;
+      height: 740px !important;
+    }
+    .real-estate {
+      @include columnLayoutWithLeftBorder;
+      height: 490px !important;
+    }
   }
 }

@@ -1,3 +1,5 @@
+@import "colours";
+
 .govuk-header {
   border-bottom: 0;
   .govuk-header__container {
@@ -33,6 +35,11 @@
 
 .govuk-details__summary-text {
   font-size: 25px;
+  text-decoration: none;
+}
+
+.govuk-tag.app-task-list__task-completed {
+  background-color: $investment-projects;
 }
 
 .govuk-details__summary:before {

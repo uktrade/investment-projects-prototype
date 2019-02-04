@@ -5,6 +5,16 @@ const fields = {
   assetsUnderManagement: {
     id: 'assetsUnderManagement'
   },
+  description: {
+    id: 'description'
+  },
+  clientRelationshipManager: {
+    id: 'clientRelationshipManager',
+    value: 'Bill Drummond'
+  },
+  clientContacts: {
+    id: 'clientContact'
+  },
   overallRelationshipHealth: {
     id: 'overallRelationshipHealth'
   },
@@ -15,26 +25,6 @@ const fields = {
     year: null,
     person: null
   },
-  description: {
-    id: 'description'
-  },
-  clientContacts: {
-    id: 'clientContact'
-  },
-  clientRelationshipManager: {
-    id: 'clientRelationshipManager'
-  },
-  referralSourceAdviser: {
-    id: 'referralSourceAdviser'
-  },
-  referralSourceActivity: {
-    id: 'referralSourceActivity'
-  },
-  specificInvestmentProgramme: {
-    id: 'specificInvestmentProgramme'
-  }
 };
-
-fields.incompleteFieldsCount = Object.keys(fields).length;
 
 module.exports = fields;

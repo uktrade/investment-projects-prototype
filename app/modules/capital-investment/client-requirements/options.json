@@ -7,6 +7,35 @@
     { "label": "£250-499 million", "value": "twoFiftyToFourNineNineMill" },
     { "label": "£500+ million", "value": "fiveHundredMillPlus" }
   ],
+  "energyAndInfrastructure": [
+    { "label": "Biofuel", "value": "biofuel" },
+    { "label": "Biomass", "value": "biomass" },
+    { "label": "Direct heating", "value": "directHeating" },
+    { "label": "Energy from waste", "value": "energyFromWaste" },
+    { "label": "Energy storage", "value": "energyStorage" },
+    { "label": "Gas fired power", "value": "gasFiredPower" },
+    { "label": "Nuclear", "value": "nuclear" },
+    { "label": "Regulated assets", "value": "regulatedAssets" },
+    { "label": "Smart energy", "value": "smartEnergy" },
+    { "label": "Solar power", "value": "solarPower" },
+    { "label": "Transport", "value": "transport" },
+    { "label": "Wave and tidal", "value": "waveAndTidal" },
+    { "label": "WindPower (offshore)", "value": "windPowerOffshore" },
+    { "label": "WindPower (onshore)", "value": "windPowerOnshore" },
+    { "label": "Upstream oil and gas", "value": "upstreamOilAndGas" }
+  ],
+  "realEstate": [
+    { "label": "Commercial led", "value": "commercialLed" },
+    { "label": "Data centres", "value": "dataCentres" },
+    { "label": "Garden cities", "value": "gardenCities" },
+    { "label": "Industry led", "value": "industryLed" },
+    { "label": "Logistics", "value": "logistics" },
+    { "label": "Mixed use", "value": "mixedUse" },
+    { "label": "Private rented sector", "value": "privateRentedSector" },
+    { "label": "Regeneration", "value": "regeneration" },
+    { "label": "Residential led", "value": "residentialLed" },
+    { "label": "Smart cities", "value": "smartCities" }
+  ],
   "typesOfInvestment": [
     { "label": "Direct Investment in Project Equity", "value": "directInvestmentProjectEquity" },
     { "label": "Direct Investment in Project Debt", "value": "directInvestmentProjectDebt" },

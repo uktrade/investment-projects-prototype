@@ -2,35 +2,19 @@
 {% from "input/macro.njk" import govukInput %}
 {% from "radios/macro.njk" import govukRadios %}
 {% from "snippets.njk" import saveOrCancel %}
+{% from "fields.njk" import checkBoxes %}
+{% from "fields.njk" import checkBox %}
 
-<form method="post" action="{{ paths.capitalInvestment.investorOpportunityDetails }}">
+<form class="investor-details" method="post" action="{{ paths.capitalInvestment.investorOpportunityDetails }}">
+
   <input type="text" type="text" name="edit" value="false" style="display: none" />
-
-  <ul class="app-task-list__items">
-      <li class="app-task-list__item">
-        <span class="app-task-list__task-name" aria-describedby="eligibility-completed">
-          Country of origin
-        </span>
-        <span class="app-task-list__task-completed">
-         {{ fields.project.country }}
-        </span>
-      </li>
-      <li class="app-task-list__item">
-        <span class="app-task-list__task-name" aria-describedby="read-declaration-completed">
-          Investor / entity name
-        </span>
-        <span class="app-task-list__task-completed">
-          {{ fields.project.company }}
-        </span>
-      </li>
-  </ul>
 
   {{
     govukSelect({
       id: "investorType",
       name: "investorType",
       label: {
-        text: "Investor types"
+        text: "Investor type"
       },
       items: investorTypes
     })
@@ -41,6 +25,9 @@
       label: {
         text: "Assets under management / investable capital (£BN)"
       },
+      attributes: {
+        placeholder: '£'
+      },
       id: "assetsUnderManagement",
       name: "assetsUnderManagement",
       value: fields.investorDetails.assetsUnderManagement.value
@@ -48,7 +35,52 @@
   }}
 
   {{
+    govukTextarea({
+      name: "description",
+      id: "description",
+      label: {
+        text: "Investor description"
+      },
+      value: fields.investorDetails.description.value
+    })
+  }}
+
+  {{
+    govukInput({
+      formGroup: {
+        classes: 'client-relationship-manager'
+      },
+      label: {
+        text: "Client relationship manager"
+      },
+      attributes: {
+        disabled: true
+      },
+      id: "clientRelationshipManager",
+      name: "clientRelationshipManager",
+      value: fields.investorDetails.clientRelationshipManager.value
+    })
+  }}
+
+  {% for clientContact in fields.investorDetails.clientContacts.value %}
+  <div class="govuk-form-group auto-complete-delete {{ 'show-delete-button' if fields.investorDetails.clientContacts.value.length > 1 }}">
+    <label class="govuk-label" for="client-contact-{{ loop.index }}">Client contact</label>
+    <div id="client-contact-{{ loop.index }}" data-client-contact{{loop.index}}="{{ clientContact.name }}"></div>
+    <button class="client-contact-{{ loop.index }}" type="button">
+      <i class="fas fa-user-times"></i>
+    </button>
+  </div>
+  {% endfor %}
+
+  <button type="button" class="govuk-button add-another-client">
+    Add another client contact
+  </button>
+
+  {{
     govukRadios({
+      formGroup: {
+        classes: 'overall-relationship-health'
+      },
       idPrefix: "overallRelationshipHealth",
       name: "overallRelationshipHealth",
       fieldset: {
@@ -61,7 +93,7 @@
     })
   }}
 
-  <div class="govuk-form-group">
+  <div class="govuk-form-group background-checks">
     <fieldset class="govuk-fieldset" aria-describedby="background-checks-conditional-hint">
 
       <legend class="govuk-fieldset__legend">
@@ -90,14 +122,13 @@
             <fieldset class="govuk-fieldset" aria-describedby="dob-hint" role="group">
 
               <legend class="govuk-fieldset__legend">
-                Date of most recent checks?
+                Date of most recent background checks
               </legend>
 
               <span id="dob-hint" class="govuk-hint">
                 For example, 31 3 1980
               </span>
-
-              <div class="govuk-date-input" id="dob">
+              <div class="govuk-date-input dob">
                 <div class="govuk-date-input__item">
                   <div class="govuk-form-group">
                     <label class="govuk-label govuk-date-input__label" for="backgroundChecksDay">
@@ -147,7 +178,7 @@
             </fieldset>
 
             <!-- accessible-autocomplete -->
-            <div class="govuk-form-group govuk-!-padding-top-4">
+            <div class="govuk-form-group person-responsible govuk-!-padding-top-4">
               <label class="govuk-label" for="background-checks-person">Person responsible for most recent checks</label>
               <div id="background-checks-person" data-background-checks-person="{{ fields.investorDetails.backgroundChecks.person }}"></div>
             </div>
@@ -168,68 +199,24 @@
             No
           </label>
         </div>
+
+        <div class="govuk-radios__item">
+          <input
+              class="govuk-radios__input"
+              id="background-checks-na"
+              name="backgroundChecks"
+              type="radio"
+              value="notApplicable"
+              {{ "checked" if fields.investorDetails.backgroundChecks.value === 'notApplicable' }}
+          >
+          <label class="govuk-label govuk-radios__label">
+            N/A
+          </label>
+        </div>
+
       </div>
     </fieldset>
   </div>
-
-  {{
-    govukTextarea({
-      name: "description",
-      id: "description",
-      label: {
-        text: "Investor description"
-      },
-      value: fields.investorDetails.description.value
-    })
-  }}
-
-  {% for clientContact in fields.investorDetails.clientContacts.value %}
-  <div class="govuk-form-group auto-complete-delete {{ 'show-delete-button' if fields.investorDetails.clientContacts.value.length > 1 }}">
-    <label class="govuk-label" for="client-contact-{{ loop.index }}">Client contact</label>
-    <div id="client-contact-{{ loop.index }}" data-client-contact{{loop.index}}="{{ clientContact.name }}"></div>
-    <button class="client-contact-{{ loop.index }}" type="button">
-      <i class="fas fa-user-times"></i>
-    </button>
-  </div>
-  {% endfor %}
-
-  <button type="button" class="govuk-button add-another-client">
-    Add another client contact
-  </button>
-
-  <!-- accessible-autocomplete -->
-  <div class="govuk-form-group">
-    <label class="govuk-label" for="client-relationship-manager">Client relationship manager</label>
-    <div id="client-relationship-manager" data-client-relationship-manager="{{ fields.investorDetails.clientRelationshipManager.value }}"></div>
-  </div>
-
-  <!-- accessible-autocomplete -->
-  <div class="govuk-form-group">
-    <label class="govuk-label" for="referral-source-adviser">Referral source adviser</label>
-    <div id="referral-source-adviser" data-referral-source-adviser="{{ fields.investorDetails.referralSourceAdviser.value }}"></div>
-  </div>
-
-  {{
-    govukSelect({
-      id: "referralSourceActivity",
-      name: "referralSourceActivity",
-      label: {
-        text: "Referral source activity"
-      },
-      items: referralSourceActivity
-    })
-  }}
-
-  {{
-    govukSelect({
-      id: "specificInvestmentProgramme",
-      name: "specificInvestmentProgramme",
-      label: {
-        text: "Specific Investment Programme"
-      },
-      items: specificInvestmentProgramme
-      })
-  }}
 
   {{ saveOrCancel(paths.capitalInvestment.investorOpportunity) }}
 

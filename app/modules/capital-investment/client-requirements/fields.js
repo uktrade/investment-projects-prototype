@@ -5,8 +5,19 @@ const fields = {
     id: 'dealTicketSize',
     options: options.dealTicketSize
   },
-  assetClassesOfInterest: {
-    id: 'assetClassesOfInterest',
+  assetClasses: {
+    isComplete: false,
+    energyAndInfrastructure: {
+      id: 'energyAndInfrastructure',
+      options: options.energyAndInfrastructure
+    },
+    realEstate: {
+      id: 'realEstate',
+      options: options.realEstate
+    },
+    otherAssetClasses: {
+      id: 'otherAssetClasses',
+    }
   },
   typesOfInvestment: {
     id: 'typesOfInvestment',
@@ -37,7 +48,5 @@ const fields = {
     options: options.desiredDealRole
   }
 };
-
-fields.incompleteFieldsCount = Object.keys(fields).length;
 
 module.exports = fields;
