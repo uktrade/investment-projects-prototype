@@ -1,9 +1,9 @@
 const express = require('express');
 const investorTypes = require('app/data/investorTypes');
 const overallRelationshipHealth = require('app/data/overall-relationship-health');
-const investorDetailsFields = require('app/modules/capital-investment/investor-details/fields');
-const investorRequirementsFields = require('app/modules/capital-investment/investor-requirements/fields');
-const locationFields = require('app/modules/capital-investment/location/fields');
+const investorDetailsFields = require('app/modules/capital-investor-profile/large-capital/investor-details/fields');
+const investorRequirementsFields = require('app/modules/capital-investor-profile/large-capital/investor-requirements/fields');
+const locationFields = require('app/modules/capital-investor-profile/large-capital/location/fields');
 const countries = require('app/data/countries');
 const { cip } = require('app/paths');
 const { isEmpty } = require('lodash');
@@ -101,7 +101,7 @@ router.get(cip.largeCapital.investorProfile, (req, res) => {
   req.session.ci.investorRequirements.edit = false;
   req.session.ci.location.edit = false;
   const fields = { ...req.session.ci };
-  res.render('opportunity', {
+  res.render('large-capital-investor-profile', {
     fields
   });
 });
@@ -118,7 +118,7 @@ router.post(cip.largeCapital.investorDetails, (req, res) => {
     // As we're editing we need to set any controls they were previously set by the user.
     selectInvestorDetailsFields(investorDetails);
     const fields = { ...req.session.ci };
-    res.render('opportunity', {
+    res.render('large-capital-investor-profile', {
       investorTypes,
       overallRelationshipHealth,
       fields
@@ -175,7 +175,7 @@ router.post(cip.largeCapital.investorRequirements, (req, res) => {
 
   if(investorRequirements.edit === 'true') {
     const fields = { ...req.session.ci };
-    res.render('opportunity', {
+    res.render('large-capital-investor-profile', {
       fields
     });
   } else if (investorRequirements.edit === 'false') {
@@ -233,7 +233,7 @@ router.post(cip.largeCapital.location, (req, res) => {
 
   if(location.edit === 'true') {
     const fields = { ...req.session.ci };
-    res.render('opportunity', {
+    res.render('large-capital-investor-profile', {
       fields
     });
   } else if (location.edit === 'false') {

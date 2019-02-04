@@ -9,7 +9,7 @@ const api = require('app/api');
 const routes = require('app/routes');
 const { isArray, isString, isObject, isEmpty, isUndefined } = require('lodash');
 const investmentTypesRoute = require('app/modules/investment-types/route');
-const ciInvestorOpportunity = require('app/modules/capital-investment/route');
+const ciInvestorOpportunity = require('app/modules/capital-investor-profile/large-capital/route');
 const session = require('app/session/session');
 const sessionCheck = require('app/session/sessionCheck');
 const app = express();
@@ -28,15 +28,15 @@ app.use('/assets', express.static(govukFrontend));
 app.use('/assets', express.static(`${govukFrontend}/assets`));
 
 nunjucks.configure([
-  'app/templates',
   'app/macro/',
+  'app/templates',
   'app/modules/investment-types/',
-  'app/modules/capital-investment/',
-  'app/modules/capital-investment/investor-requirements/',
-  'app/modules/capital-investment/investor-details/',
-  'app/modules/capital-investment/location/',
   'node_modules/govuk-frontend/',
-  'node_modules/govuk-frontend/components/'
+  'node_modules/govuk-frontend/components/',
+  'app/modules/capital-investor-profile/large-capital/',
+  'app/modules/capital-investor-profile/large-capital/location',
+  'app/modules/capital-investor-profile/large-capital/investor-details',
+  'app/modules/capital-investor-profile/large-capital/investor-requirements',
 ], {
   autoescape: true,
   express: app,

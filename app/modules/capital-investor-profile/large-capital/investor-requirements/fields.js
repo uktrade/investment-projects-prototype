@@ -1,4 +1,4 @@
-const options = require('app/modules/capital-investment/investor-requirements/options');
+const options = require('app/modules/capital-investor-profile/large-capital/investor-requirements/options');
 
 const fields = {
   dealTicketSize: {
