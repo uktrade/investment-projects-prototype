@@ -1,6 +1,6 @@
 {% from "snippets.njk" import saveOrCancel %}
 
-<form method="post" action="{{ paths.capitalInvestment.investorOpportunityLocation }}">
+<form method="post" action="{{ paths.cip.largeCapital.location }}">
   <input type="text" type="text" name="edit" value="false" style="display: none" />
 
   <!-- accessible-autocomplete -->
@@ -26,6 +26,6 @@
     <div id="country" data-country="{{ fields.location.country.value }}"></div>
   </div>
 
-  {{ saveOrCancel(paths.capitalInvestment.investorOpportunity) }}
+  {{ saveOrCancel(paths.cip.investorProfile) }}
 
 </form>

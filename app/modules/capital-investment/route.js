@@ -2,17 +2,17 @@ const express = require('express');
 const investorTypes = require('app/data/investorTypes');
 const overallRelationshipHealth = require('app/data/overall-relationship-health');
 const investorDetailsFields = require('app/modules/capital-investment/investor-details/fields');
-const clientRequirementsFields = require('app/modules/capital-investment/client-requirements/fields');
+const investorRequirementsFields = require('app/modules/capital-investment/investor-requirements/fields');
 const locationFields = require('app/modules/capital-investment/location/fields');
 const countries = require('app/data/countries');
-const { capitalInvestment } = require('app/paths');
+const { cip } = require('app/paths');
 const { isEmpty } = require('lodash');
 
 const router = express.Router();
 
 const totalFieldsCount = {
   INVESTOR_DETAILS: Object.keys(investorDetailsFields).length,
-  CLIENT_REQUIREMENTS: Object.keys(clientRequirementsFields).length,
+  CLIENT_REQUIREMENTS: Object.keys(investorRequirementsFields).length,
   LOCATION: Object.keys(locationFields).length,
 };
 
@@ -67,38 +67,38 @@ const getValueKeys = (obj) => {
   });
 };
 
-router.get(capitalInvestment.createProject, (req, res) => {
-  res.render('create-project', { countries });
+router.get(cip.createProfile, (req, res) => {
+  res.render('create-profile', { countries });
 });
 
-router.post(capitalInvestment.createProject, (req, res) => {
+router.post(cip.createProfile, (req, res) => {
   req.session.ci = {
-    project: { ...req.body },
+    profile: { ...req.body },
     investorDetails: investorDetailsFields,
-    clientRequirements: clientRequirementsFields,
+    investorRequirements: investorRequirementsFields,
     location: locationFields
   };
 
   const ci = req.session.ci;
 
   ci.investorDetails.incompleteFieldsCount = totalFieldsCount.INVESTOR_DETAILS - 1;
-  ci.clientRequirements.incompleteFieldsCount = totalFieldsCount.CLIENT_REQUIREMENTS;
+  ci.investorRequirements.incompleteFieldsCount = totalFieldsCount.CLIENT_REQUIREMENTS;
   ci.location.incompleteFieldsCount = totalFieldsCount.LOCATION;
 
   // Add a client contact field for the user to complete.
   ci.investorDetails.clientContacts.value = [{}];
 
-  if(ci.project.sizeOfOpportunity === 'largeCapital') {
-    res.redirect(capitalInvestment.investorOpportunity);
+  if(ci.profile.sizeOfOpportunity === 'largeCapital') {
+    res.redirect(cip.largeCapital.investorProfile);
   } else {
     res.send('TODO: Growth Capital');
   }
 });
 
 // CI Investor Opportunity - Investor Details, Client Requirements and Location
-router.get(capitalInvestment.investorOpportunity, (req, res) => {
+router.get(cip.largeCapital.investorProfile, (req, res) => {
   req.session.ci.investorDetails.edit = false;
-  req.session.ci.clientRequirements.edit = false;
+  req.session.ci.investorRequirements.edit = false;
   req.session.ci.location.edit = false;
   const fields = { ...req.session.ci };
   res.render('opportunity', {
@@ -107,7 +107,7 @@ router.get(capitalInvestment.investorOpportunity, (req, res) => {
 });
 
 // CI Investor Opportunity - Investor Details (Edit & Save)
-router.post(capitalInvestment.investorOpportunityDetails, (req, res) => {
+router.post(cip.largeCapital.investorDetails, (req, res) => {
 
   const investorDetails = req.session.ci.investorDetails;
 
@@ -162,69 +162,69 @@ router.post(capitalInvestment.investorOpportunityDetails, (req, res) => {
       investorDetails.clientContacts.value.push({});
     }
 
-    res.redirect(capitalInvestment.investorOpportunity);
+    res.redirect(cip.largeCapital.investorProfile);
   }
 });
 
-// CI Investor Opportunity - Client Requirements (Edit & Save)
-router.post(capitalInvestment.investorOpportunityClientRequirements, (req, res) => {
-  const clientRequirements = req.session.ci.clientRequirements;
+// CI Investor Opportunity - Investor requirements (Edit & Save)
+router.post(cip.largeCapital.investorRequirements, (req, res) => {
+  const investorRequirements = req.session.ci.investorRequirements;
 
   // Update the session
-  clientRequirements.edit = req.body.edit;
+  investorRequirements.edit = req.body.edit;
 
-  if(clientRequirements.edit === 'true') {
+  if(investorRequirements.edit === 'true') {
     const fields = { ...req.session.ci };
     res.render('opportunity', {
       fields
     });
-  } else if (clientRequirements.edit === 'false') {
-    clientRequirements.dealTicketSize.value = req.body.dealTicketSize;
-    clientRequirements.assetClasses.energyAndInfrastructure.value = req.body.energyAndInfrastructure;
-    clientRequirements.assetClasses.realEstate.value = req.body.realEstate;
-    clientRequirements.assetClasses.otherAssetClasses.value = req.body.otherAssetClasses;
-    clientRequirements.typesOfInvestment.value = req.body.typesOfInvestment;
-    clientRequirements.minimumRateOfReturn.value = req.body.minimumRateOfReturn;
-    clientRequirements.timeHorizonTenure.value = req.body.timeHorizonTenure;
-    clientRequirements.restrictionsConditions.value = req.body.restrictionsConditions;
-    clientRequirements.projectStagesConsidered.value = req.body.projectStagesConsidered;
-    clientRequirements.minimumEquityPercentage.value = req.body.minimumEquityPercentage;
-    clientRequirements.desiredDealRole.value = req.body.desiredDealRole;
+  } else if (investorRequirements.edit === 'false') {
+    investorRequirements.dealTicketSize.value = req.body.dealTicketSize;
+    investorRequirements.assetClasses.energyAndInfrastructure.value = req.body.energyAndInfrastructure;
+    investorRequirements.assetClasses.realEstate.value = req.body.realEstate;
+    investorRequirements.assetClasses.otherAssetClasses.value = req.body.otherAssetClasses;
+    investorRequirements.typesOfInvestment.value = req.body.typesOfInvestment;
+    investorRequirements.minimumRateOfReturn.value = req.body.minimumRateOfReturn;
+    investorRequirements.timeHorizonTenure.value = req.body.timeHorizonTenure;
+    investorRequirements.restrictionsConditions.value = req.body.restrictionsConditions;
+    investorRequirements.projectStagesConsidered.value = req.body.projectStagesConsidered;
+    investorRequirements.minimumEquityPercentage.value = req.body.minimumEquityPercentage;
+    investorRequirements.desiredDealRole.value = req.body.desiredDealRole;
 
     // Map the values from the post to their corresponding display labels.
-    setValueLabels(clientRequirements, 'dealTicketSize');
-    setValueLabels(clientRequirements.assetClasses, 'energyAndInfrastructure');
-    setValueLabels(clientRequirements.assetClasses, 'realEstate');
-    setValueLabels(clientRequirements, 'typesOfInvestment');
-    setValueLabels(clientRequirements, 'minimumRateOfReturn');
-    setValueLabels(clientRequirements, 'timeHorizonTenure');
-    setValueLabels(clientRequirements, 'restrictionsConditions');
-    setValueLabels(clientRequirements, 'projectStagesConsidered');
-    setValueLabels(clientRequirements, 'minimumEquityPercentage');
-    setValueLabels(clientRequirements, 'desiredDealRole');
+    setValueLabels(investorRequirements, 'dealTicketSize');
+    setValueLabels(investorRequirements.assetClasses, 'energyAndInfrastructure');
+    setValueLabels(investorRequirements.assetClasses, 'realEstate');
+    setValueLabels(investorRequirements, 'typesOfInvestment');
+    setValueLabels(investorRequirements, 'minimumRateOfReturn');
+    setValueLabels(investorRequirements, 'timeHorizonTenure');
+    setValueLabels(investorRequirements, 'restrictionsConditions');
+    setValueLabels(investorRequirements, 'projectStagesConsidered');
+    setValueLabels(investorRequirements, 'minimumEquityPercentage');
+    setValueLabels(investorRequirements, 'desiredDealRole');
 
     // Get all keys that have values against them.
-    let valueKeys = getValueKeys(clientRequirements).length;
+    let valueKeys = getValueKeys(investorRequirements).length;
 
     // If any of the asset classes have been set then increment valueKeys by one.
-    const valueKeysAssetClasses = getValueKeys(clientRequirements.assetClasses);
+    const valueKeysAssetClasses = getValueKeys(investorRequirements.assetClasses);
     if(valueKeysAssetClasses.length) {
       valueKeys++;
     }
 
     // If at least one field is set within Asset classes then it's complete.
-    clientRequirements.assetClasses.isComplete = valueKeysAssetClasses.length > 0;
+    investorRequirements.assetClasses.isComplete = valueKeysAssetClasses.length > 0;
 
     // Determine the number of incomplete fields.
-    clientRequirements.incompleteFieldsCount = totalFieldsCount.CLIENT_REQUIREMENTS - valueKeys;
+    investorRequirements.incompleteFieldsCount = totalFieldsCount.CLIENT_REQUIREMENTS - valueKeys;
 
     // Redirect
-    res.redirect(capitalInvestment.investorOpportunity);
+    res.redirect(cip.largeCapital.investorProfile);
   }
 });
 
 // CI Investor Opportunity - Location (Edit & Save)
-router.post(capitalInvestment.investorOpportunityLocation, (req, res) => {
+router.post(cip.largeCapital.location, (req, res) => {
 
   const location = req.session.ci.location;
 
@@ -245,7 +245,7 @@ router.post(capitalInvestment.investorOpportunityLocation, (req, res) => {
     const valueKeys = getValueKeys(location);
     location.incompleteFieldsCount = totalFieldsCount.LOCATION - valueKeys.length;
 
-    res.redirect(capitalInvestment.investorOpportunity);
+    res.redirect(cip.largeCapital.investorProfile);
   }
 });
 

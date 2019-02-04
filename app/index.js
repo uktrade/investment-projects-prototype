@@ -32,7 +32,7 @@ nunjucks.configure([
   'app/macro/',
   'app/modules/investment-types/',
   'app/modules/capital-investment/',
-  'app/modules/capital-investment/client-requirements/',
+  'app/modules/capital-investment/investor-requirements/',
   'app/modules/capital-investment/investor-details/',
   'app/modules/capital-investment/location/',
   'node_modules/govuk-frontend/',

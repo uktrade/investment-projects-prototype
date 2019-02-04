@@ -1,0 +1,33 @@
+{% from "appTaskListItems.njk" import liRenderer, liGroupRenderer %}
+{% from "snippets.njk" import editForm %}
+
+{% set assetClasses = fields.investorRequirements.assetClasses %}
+
+<ul class="app-task-list__items">
+  {{ liRenderer( 'Deal ticket size', fields.investorRequirements.dealTicketSize.valueLabels) }}
+  {{
+    liGroupRenderer('Asset classes of interest', assetClasses.isComplete, [
+      {
+        title: 'Energy and Infrastructure',
+        value: assetClasses.energyAndInfrastructure.valueLabels
+      },
+      {
+        title: 'Real estate',
+        value: assetClasses.realEstate.valueLabels
+      },
+      {
+        title: 'Other asset classes',
+        value: [ assetClasses.otherAssetClasses.value ]
+      }
+    ])
+  }}
+  {{ liRenderer('Type(s) of investment', fields.investorRequirements.typesOfInvestment.valueLabels) }}
+  {{ liRenderer('Minimum return rate', fields.investorRequirements.minimumRateOfReturn.valueLabels) }}
+  {{ liRenderer('Time horizon / tenor', fields.investorRequirements.timeHorizonTenure.valueLabels) }}
+  {{ liRenderer('Restrictions / conditions', fields.investorRequirements.restrictionsConditions.valueLabels) }}
+  {{ liRenderer('Project stages considered', fields.investorRequirements.projectStagesConsidered.valueLabels) }}
+  {{ liRenderer('Minimum equity percentage', fields.investorRequirements.minimumEquityPercentage.valueLabels) }}
+  {{ liRenderer('Desired deal role', fields.investorRequirements.desiredDealRole.valueLabels) }}
+</ul>
+
+{{ editForm(paths.cip.largeCapital.investorRequirements) }}

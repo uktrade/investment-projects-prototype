@@ -4,17 +4,17 @@
 {% from "snippets.njk" import saveOrCancel %}
 
 {% block pageTitle %}
-Create project
+Create profile
 {% endblock %}
 
 {% block content %}
 
-<div class="create-project">
+<div class="create-profile">
   <img src="/assets/images/app-ip-selected.png" class="img-horizontal-app-list">
   <nav>
     <ul>
       <li><a href="/">Home</span></a></li>
-      <li><a href="/investment-projects">Investment projects</a></li>
+      <li><a href="/investment-profile">Investment profile</a></li>
       <li><span>Create a Capital investor profile</span></li>
     </ul>
   </nav>
@@ -22,7 +22,7 @@ Create project
     <div class="govuk-grid-column-two-thirds">
       <h1>Create a Capital investor profile</h1>
 
-      <form class="govuk-!-padding-top-5" method="post" action="{{ paths.capitalInvestment.createProject }}">
+      <form class="govuk-!-padding-top-5" method="post" action="{{ paths.cip.createProfile }}">
 
         <!-- accessible-autocomplete -->
         <div class="govuk-form-group">

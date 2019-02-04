@@ -69,11 +69,11 @@ New Project
               {% endif %}
             {%- endcall %}
 
-            {% call details('Client requirements', fields.clientRequirements) -%}
-              {% if fields.clientRequirements.edit === 'true' %}
-                {% include "client-requirements-edit.html" %}
+            {% call details('Investor requirements', fields.investorRequirements) -%}
+              {% if fields.investorRequirements.edit === 'true' %}
+                {% include "investor-requirements-edit.html" %}
               {% else %}
-                {% include "client-requirements-read.html" %}
+                {% include "investor-requirements-read.html" %}
               {% endif %}
             {%- endcall %}
 

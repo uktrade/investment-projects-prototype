@@ -5,7 +5,7 @@
 {% from "fields.njk" import checkBoxes %}
 {% from "fields.njk" import checkBox %}
 
-<form class="investor-details" method="post" action="{{ paths.capitalInvestment.investorOpportunityDetails }}">
+<form class="investor-details" method="post" action="{{ paths.cip.largeCapital.investorDetails }}">
 
   <input type="text" type="text" name="edit" value="false" style="display: none" />
 
@@ -218,6 +218,6 @@
     </fieldset>
   </div>
 
-  {{ saveOrCancel(paths.capitalInvestment.investorOpportunity) }}
+  {{ saveOrCancel(paths.cip.largeCapital.investorProfile) }}
 
 </form>

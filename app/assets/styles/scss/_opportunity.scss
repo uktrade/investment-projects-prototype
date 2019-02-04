@@ -66,7 +66,7 @@
       }
     }
 
-    .client-requirements {
+    .investor-requirements {
       .left-border {
         @include leftBorder;
       }
@@ -117,7 +117,7 @@
 }
 
 @include govuk-media-query($until: tablet) {
-  .client-requirements {
+  .investor-requirements {
     .energy-and-infrastructure {
       @include columnLayoutWithLeftBorder;
       height: 740px !important;

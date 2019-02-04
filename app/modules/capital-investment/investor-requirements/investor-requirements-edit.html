@@ -1,0 +1,108 @@
+{% from "checkboxes/macro.njk" import govukCheckboxes %}
+{% from "fields.njk" import checkBoxes, radioButtons, textArea %}
+{% from "snippets.njk" import saveOrCancel %}
+
+<form class="investor-requirements" method="post" action="{{ paths.cip.largeCapital.investorRequirements }}">
+
+  <input type="text" type="text" name="edit" value="false" style="display: none" />
+
+  {{
+    checkBoxes(
+      field=fields.investorRequirements.dealTicketSize,
+      question="Deal ticket size",
+      options = fields.investorRequirements.dealTicketSize.options
+    )
+  }}
+
+  <h3>Asset class(es) of interest</h3>
+
+  {{
+    checkBoxes(
+      field=fields.investorRequirements.assetClasses.energyAndInfrastructure,
+      question="Energy and Infrastructure",
+      options=fields.investorRequirements.assetClasses.energyAndInfrastructure.options,
+      classes="energy-and-infrastructure"
+    )
+  }}
+
+  {{
+    checkBoxes(
+      field=fields.investorRequirements.assetClasses.realEstate,
+      question="Real estate",
+      options=fields.investorRequirements.assetClasses.realEstate.options,
+      classes="real-estate"
+    )
+  }}
+
+  {{
+    textArea({
+      classes: "left-border",
+      name: "otherAssetClasses",
+      id: "otherAssetClasses",
+      label: "Other asset class(es)",
+      hint: "Enter any other asset classes separated by commas.",
+      value: fields.investorRequirements.assetClasses.otherAssetClasses.value
+    })
+  }}
+
+  {{
+    checkBoxes(
+      field=fields.investorRequirements.typesOfInvestment,
+      question="Type(s) of investment",
+      options = fields.investorRequirements.typesOfInvestment.options
+    )
+  }}
+
+  {{
+    radioButtons(
+      field=fields.investorRequirements.minimumRateOfReturn,
+      question="Minimum return rate",
+      options = fields.investorRequirements.minimumRateOfReturn.options
+    )
+  }}
+
+  {{
+    checkBoxes(
+      field=fields.investorRequirements.timeHorizonTenure,
+      question="Time horizon / tenor",
+      options = fields.investorRequirements.timeHorizonTenure.options
+    )
+  }}
+
+  {{
+    checkBoxes(
+      field=fields.investorRequirements.restrictionsConditions,
+      question="Restrictions / conditions",
+      options = fields.investorRequirements.restrictionsConditions.options
+    )
+  }}
+
+  {{
+    checkBoxes(
+      field=fields.investorRequirements.projectStagesConsidered,
+      question="Project stages considered",
+      options = fields.investorRequirements.projectStagesConsidered.options
+    )
+  }}
+
+  {{
+    radioButtons(
+      field=fields.investorRequirements.minimumEquityPercentage,
+      question="Minimum equity percentage",
+      options = fields.investorRequirements.minimumEquityPercentage.options
+    )
+  }}
+
+  {{
+    checkBoxes(
+      field=fields.investorRequirements.desiredDealRole,
+      question="Desired deal role",
+      options = fields.investorRequirements.desiredDealRole.options
+    )
+  }}
+
+  {{
+    saveOrCancel(paths.cip.largeCapital.investorProfile)
+  }}
+
+</form>
