@@ -8,8 +8,6 @@ const locals = require('app/locals');
 const api = require('app/api');
 const routes = require('app/routes');
 const { isArray, isString, isObject, isEmpty, isUndefined } = require('lodash');
-const investmentTypesRoute = require('app/modules/investment-types/route');
-const ciInvestorOpportunity = require('app/modules/capital-investor-profile/large-capital/route');
 const session = require('app/session/session');
 const sessionCheck = require('app/session/sessionCheck');
 const app = express();
@@ -33,6 +31,7 @@ nunjucks.configure([
   'app/modules/investment-types/',
   'node_modules/govuk-frontend/',
   'node_modules/govuk-frontend/components/',
+  'app/modules/investment-projects/',
   'app/modules/capital-investor-profile/large-capital/',
   'app/modules/capital-investor-profile/large-capital/location',
   'app/modules/capital-investor-profile/large-capital/investor-details',
@@ -52,10 +51,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(locals);
 app.use(api);
-app.use(routes);
-app.use(investmentTypesRoute);
-app.use(ciInvestorOpportunity);
-
+routes(app);
 app.use(handle404);
 app.use(handleError);
 

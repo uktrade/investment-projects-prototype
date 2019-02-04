@@ -1,22 +1,21 @@
+const largeCapitalRoute = require('app/modules/capital-investor-profile/large-capital/route');
+const investmentProjectsRoute = require('app/modules/investment-projects/route');
+const investmentTypesRoute = require('app/modules/investment-types/route');
+const sessionsRoute = require('app/session/route');
+const { root } = require('app/paths');
 const express = require('express');
-const { root, investmentProjects } = require('app/paths');
 
 const router = express.Router();
 
-// Root
+// Create a new session when at root.
 router.get(root, (req, res) => {
   req.session.regenerate( err => res.render('index'))
 });
 
-// Investment projects
-router.get(investmentProjects, (req, res) => res.render('investment-projects'));
-
-// Sessions
-router.get('/sessions', (req, res) => {
-  req.sessionStore.all((error, sessions) => {
-    const indentTwoSpaces = 2;
-    res.send(JSON.stringify(sessions, null, indentTwoSpaces));
-  });
-});
-
-module.exports = router;
+module.exports = (app) => {
+  app.use(router);
+  app.use(sessionsRoute);
+  app.use(largeCapitalRoute);
+  app.use(investmentTypesRoute);
+  app.use(investmentProjectsRoute);
+};
