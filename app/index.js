@@ -32,9 +32,11 @@ nunjucks.configure([
   'node_modules/govuk-frontend/',
   'node_modules/govuk-frontend/components/',
   'app/modules/investment-projects/',
+  'app/modules/capital-investor-profile/create-profile/',
   'app/modules/capital-investor-profile/large-capital/',
   'app/modules/capital-investor-profile/large-capital/location',
   'app/modules/capital-investor-profile/large-capital/investor-details',
+  'app/modules/capital-investor-profile/large-capital/investor-profile',
   'app/modules/capital-investor-profile/large-capital/investor-requirements',
 ], {
   autoescape: true,
