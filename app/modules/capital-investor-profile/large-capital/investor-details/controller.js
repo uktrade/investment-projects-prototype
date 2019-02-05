@@ -1,21 +1,25 @@
 const overallRelationshipHealth = require('app/data/overall-relationship-health');
 const investorTypes = require('app/data/investorTypes');
-const fields = require('./fields');
 const { getValueKeys } = require('app/utils');
+const { cip } = require('app/paths');
+const fields = require('./fields');
 
 const totalFieldsCount = Object.keys(fields).length;
 
-const saveClientContacts = (investorDetails, body) => {
+const saveClientContacts = (req) => {
+  const { investorDetails } = req.session.ci;
   investorDetails.clientContacts.value = [];
-  for (let i = 0; i < Object.keys(body).length; i++) {
-    const value = body[`clientContact${i+1}`];
+  for (let i = 0; i < Object.keys(req.body).length; i++) {
+    const value = req.body[`clientContact${i+1}`];
     if (value) {
       investorDetails.clientContacts.value.push({ name: value });
     }
   }
 };
 
-const saveBGChecks = (investorDetails, body) => {
+const saveBGChecks = (req) => {
+  const { body } = req;
+  const { investorDetails } = req.session.ci;
   investorDetails.backgroundChecks.value = body.backgroundChecks;
   const hasBackgroundChecks = investorDetails.backgroundChecks.value === 'true';
   investorDetails.backgroundChecks.day = hasBackgroundChecks ? body.backgroundChecksDay : null;
@@ -50,15 +54,14 @@ const renderFields = (req, res) => {
 };
 
 const saveFields = (req) => {
-  const { body } = req;
   const { investorDetails } = req.session.ci;
-  investorDetails.investorType.value = body.investorType;
-  investorDetails.description.value = body.description;
-  investorDetails.assetsUnderManagement.value = body.assetsUnderManagement;
-  investorDetails.overallRelationshipHealth.value = body.overallRelationshipHealth;
+  investorDetails.investorType.value = req.body.investorType;
+  investorDetails.description.value = req.body.description;
+  investorDetails.assetsUnderManagement.value = req.body.assetsUnderManagement;
+  investorDetails.overallRelationshipHealth.value = req.body.overallRelationshipHealth;
   investorDetails.clientRelationshipManager.value = fields.clientRelationshipManager.value; // Not set by the user.
-  saveClientContacts(investorDetails, body);
-  saveBGChecks(investorDetails, body);
+  saveClientContacts(req);
+  saveBGChecks(req);
 };
 
 const updateFieldsCount = (req) => {
@@ -67,9 +70,22 @@ const updateFieldsCount = (req) => {
   investorDetails.incompleteFieldsCount = totalFieldsCount - valueKeys.length;
 };
 
-module.exports = {
-  saveFields,
-  renderFields,
-  preselectFields,
-  updateFieldsCount
+const controller = (req, res) => {
+  const { investorDetails } = req.session.ci;
+  investorDetails.edit = req.body.edit;
+
+  const userIsEditing = investorDetails.edit === 'true';
+  if (userIsEditing) {
+    preselectFields(req);
+    renderFields(req, res);
+  } else {
+    saveFields(req);
+    updateFieldsCount(req);
+    if (investorDetails.clientContacts.value.length === 0) {
+      investorDetails.clientContacts.value.push({}); // Render a client contact field.
+    }
+    res.redirect(cip.largeCapital.investorProfile);
+  }
 };
+
+module.exports = controller;
