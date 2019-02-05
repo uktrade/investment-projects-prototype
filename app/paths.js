@@ -2,9 +2,7 @@ module.exports = {
   root: '/',
   investmentTypes: '/investment-types',
   investmentProjects: '/investment-projects',
-
-  // Capital investor profile.
-  cip: {
+  cip: {   // Capital investor profile.
     createProfile: '/create-capital-investor-profile',
     largeCapital: {
       investorProfile: '/large-capital-investor-profile',
