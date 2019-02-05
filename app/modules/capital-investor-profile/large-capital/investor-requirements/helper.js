@@ -41,7 +41,7 @@ const preselectFields = (investorRequirements) => {
   setValueLabels(investorRequirements, 'minimumRateOfReturn');
   setValueLabels(investorRequirements, 'timeHorizonTenure');
   setValueLabels(investorRequirements, 'restrictionsConditions');
-  setValueLabels(investorRequirements, 'projectStagesConsidered');
+  setValueLabels(investorRequirements, 'constructionRisk');
   setValueLabels(investorRequirements, 'minimumEquityPercentage');
   setValueLabels(investorRequirements, 'desiredDealRole');
 };
@@ -55,7 +55,7 @@ const saveFields = (investorRequirements, body) => {
   investorRequirements.minimumRateOfReturn.value = body.minimumRateOfReturn;
   investorRequirements.timeHorizonTenure.value = body.timeHorizonTenure;
   investorRequirements.restrictionsConditions.value = body.restrictionsConditions;
-  investorRequirements.projectStagesConsidered.value = body.projectStagesConsidered;
+  investorRequirements.constructionRisk.value = body.constructionRisk;
   investorRequirements.minimumEquityPercentage.value = body.minimumEquityPercentage;
   investorRequirements.desiredDealRole.value = body.desiredDealRole;
 };

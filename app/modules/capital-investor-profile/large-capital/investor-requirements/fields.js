@@ -35,9 +35,9 @@ const fields = {
     id: 'restrictionsConditions',
     options: options.restrictionsConditions
   },
-  projectStagesConsidered: {
-    id: 'projectStagesConsidered',
-    options: options.projectStagesConsidered
+  constructionRisk: {
+    id: 'constructionRisk',
+    options: options.constructionRisk
   },
   minimumEquityPercentage: {
     id: 'minimumEquityPercentage',

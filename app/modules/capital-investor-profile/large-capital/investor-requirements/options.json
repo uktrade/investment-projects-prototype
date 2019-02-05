@@ -66,7 +66,7 @@
     { "label": "Require Linked Technology / Knowledge Transfer", "value": "requireLinkedTech" },
     { "label": " Will participate in competitive bids / auctions", "value": "willParticipateInCompBids" }
   ],
-  "projectStagesConsidered": [
+  "constructionRisk": [
     { "label": "Greenfield (construction risk)", "value": "greenfield" },
     { "label": "Brownfield (some construction risk)", "value": "brownfield" },
     { "label": "Operational (no construction risk)", "value": "operational" }
