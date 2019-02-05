@@ -4,20 +4,18 @@ const locationFields = require('../large-capital/location/fields');
 const countries = require('app/data/countries');
 const { cip } = require('app/paths');
 
-const express = require('express');
-const router = express.Router();
-
 const totalFieldsCount = {
   INVESTOR_DETAILS: Object.keys(investorDetailsFields).length,
   CLIENT_REQUIREMENTS: Object.keys(investorRequirementsFields).length,
   LOCATION: Object.keys(locationFields).length,
 };
 
-router.get(cip.createProfile, (req, res) => {
-  res.render('create-profile', { countries });
-});
 
-router.post(cip.createProfile, (req, res) => {
+const createProfileGET = (req, res) => {
+  res.render('create-profile', { countries });
+};
+
+const createProfilePOST = (req, res) => {
   req.session.ci = {
     profile: { ...req.body },
     investorDetails: investorDetailsFields,
@@ -39,6 +37,9 @@ router.post(cip.createProfile, (req, res) => {
   } else {
     res.send('TODO: Growth Capital');
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  createProfileGET,
+  createProfilePOST
+};

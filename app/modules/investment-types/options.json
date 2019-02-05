@@ -1,0 +1,22 @@
+[
+  {
+    "value": "fdi",
+    "text": "Foreign Direct Investment (FDI)"
+  },
+  {
+    "value": "non-fdi",
+    "text": "Non-Foreign Direct Investment (Non-FDI)"
+  },
+  {
+    "value": "cti",
+    "text": "Commitment to invest"
+  },
+  {
+    "value": "cip",
+    "text": "Capital investor profile"
+  },
+  {
+    "value": "ci",
+    "text": "UK Investment Opportunity (Project or Portfolio)"
+  }
+]

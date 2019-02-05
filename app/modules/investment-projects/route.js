@@ -1,4 +1,5 @@
 const { investmentProjects } = require('app/paths');
+
 const express = require('express');
 const router = express.Router();
 
