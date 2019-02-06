@@ -2,8 +2,7 @@
 {% from "input/macro.njk" import govukInput %}
 {% from "radios/macro.njk" import govukRadios %}
 {% from "snippets.njk" import saveOrCancel %}
-{% from "fields.njk" import checkBoxes %}
-{% from "fields.njk" import checkBox %}
+{% from "fields.njk" import autoComplete %}
 
 <form class="investor-details" method="post" action="{{ paths.cip.largeCapital.investorDetails }}">
 
@@ -65,7 +64,7 @@
   {% for clientContact in fields.investorDetails.clientContacts.value %}
   <div class="govuk-form-group auto-complete-delete {{ 'show-delete-button' if fields.investorDetails.clientContacts.value.length > 1 }}">
     <label class="govuk-label" for="client-contact-{{ loop.index }}">Client contact</label>
-    <div id="client-contact-{{ loop.index }}" data-client-contact{{loop.index}}="{{ clientContact.name }}"></div>
+    <div id="client-contact-{{ loop.index }}" data-target="{{ clientContact.name }}"></div>
     <button class="client-contact-{{ loop.index }}" type="button">
       <i class="fas fa-user-times"></i>
     </button>
@@ -94,6 +93,7 @@
   }}
 
   <div class="govuk-form-group background-checks">
+
     <fieldset class="govuk-fieldset" aria-describedby="background-checks-conditional-hint">
 
       <legend class="govuk-fieldset__legend">
@@ -118,7 +118,9 @@
         </div>
 
         <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-background-checks-true">
+
           <div class="govuk-form-group">
+
             <fieldset class="govuk-fieldset" aria-describedby="dob-hint" role="group">
 
               <legend class="govuk-fieldset__legend">
@@ -128,6 +130,7 @@
               <span id="dob-hint" class="govuk-hint">
                 For example, 31 3 1980
               </span>
+
               <div class="govuk-date-input dob">
                 <div class="govuk-date-input__item">
                   <div class="govuk-form-group">
@@ -144,6 +147,7 @@
                     >
                   </div>
                 </div>
+
                 <div class="govuk-date-input__item">
                   <div class="govuk-form-group">
                     <label class="govuk-label govuk-date-input__label" for="backgroundChecksMonth">
@@ -159,6 +163,7 @@
                     >
                   </div>
                 </div>
+
                 <div class="govuk-date-input__item">
                   <div class="govuk-form-group">
                     <label class="govuk-label govuk-date-input__label" for="backgroundChecksYear">
@@ -174,16 +179,22 @@
                     >
                   </div>
                 </div>
+
               </div>
+
             </fieldset>
 
-            <!-- accessible-autocomplete -->
-            <div class="govuk-form-group person-responsible govuk-!-padding-top-4">
-              <label class="govuk-label" for="background-checks-person">Person responsible for most recent checks</label>
-              <div id="background-checks-person" data-background-checks-person="{{ fields.investorDetails.backgroundChecks.person }}"></div>
-            </div>
-
           </div>
+
+          {{
+            autoComplete({
+              classes: 'person-responsible',
+              id: "background-checks-person",
+              label: "Person responsible for most recent checks",
+              target: fields.investorDetails.backgroundChecks.person
+            })
+          }}
+
         </div>
 
         <div class="govuk-radios__item">

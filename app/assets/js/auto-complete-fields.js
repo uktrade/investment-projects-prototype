@@ -1,4 +1,4 @@
-import { apiCall, autoComplete, inputValue, suggestion } from "./auto-complete-utils";
+import { apiCall, autoComplete, inputValue } from "./auto-complete-utils";
 import accessibleAutocomplete from "accessible-autocomplete";
 import { camelCase } from "lodash";
 
@@ -12,7 +12,7 @@ const initCountries = () => {
       name: camelCase(id),
       minLength: 3,
       showAllValues: true,
-      defaultValue: element.dataset[camelCase(id)],
+      defaultValue: element.dataset.target,
       source: apiCall.bind({ endpoint: 'countries' })
     });
   }
@@ -28,7 +28,7 @@ const initUkLocation = () => {
       name: camelCase(id),
       minLength: 3,
       showAllValues: true,
-      defaultValue: element.dataset[camelCase(id)],
+      defaultValue: element.dataset.target,
       source: apiCall.bind({ endpoint: `${id}s` })
     });
   }
@@ -44,7 +44,7 @@ const initCompanies = () => {
       name: camelCase(id),
       minLength: 3,
       showAllValues: true,
-      defaultValue: element.dataset[camelCase(id)],
+      defaultValue: element.dataset.target,
       source: apiCall.bind({ endpoint: 'companies' }),
       templates: {
         inputValue,
@@ -64,7 +64,7 @@ const initContacts = () => {
       name: camelCase(id),
       minLength: 3,
       showAllValues: true,
-      defaultValue: element.dataset[camelCase(id)],
+      defaultValue: element.dataset.target,
       source: apiCall.bind({ endpoint: 'contacts' }),
       templates: {
         inputValue: (result) => result && `${result.name} (${result.team})`,

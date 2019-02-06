@@ -2,6 +2,7 @@
 
 {% from "radios/macro.njk" import govukRadios %}
 {% from "snippets.njk" import saveOrCancel %}
+{% from "fields.njk" import autoComplete %}
 
 {% block pageTitle %}
 Create profile
@@ -10,7 +11,9 @@ Create profile
 {% block content %}
 
 <div class="create-profile">
+
   <img src="/assets/images/app-ip-selected.png" class="img-horizontal-app-list">
+
   <nav>
     <ul>
       <li><a href="/">Home</span></a></li>
@@ -18,25 +21,30 @@ Create profile
       <li><span>Create a Capital investor profile</span></li>
     </ul>
   </nav>
+
   <div class="govuk-grid-row">
+
     <div class="govuk-grid-column-two-thirds">
+
       <h1>Create a Capital investor profile</h1>
 
       <form class="govuk-!-padding-top-5" method="post" action="{{ paths.cip.createProfile }}">
 
-        <!-- accessible-autocomplete -->
-        <div class="govuk-form-group">
-          <label class="govuk-label" for="country">Country of origin</label>
-          <span class="govuk-hint">Select the country that the company or individual is based in</span>
-          <div id="country"></div>
-        </div>
+        {{
+          autoComplete({
+            id: "country",
+            label: "Country of origin",
+            hint: "Select the country that the company or individual is based in"
+          })
+        }}
 
-        <!-- accessible-autocomplete -->
-        <div class="govuk-form-group">
-          <label class="govuk-label" for="company">Investor name</label>
-          <span class="govuk-hint">Search for the company, individual or other entity name</span>
-          <div id="company"></div>
-        </div>
+        {{
+          autoComplete({
+            id: "company",
+            label: "Investor name",
+            hint: "Search for the company, individual or other entity name"
+          })
+        }}
 
         {{
           govukRadios({
@@ -64,7 +72,10 @@ Create profile
         {{ saveOrCancel(paths.investmentProjects) }}
 
       </form>
+
     </div>
+
   </div>
+
 </div>
 {% endblock %}

@@ -29,7 +29,7 @@ export const autoComplete = (element, id, endpoint) =>  {
       showAllValues: true,
       source: apiCall.bind({ endpoint }),
       templates: { inputValue, suggestion },
-      defaultValue: element.dataset[camelCase(id)]
+      defaultValue: element.dataset.target
     });
   }
 };

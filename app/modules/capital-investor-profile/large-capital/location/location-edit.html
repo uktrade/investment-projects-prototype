@@ -1,19 +1,25 @@
 {% from "snippets.njk" import saveOrCancel %}
+{% from "fields.njk" import autoComplete %}
 
 <form method="post" action="{{ paths.cip.largeCapital.location }}">
+
   <input type="text" type="text" name="edit" value="false" style="display: none" />
 
-  <!-- accessible-autocomplete -->
-  <div class="govuk-form-group">
-    <label class="govuk-label" for="uk-location">UK locations of interest</label>
-    <div id="uk-location" data-uk-location="{{ fields.location.ukLocation.value }}"></div>
-  </div>
+  {{
+    autoComplete({
+      id: "uk-location",
+      label: "UK locations of interest",
+      target: fields.location.ukLocation.value
+    })
+  }}
 
-  <!-- accessible-autocomplete -->
-  <div class="govuk-form-group">
-    <label class="govuk-label" for="country">Other countries the investor is considering</label>
-    <div id="country" data-country="{{ fields.location.country.value }}"></div>
-  </div>
+  {{
+    autoComplete({
+      id: "country",
+      label: "Other countries the investor is considering",
+      target: fields.location.country.value
+    })
+  }}
 
   {{
     govukTextarea({

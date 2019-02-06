@@ -98,3 +98,11 @@
     </div>
   </div>
 {% endmacro %}
+
+{% macro autoComplete(options) %}
+<div class="govuk-form-group {% if options.classes %}{{ options.classes }}{% endif %}">
+  <label class="govuk-label" for="{{ options.id }}">{{ options.label }}</label>
+  {% if options.hint %}<span class="govuk-hint">{{ options.hint }}</span>{% endif %}
+  <div id="{{ options.id }}" {% if options.target %} data-target="{{ options.target }}"{% endif %}></div>
+</div>
+{% endmacro %}
