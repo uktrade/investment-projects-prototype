@@ -1,10 +1,6 @@
 {% extends "base.njk" %}
 
-{% from "textarea/macro.njk" import govukTextarea %}
-{% from "input/macro.njk" import govukInput %}
-{% from "details/macro.njk" import govukDetails %}
 {% from "details.njk" import details %}
-{% from "singularOrPlural.njk" import singularOrPlural %}
 
 {% block pageTitle %}
 New Project
@@ -12,8 +8,10 @@ New Project
 
 {% block content %}
 
-<div class="ci-investor-opportunity">
+<div class="investor-profile">
+
   <img src="/assets/images/app-company-selected.png" class="img-horizontal-app-list">
+
   <nav>
     <ul>
       <li><a href="/">Home</span></a></li>
@@ -59,7 +57,7 @@ New Project
 
         <section class="govuk-tabs__panel" id="large-capital">
 
-          <div class="sections">
+          <div class="details-container">
 
             {% call details('Investor details', fields.investorDetails) -%}
               {% if fields.investorDetails.edit === 'true' %}
@@ -86,6 +84,7 @@ New Project
             {%- endcall %}
 
           </div>
+
         </section>
 
         <section class="govuk-tabs__panel" id="growth-capital">
@@ -95,6 +94,8 @@ New Project
       </div>
 
     </div>
+
   </div>
+
 </div>
 {% endblock %}
