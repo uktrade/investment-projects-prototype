@@ -1,6 +1,6 @@
 {
   "name": "investment-projects-prototype",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "main": "server.js",
   "license": "MIT",
   "engines": {
@@ -8,9 +8,10 @@
   },
   "scripts": {
     "start": "NODE_PATH=. node server.js",
-    "dev": "NODE_PATH=. nodemon -e js,html server.js",
-    "build": "webpack --config webpack.config.dev.js",
+    "develop": "yarn build && yarn server",
+    "build": "webpack --progress --config webpack.config.dev.js",
     "build:dist": "webpack --config webpack.config.dist.js",
+    "server": "NODE_PATH=. nodemon -e 'html njk' --inspect",
     "test": "echo  \"no tests for prototype\" exit 0"
   },
   "dependencies": {

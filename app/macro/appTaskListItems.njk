@@ -10,10 +10,10 @@
 
 {% macro createIncompleteListItem(title) %}
   <li class="app-task-list__item">
-    <span class="app-task-list__task-name" aria-describedby="todo-set-this-in-the-field">
+    <span class="app-task-list__task-name" aria-describedby="incomplete-field">
       <strong>{{ title }}</strong>
     </span>
-    <span class="govuk-tag app-task-list__task-completed">
+    <span class="govuk-tag app-task-list__task-completed" id="incomplete-field">
       INCOMPLETE
     </span>
   </li>
@@ -21,10 +21,10 @@
 
 {% macro createListItemFromString(title, str) %}
 <li class="app-task-list__item item-complete">
-  <span class="app-task-list__task-name" aria-describedby="todo-set-this-in-the-field">
+  <span class="app-task-list__task-name" aria-describedby="str-complete-field">
     <strong>{{ title }}</strong>
   </span>
-  <span class="app-task-list__task-completed">
+  <span class="app-task-list__task-completed" id="str-complete-field">
     {{ str }}
   </span>
 </li>
@@ -32,10 +32,10 @@
 
 {% macro createListItemFromArray(title, items) %}
   <li class="app-task-list__item item-complete">
-    <span class="app-task-list__task-name" aria-describedby="todo-set-this-in-the-field">
+    <span class="app-task-list__task-name" aria-describedby="items-complete-field">
       <strong>{{ title }}</strong>
     </span>
-    <ul class="app-task-list__items">
+    <ul class="app-task-list__items" id="items-complete-field">
       {% for item in items %}
         <li>{{ item.name or item }}</li>
       {% endfor %}
@@ -46,10 +46,10 @@
 {% macro liGroupRenderer(groupName, isComplete, fields) %}
   {% if isComplete %}
     <li class="app-task-list__item {{ "item-complete" if isComplete }}">
-      <span class="app-task-list__task-name" aria-describedby="todo-set-this-in-the-field">
+      <span class="app-task-list__task-name" aria-describedby="group-complete-field">
         <strong>{{ groupName }}</strong>
       </span>
-      <ul class="app-task-list__items">
+      <ul class="app-task-list__items" id="group-complete-field">
         {% for field in fields %}
         <li>
           <span>{{ field.title }}</span>
